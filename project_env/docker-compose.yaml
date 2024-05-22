@@ -225,7 +225,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./django:/app
+      - ./myproject:/app
     environment:
       DATABASE_NAME: ${DATABASE_NAME}
       DATABASE_USER: ${DATABASE_USER}

@@ -10,7 +10,7 @@ COPY requirements.txt /app/
 RUN pip install --no-cache-dir -r requirements.txt
 
 # 프로젝트 파일 복사
-COPY django /app/
+COPY myproject /app/
 
 # 포트 노출
 EXPOSE 8000
