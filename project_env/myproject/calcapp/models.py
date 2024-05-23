@@ -7,3 +7,6 @@ class Calculation(models.Model):
     def calculate_and_save(self):
         self.output_number = self.input_number * 2 + 1
         self.save()
+    
+    class Meta:
+        db_table = 'test_io'
