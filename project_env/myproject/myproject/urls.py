@@ -16,9 +16,11 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from calcapp.views import calculate
+from calcapp.views import calculate, login_view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', calculate, name='calculate'),
+    path('', login_view, name='login'),  # 초기 페이지
+    path('login/', login_view, name='login'),  # 로그인 페이지
+    path('calculate/', calculate, name='calculate'),  # 계산 페이지 (views.py 참조)
 ]
