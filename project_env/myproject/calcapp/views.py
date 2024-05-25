@@ -1,6 +1,9 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from .models import Calculation
+import logging 
+### 로거 생성 ###
+logger = logging.getLogger(__name__)
 
 def login_view(request):
     if request.method == 'POST':
@@ -21,5 +24,9 @@ def calculate(request):
         input_number = int(request.POST['input_number'])
         calculation = Calculation(input_number=input_number, email=email)
         calculation.calculate_and_save()
+
+        ### 로깅 ###
+        logger.info(f'Calculation performed for email: {email}, input: {input_number}, output: {calculation.output_number}')
+        
         return render(request, 'result.html', {'정답': calculation.output_number})
     return render(request, 'calculate.html')

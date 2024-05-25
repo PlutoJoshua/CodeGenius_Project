@@ -17,6 +17,10 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from calcapp.views import calculate, login_view
+import logging
+
+##3 로거 생성 ###
+logger = logging.getLogger(__name__)
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -24,3 +28,6 @@ urlpatterns = [
     path('login/', login_view, name='login'),  # 로그인 페이지
     path('calculate/', calculate, name='calculate'),  # 계산 페이지 (views.py 참조)
 ]
+
+### 로깅 추가 ###
+logger.info('URL configuration loaded successfully.')
