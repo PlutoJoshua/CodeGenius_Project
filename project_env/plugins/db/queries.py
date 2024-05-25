@@ -1,3 +1,3 @@
 queries = {
-    "fake_data" : "SELECT * FROM fake_data"
+    "test_data" : "SELECT * FROM test_io"
 }

@@ -41,6 +41,7 @@ services:
       POSTGRES_DB: ${DATABASE_NAME}
     volumes:
       - postgres-db-volume:/var/lib/postgresql/data
+      - ./init_logging.sql:/docker-entrypoint-initdb.d/init_logging.sql
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "${DATABASE_USER}"]
       interval: 10s
