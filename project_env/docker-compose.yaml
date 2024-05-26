@@ -1,15 +1,19 @@
 #  http://www.apache.org/licenses/LICENSE-2.0
 ---
+
 x-airflow-common:
   &airflow-common
- 
+  ### airflow image ###
   image: ${AIRFLOW_IMAGE_NAME:-apache/airflow:2.9.1}
-
+  ### aiflow.cfg ###
+  # celery worker 사용 
+  # 메시지 큐는 redis
+  # airflow 메타데이터를 저장할 postgresql과 연결
   environment:
     &airflow-common-env
     AIRFLOW__CORE__EXECUTOR: CeleryExecutor
-    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${DATABASE_USER}:${DATABASE_PASSWORD}@postgres/${DATABASE_NAME}
-    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@postgres/${DATABASE_NAME}
+    AIRFLOW__DATABASE__SQL_ALCHEMY_CONN: postgresql+psycopg2://${DATABASE_USER}:${DATABASE_PASSWORD}@postgres/${AIRFLOW_NAME}
+    AIRFLOW__CELERY__RESULT_BACKEND: db+postgresql://${DATABASE_USER}:${DATABASE_PASSWORD}@postgres/${AIRFLOW_NAME}
     AIRFLOW__CELERY__BROKER_URL: redis://:@redis:6379/0
     AIRFLOW__CORE__FERNET_KEY: ''
     AIRFLOW__CORE__DAGS_ARE_PAUSED_AT_CREATION: 'true'
@@ -17,14 +21,16 @@ x-airflow-common:
     AIRFLOW__API__AUTH_BACKENDS: 'airflow.api.auth.backend.basic_auth,airflow.api.auth.backend.session'
     AIRFLOW__SCHEDULER__ENABLE_HEALTH_CHECK: 'true'
     _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:-}
-
+  ### 마운트 ###
   volumes:
     - ${AIRFLOW_PROJ_DIR:-.}/dags:/opt/airflow/dags
     - ${AIRFLOW_PROJ_DIR:-.}/logs:/opt/airflow/logs
     - ${AIRFLOW_PROJ_DIR:-.}/config:/opt/airflow/config
     - ${AIRFLOW_PROJ_DIR:-.}/plugins:/opt/airflow/plugins
+  ### airflow_uid는 .env에 설정 되어있습니다. ###
   user: "${AIRFLOW_UID:-50000}:0"
   
+  ### redis와 postgresql이 healthy일 때 작동되도록 의존성 작성 ###
   depends_on:
     &airflow-common-depends-on
     redis:
@@ -32,18 +38,21 @@ x-airflow-common:
     postgres:
       condition: service_healthy
 
+### service들 기술 ###
 services:
   postgres:
     image: postgres:13
     environment:
+      POSTGRES_DB: ${AIRFLOW_NAME}
       POSTGRES_USER: ${DATABASE_USER}
       POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
-      POSTGRES_DB: ${DATABASE_NAME}
     volumes:
       - postgres-db-volume:/var/lib/postgresql/data
+      # log data를 넣기위한 db를 만들기 위해 sql file 사용 #
+      # 마운트 #
       - ./init_logging.sql:/docker-entrypoint-initdb.d/init_logging.sql
     healthcheck:
-      test: ["CMD", "pg_isready", "-U", "${DATABASE_USER}"]
+      test: ["CMD", "pg_isready", "-U", "${DATABASE_USER}", "-d", "${DJANGO_NAME}"]
       interval: 10s
       retries: 5
       start_period: 5s
@@ -219,6 +228,7 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
+  # Dockerfile 사용 #
   web:
     build:
       context: .
@@ -228,7 +238,7 @@ services:
     volumes:
       - ./myproject:/app
     environment:
-      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_NAME: ${DJANGO_NAME}
       DATABASE_USER: ${DATABASE_USER}
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_HOST: postgres

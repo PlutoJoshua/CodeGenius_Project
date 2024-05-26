@@ -12,7 +12,7 @@ class DatabaseHandler(logging.Handler):
     def connect(self):
         ### postgresql connect 및 cursor 설정 ###
         self.conn = psycopg2.connect(
-            dbname = 'logging',
+            dbname = 'django_log',
             user = 'service',
             password = 'service',
             host = 'postgres',

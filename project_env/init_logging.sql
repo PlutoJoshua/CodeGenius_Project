@@ -1,6 +1,7 @@
-CREATE DATABASE logging;
+CREATE DATABASE django_log;
+CREATE DATABASE django_db;
 
-\c logging;
+\c django_log;
 
 CREATE TABLE IF NOT EXISTS test_log (
     id SERIAL PRIMARY KEY,
