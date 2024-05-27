@@ -118,9 +118,9 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'chatbot', 'static'),
-]
+# STATICFILES_DIRS = [
+#    os.path.join(BASE_DIR, 'chatbot', 'static'),
+#]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 

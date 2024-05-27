@@ -1,17 +1,100 @@
+<!--
 {% load static %}
+-->
 <!doctype html>
 <html>
   <head>
     <meta charset="utf-8">
+    <!--
     <link rel="stylesheet" href= "{% static 'css/homepage.css' %}">
-    
+    -->
     <title>history</title>
     
   </head>
   <body>
-    <h1>history</h1>
 
-    <h2><a href="{% url 'homepage' %}">homepage</a></h2>
-    <h2><a href="{% url 'chatting' %}">chatting</a></h2>
-  </body>
-</html>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background: #ecf0f1;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            width: 80%;
+            background: #f5f5f5;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        .header {
+            background: #3498db;
+            color: white;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+        }
+        .box {
+            width: 60px;
+            height: 60px;
+            background: #2980b9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            cursor: pointer;
+        }
+        .sidebar {
+            width: 25%;
+            background: #ddd;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .content {
+            width: 75%;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+        .history-item {
+            margin-bottom: 10px;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+    </head>
+    <body>
+    <div class="container">
+        <div class="header">
+            <div class="box"><a href="{% url 'homepage' %}">홈</a></div>
+            <div class="box"><a href="{% url 'chatting' %}">채팅</a></div>
+            <div class="box">추가기능</div>
+        </div>
+        <div class="sidebar">
+            <div class="history-item">2024.05.22 DataFrame</div>
+            <div class="history-item">2024.05.23 함수 정의</div>
+            <div style="text-align: center; margin-top: 20px;">
+                <span>◀</span>
+                <span>1</span>
+                <span>2</span>
+                <span>3</span>
+                <span>▶</span>
+            </div>
+        </div>
+        <div class="content">
+            <h2>History</h2>
+            <p><strong>keyword: "DataFrame"</strong></p>
+            <ul>
+                <li>[2024.05.22]</li>
+                <li>사용자: DataFrame을 정렬하는 방법은?</li>
+                <li>정답: 'sort_values()' 함수를 사용합니다.</li>
+                <li>예시: df.sort_values(by='컬럼명', ascending=True/False)</li>
+            </ul>
+        </div>
+    </div>
+    </body>
+    </html>
