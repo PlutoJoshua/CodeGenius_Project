@@ -18,12 +18,91 @@
 
 
 
+    <style>
+      body, html {
+          height: 100%;
+          margin: 0;
+          font-family: Arial, sans-serif;
+      }
+      
+      .container {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          background-color: #004b87;
+          color: white;
+          justify-content: space-between;
+      }
+      
+      header h1 {
+          margin: 0;
+          font-size: 24px;
+      }
+      
+      header p {
+          font-size: 18px;
+      }
+      
+      .start-button {
+          padding: 10px 20px;
+          margin-top: 20px;
+          font-size: 16px;
+          color: white;
+          background-color: #007bff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+      }
+      
+      .start-button:hover {
+          background-color: #0056b3;
+      }
+      
+      .menu-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 10px;
+          margin-top: 20px;
+      }
+      
+      .menu-item {
+          width: 60px;
+          height: 60px;
+          background-color: #666;
+          border-radius: 50%;
+      }
 
-    <input type="button" value="error 발생시 팝업창 띄우기" onclick="
-      alert('error');
-    ">
+      footer {
+        padding: 10px 0;
+        text-align: center;
+        font-size: 14px;
+    }
+  </style>
+      
+      <div class="container">
+          <header>
+              <h1>Python 코딩 튜터링 챗봇</h1>
+              <p>내일의 당신을 만나보세요</p>
+          </header>
+          <button class="start-button"><a href="{% url 'chatting' %}">시작하기</a></button>
+          <div class="menu-grid">
+              <div class="menu-item"></div>
+              <div class="menu-item"></div>
+              <div class="menu-item"></div>
+              <div class="menu-item"></div>
+              <div class="menu-item"></div>
+              <div class="menu-item"></div>
+          </div>
+      </div>
 
 
+
+
+        <input type="button" value="error 발생시 팝업창 띄우기" onclick="
+        alert('error');
+      ">
 
 
     <style>
@@ -57,11 +136,11 @@
           // 3초 후에 로딩 아이콘 숨기기
           setTimeout(function() {
               loader.style.display = 'none';
-          }, 3000); // 3000밀리초 = 3초
+          }, 1000); // 1000밀리초 = 1초
       }
     </script>
 
-    <input type="button" value="로딩시 아이콘 화면위에 표시 (3초간)" onclick="displayLoader();">
+    <input type="button" value="로딩시 아이콘 화면위에 표시 (1초간)" onclick="displayLoader();">
     <div id="loader" class="loader"></div> <!-- 로딩 아이콘 -->
     
 
@@ -78,9 +157,7 @@
       });
     </script>
 
-    <div id="text-content">
-        웹사이트가 표시되면 하이퍼링크가 되도록: https://docs.python.org/3/
-    </div>
+
 
   </body>
 </html>

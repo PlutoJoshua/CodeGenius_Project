@@ -49,13 +49,13 @@
             cursor: pointer;
         }
         .sidebar {
-            width: 25%;
+            flex: 1; /* 사이드바 비율을 1로 설정 */
             background: #ddd;
             padding: 20px;
             box-sizing: border-box;
         }
         .content {
-            width: 75%;
+            flex: 3; /* 컨텐츠 비율을 3으로 설정 */
             padding: 20px;
             box-sizing: border-box;
         }
@@ -68,6 +68,14 @@
     </style>
     </head>
     <body>
+    <script>
+        function toggleSidebar() {
+            var sidebar = document.querySelector('.sidebar');
+            sidebar.style.display = (sidebar.style.display === 'none' ? 'block' : 'none');
+        }
+    </script>
+    <button class="toggle-btn" onclick="toggleSidebar()">Toggle Sidebar</button>
+
     <div class="container">
         <div class="header">
             <div class="box"><a href="{% url 'homepage' %}">홈</a></div>
