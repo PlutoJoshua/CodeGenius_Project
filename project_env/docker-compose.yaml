@@ -244,7 +244,9 @@ services:
       DATABASE_HOST: postgres
       DATABASE_PORT: 5432
     depends_on:
-      - postgres
-
+      postgres:
+        condition: service_healthy
+    ### postgrsql 시작전 실행하는 오류 해결하기 위해 ###
+    restart: always
 volumes:
   postgres-db-volume:
