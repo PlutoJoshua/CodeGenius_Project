@@ -19,6 +19,8 @@ from django.urls import path
 import chatbot.views
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('', chatbot.views.index, name='index'),
+#    path('admin/', admin.site.urls),
+    path('', chatbot.views.homepage, name='homepage'),
+    path('chatting/', chatbot.views.chatting, name='chatting'),
+    path('history/', chatbot.views.history, name='history'),
 ]
