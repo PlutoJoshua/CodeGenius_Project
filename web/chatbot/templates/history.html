@@ -8,3 +8,73 @@
     <title>history</title>
     
   </head>
+
+  <body>
+    <style>
+        html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background: url('space.webp') no-repeat center center fixed;
+            background-size: cover;
+            height: 100%; /* body에도 height 지정 */
+        }
+        .navbar {
+            height: 60px; /* 고정 높이 설정 */
+            background-color: #F5F5F5; /* 더 연한 색상 */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            box-shadow: 0 4px 2px -2px gray; /* 그림자 추가 */
+            position: fixed;
+            width: 100%;
+            top: 0;
+            border-bottom-left-radius: 10px; /* 왼쪽 아래 모서리 둥글게 */
+            border-bottom-right-radius: 10px; /* 오른쪽 아래 모서리 둥글게 */
+        }
+        .navbar .logo {
+            font-size: 1.5em;
+            color: #000;
+            margin-left: 10px; /* 로고 위치 */
+        }
+        .navbar .menu-item a {
+            color: #000; /* 메뉴글자 색깔 */
+            text-decoration: none;
+            margin-right: 50px; /* 메뉴글자 위치 */
+            font-size: 1.2em;
+            transition: color 0.1s;
+        }
+        .navbar .menu-item a:hover {
+            color: #008080; /* 청록색 텍스트 (호버 시) */
+            text-decoration: node;
+        }
+
+        .navbar .menu-item {
+            height: 60px; /* navbar 높이와 동일하게 설정 */
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            margin-left: 15px; /* 링크 약간 왼쪽으로 이동 */
+            position: relative; /* border-bottom을 위한 상대 위치 */
+        }
+
+    </style>
+
+<div class="navbar">
+    <div class="logo">CodeGenius</div>
+    <div class="menu-item">
+        <a href="{% url 'chatting' %}">Chatting</a>
+    </div>
+    <div class="menu-item">
+        <a href="{% url 'history' %}">History</a>
+    </div>
+    </div>
+</div>
+</body>
+</html>
