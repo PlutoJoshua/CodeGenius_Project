@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href= "{% static 'css/homepage.css' %}">
 
-
+    <!--전체 css-->
     <style>
       body {  /*이미지로 대체*/
           margin: 0;
@@ -19,6 +19,10 @@
           position: relative;
           font-family: 'Audiowide', sans-serif;  /*전체 글씨체*/
       }
+    </style>
+
+    <!--키워드박스 css-->
+    <style>
       .keyword-box {
           width: 98%;
           height: 30%;
@@ -82,11 +86,39 @@
       .keyword-item:nth-child(even) {
           animation: moveDown 3s infinite alternate;
       }
-  </style>
+    </style>
+
+    <!--버튼 css (임시)-->
+    <style>
+      .button {
+        padding: 10px 20px;
+        font-size: 16px;
+        cursor: pointer;
+      }
+    </style>
+
+    <style>
+      .rocket {  /*로켓이미지 위치*/
+          position: absolute;
+          right: 100px;
+          top: 50%;
+          transform: translateY(-50%);
+      }
+      .rocket img {
+          width: 100px;
+          height: 100px;
+          transition: transform 1s ease-in-out;
+      }
+      .rocket img.move-up {
+          transform: translateY(-100vh);
+      }
+    </style>
 
 
 </head>
 <body>
+
+    <!--키워드박스 생성-->
     <div class="keyword-box">
         <div class="weekly-title">Weekly Keyword</div>
         <!--script src="{% static '/js/keyword_box.js' %}"></script-->
@@ -118,5 +150,27 @@
             keywordBox.appendChild(keywordItem);
         });
     </script>
+
+
+    <!--start버튼 생성 (임시)--> 
+    <div class="button_container">
+      <button class="button" onclick="animateAndRedirect()">start</button>
+    </div>
+
+    <!--로켓이미지 생성-->
+    <div class="rocket">
+        <img src="path_to_image/image.png" alt="Image">
+    </div>
+
+    <!--script src="{% static '/js/start_button.js' %}"></script-->
+    <script>
+      function animateAndRedirect() {
+          const image = document.querySelector('.rocket img');
+          image.classList.add('move-up');
+          setTimeout(() => {
+              window.location.href = "{% url 'chatting' %}";
+          }, 1000); // 1초간 로켓 이동 후 채팅페이지로 이동
+      }
+  </script>
 </body>
 </html>
