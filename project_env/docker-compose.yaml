@@ -58,6 +58,7 @@ services:
       start_period: 5s
     restart: always
 
+  # airflow 연결 redis #
   redis:
     image: redis:7.2-bookworm
     ports:
@@ -70,6 +71,7 @@ services:
       start_period: 30s
     restart: always
 
+  # airflow #
   airflow-webserver:
     <<: *airflow-common
     command: webserver
@@ -228,7 +230,8 @@ services:
       <<: *airflow-common-depends-on
       airflow-init:
         condition: service_completed_successfully
-  # Dockerfile 사용 #
+  # Dockerfile django #
+  # web #
   web:
     build:
       context: .
@@ -248,7 +251,8 @@ services:
       postgres:
         condition: service_healthy
     restart: always
-
+  
+  # django celery message broker redis port:6380 # 
   redis-django:
     image: redis:7.2-bookworm
     container_name: redis-django
@@ -262,6 +266,7 @@ services:
       start_period: 30s
     restart: always
   
+  # django celery#
   celery:
     build: 
       context: .

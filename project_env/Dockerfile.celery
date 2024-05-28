@@ -6,6 +6,7 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
+### redis 연결 확인용 ping ###
 RUN apt-get update \
     && apt-get install -y iputils-ping redis-tools \
     && rm -rf /var/lib/apt/lists/*
