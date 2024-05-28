@@ -1,0 +1,95 @@
+{% load static %}
+<!doctype html>
+<html lang="ko">
+  <meta charset="UTF-8">
+  <head>
+    <link rel="stylesheet" type="text/css" href= "{% static 'css/homepage.css' %}">
+    
+    <title>homepage</title>
+  </head>
+  
+  
+  <body>
+
+    <style>
+      body, html {
+          height: 100%;
+          margin: 0;
+          font-family: Arial, sans-serif;
+      }
+      
+      .container {
+          height: 100%;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          background-color: #004b87;
+          color: white;
+          justify-content: space-between;
+      }
+      
+      header h1 {
+          margin: 0;
+          font-size: 24px;
+      }
+      
+      header p {
+          font-size: 18px;
+      }
+      
+      .start-button {
+          padding: 10px 20px;
+          margin-top: 20px;
+          font-size: 16px;
+          color: white;
+          background-color: #007bff;
+          border: none;
+          border-radius: 5px;
+          cursor: pointer;
+      }
+      
+      .start-button:hover {
+          background-color: #0056b3;
+      }
+      
+      .menu-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 10px;
+          margin-top: 20px;
+      }
+      
+      .menu-item {
+          width: 60px;
+          height: 60px;
+          background-color: #666;
+          border-radius: 50%;
+      }
+
+      footer {
+        padding: 10px 0;
+        text-align: center;
+        font-size: 14px;
+    }
+  </style>
+      
+      <div class="keyword box">
+          <header>
+              <h1>Python 코딩 튜터링 챗봇</h1>
+              <p>내일의 당신을 만나보세요</p>
+          </header>
+          <button class="start-button"><a href="{% url 'chatting' %}">시작하기</a></button>
+          <div class="menu-grid">
+              <div class="menu-item"></div>
+              <div class="menu-item"></div>
+              <div class="menu-item"></div>
+              <div class="menu-item"></div>
+              <div class="menu-item"></div>
+              <div class="menu-item"></div>
+          </div>
+      </div>
+
+  </body>
+</html>
+

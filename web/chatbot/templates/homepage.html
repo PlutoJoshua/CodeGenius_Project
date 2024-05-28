@@ -1,164 +1,122 @@
-{% load static %}
+<!--{% load static %}-->
 <!doctype html>
 <html lang="ko">
-  <meta charset="UTF-8">
+
   <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <link rel="stylesheet" type="text/css" href= "{% static 'css/homepage.css' %}">
-    
-    <title>homepage</title>
-  </head>
-  
-  
-  <body>
-    <h1>homepage</h1>
-
-    <h2><a href="{% url 'chatting' %}">chatting</a></h2>
-    <h2><a href="{% url 'history' %}">history</a></h2>
-
 
 
     <style>
-      body, html {
-          height: 100%;
+      body {  /*이미지로 대체*/
           margin: 0;
-          font-family: Arial, sans-serif;
-      }
-      
-      .container {
-          height: 100%;
+          padding: 0;
           display: flex;
-          flex-direction: column;
           justify-content: center;
+          align-items: flex-end;
+          height: 100vh;
+          background-color: #f0f0f0;
+          position: relative;
+          font-family: 'Audiowide', sans-serif;  /*전체 글씨체*/
+      }
+      .keyword-box {
+          width: 98%;
+          height: 30%;
+          background-color: white;  /*배경 이미지로 대체*/
+          border-top-left-radius: 20px;
+          border-top-right-radius: 20px;
+          /*box-shadow: 0 -2px 10px rgba(0,0,0,0.1);*/
+          display: flex;
+          justify-content: space-around;
           align-items: center;
-          background-color: #004b87;
-          color: white;
-          justify-content: space-between;
+          position: relative;
       }
-      
-      header h1 {
-          margin: 0;
-          font-size: 24px;
+      .weekly-title {  /*키워드박스 제목위치*/
+          position: absolute;
+          top: -30px;
+          left: 20px;
+          font-size: 30px;
+          font-weight: bold;
       }
-      
-      header p {
+      .keyword-item {
+          text-align: center;
+          animation: moveUpDown 1s infinite alternate;
+      }
+      .keyword-item img {
+          width: 50px;
+          height: 50px;
+      }
+      .keyword-item .rank {
           font-size: 18px;
+          font-weight: bold;
       }
-      
-      .start-button {
-          padding: 10px 20px;
-          margin-top: 20px;
-          font-size: 16px;
-          color: white;
-          background-color: #007bff;
-          border: none;
-          border-radius: 5px;
-          cursor: pointer;
+      .keyword-item .keyword {
+          margin-top: 5px;
+          font-size: 14px;
       }
-      
-      .start-button:hover {
-          background-color: #0056b3;
+      @keyframes moveUp {  /*아이콘 위아래로 움직이기*/
+        0% {
+            transform: translateY(0);
+        }
+        50% {
+          transform: translateY(3px);
+        }
+        100% {
+            transform: translateY(-3px);
+        }
       }
-      
-      .menu-grid {
-          display: grid;
-          grid-template-columns: repeat(3, 1fr);
-          gap: 10px;
-          margin-top: 20px;
+      @keyframes moveDown {
+          0% {
+              transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-3px);
+          }
+          100% {
+              transform: translateY(3px);
+          }
       }
-      
-      .menu-item {
-          width: 60px;
-          height: 60px;
-          background-color: #666;
-          border-radius: 50%;
+      .keyword-item:nth-child(odd) {
+          animation: moveUp 3s infinite alternate;
       }
-
-      footer {
-        padding: 10px 0;
-        text-align: center;
-        font-size: 14px;
-    }
+      .keyword-item:nth-child(even) {
+          animation: moveDown 3s infinite alternate;
+      }
   </style>
-      
-      <div class="container">
-          <header>
-              <h1>Python 코딩 튜터링 챗봇</h1>
-              <p>내일의 당신을 만나보세요</p>
-          </header>
-          <button class="start-button"><a href="{% url 'chatting' %}">시작하기</a></button>
-          <div class="menu-grid">
-              <div class="menu-item"></div>
-              <div class="menu-item"></div>
-              <div class="menu-item"></div>
-              <div class="menu-item"></div>
-              <div class="menu-item"></div>
-              <div class="menu-item"></div>
-          </div>
-      </div>
 
 
-
-
-        <input type="button" value="error 발생시 팝업창 띄우기" onclick="
-        alert('error');
-      ">
-
-
-    <style>
-      /* 로딩 아이콘과 배경의 스타일 정의 */
-      .loader {
-          border: 16px solid #f3f3f3; /* Light grey */
-          border-top: 16px solid #3498db; /* Blue */
-          border-radius: 50%;
-          width: 120px;
-          height: 120px;
-          animation: spin 2s linear infinite;
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          display: none; /* 기본적으로는 보이지 않도록 설정 */
-      }
-      
-      /* 회전 애니메이션 */
-      @keyframes spin {
-          0% { transform: translate(-50%, -50%) rotate(0deg); }
-          100% { transform: translate(-50%, -50%) rotate(360deg); }
-      }
-      </style>
+</head>
+<body>
+    <div class="keyword-box">
+        <div class="weekly-title">Weekly Keyword</div>
+        <!--script src="{% static '/js/keyword_box.js' %}"></script-->
+    </div>
 
     <script>
-      function displayLoader() {
-          var loader = document.getElementById('loader');
-          loader.style.display = 'block'; // 로딩 아이콘 표시
-      
-          // 3초 후에 로딩 아이콘 숨기기
-          setTimeout(function() {
-              loader.style.display = 'none';
-          }, 1000); // 1000밀리초 = 1초
-      }
+        const keywords = ["JavaScript", "Python", "HTML", "CSS", "React", "Node.js", "Django"];
+        const keywordBox = document.querySelector('.keyword-box');
+
+        keywords.forEach((keyword, index) => {
+            const keywordItem = document.createElement('div');
+            keywordItem.className = 'keyword-item';
+
+            const rank = document.createElement('div');
+            rank.className = 'rank';
+            rank.innerText = index + 1;
+
+            const icon = document.createElement('img');
+            icon.src = `path_to_icons/icon${index + 1}.png`; // 아이콘 파일 경로는 적절히 수정
+
+            const keywordText = document.createElement('div');
+            keywordText.className = 'keyword';
+            keywordText.innerText = keyword;
+
+            keywordItem.appendChild(rank);
+            keywordItem.appendChild(icon);
+            keywordItem.appendChild(keywordText);
+
+            keywordBox.appendChild(keywordItem);
+        });
     </script>
-
-    <input type="button" value="로딩시 아이콘 화면위에 표시 (1초간)" onclick="displayLoader();">
-    <div id="loader" class="loader"></div> <!-- 로딩 아이콘 -->
-    
-
-
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-          const textElement = document.getElementById('text-content');
-          const text = textElement.innerHTML;
-          const urlRegex = /(\bhttps?:\/\/[\-A-Z0-9+&@#\/%?=~_|!:,.;]*[\-A-Z0-9+&@#\/%=~_|])/ig;
-          const linkedText = text.replace(urlRegex, function(url) {
-              return '<a href="' + url + '">' + url + '</a>';
-          });
-          textElement.innerHTML = linkedText;
-      });
-    </script>
-
-
-
-  </body>
+</body>
 </html>
-
