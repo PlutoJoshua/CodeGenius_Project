@@ -10,6 +10,8 @@
   </head>
 
   <body>
+
+    <!--전체 css-->
     <style>
         html {
             margin: 0;
@@ -24,6 +26,11 @@
             background-size: cover;
             height: 100%; /* body에도 height 지정 */
         }
+    </style>
+
+
+    <!--메뉴바 css-->
+    <style>
         .navbar {
             height: 60px; /* 고정 높이 설정 */
             background-color: #F5F5F5; /* 더 연한 색상 */
@@ -33,48 +40,60 @@
             padding: 0 20px;
             box-shadow: 0 4px 2px -2px gray; /* 그림자 추가 */
             position: fixed;
-            width: 100%;
+            width: calc(100% - 40px); /* 패딩을 고려한 너비 설정 */
             top: 0;
-            border-bottom-left-radius: 10px; /* 왼쪽 아래 모서리 둥글게 */
             border-bottom-right-radius: 10px; /* 오른쪽 아래 모서리 둥글게 */
         }
         .navbar .logo {
             font-size: 1.5em;
             color: #000;
-            margin-left: 10px; /* 로고 위치 */
+            margin-left: 20px;  /* 로고 위치 */
         }
-        .navbar .menu-item a {
-            color: #000; /* 메뉴글자 색깔 */
-            text-decoration: none;
-            margin-right: 50px; /* 메뉴글자 위치 */
-            font-size: 1.2em;
-            transition: color 0.1s;
+        .navbar .logo:hover {
+            color: #008080;  /* 청록색 텍스트 (호버 시) */
         }
-        .navbar .menu-item a:hover {
-            color: #008080; /* 청록색 텍스트 (호버 시) */
-            text-decoration: node;
+        .navbar .menu-container {
+            display: flex;
+            flex-grow: 1;
+            justify-content: flex-end; /* 메뉴 아이템을 오른쪽으로 정렬 */
+            margin-right: 40px; /* 오른쪽 여백 */
         }
-
         .navbar .menu-item {
             height: 60px; /* navbar 높이와 동일하게 설정 */
             display: flex;
             align-items: center;
-            justify-content: flex-end;
-            margin-left: 15px; /* 링크 약간 왼쪽으로 이동 */
+            justify-content: space-between;
+            margin-right: 50px;
             position: relative; /* border-bottom을 위한 상대 위치 */
         }
-
+        .navbar .menu-item:hover {
+            border-bottom: 4px solid #008080; /* 청록색 밑줄 */
+        }
+        .navbar .menu-item a {
+            color: #000;  /* 메뉴글자 색깔 */
+            text-decoration: none;
+            font-size: 1.2em;
+            transition: color 0.1s;
+        }
+        .navbar .menu-item a:hover {
+            color: #008080;  /* 청록색 텍스트 (호버 시) */
+            text-decoration: node;
+        }
     </style>
 
-<div class="navbar">
-    <div class="logo">CodeGenius</div>
-    <div>
-    <div class="menu-item">
-        <a href="{% url 'chatting' %}">Chatting</a>
-    </div>
-    <div class="menu-item">
-        <a href="{% url 'history' %}">History</a>
-    </div>
+    <!--메뉴바 생성-->
+    <div class="navbar">
+        <div class="logo">
+            <a href="{% url 'homepage' %}" style="text-decoration: none; color: inherit;">CodeGenius</a>
+        </div>
+        <div class="menu-container">
+            <div class="menu-item">
+                <a href="{% url 'chatting' %}">Chatting</a>
+            </div>
+            <div class="menu-item">
+                <a href="{% url 'history' %}">History</a>
+            </div>
+        </div>
     </div>
 </div>
 </body>

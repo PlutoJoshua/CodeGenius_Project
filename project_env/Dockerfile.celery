@@ -14,6 +14,6 @@ RUN apt-get update \
 COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY myproject /app/
+COPY codegenius /app/
 
-CMD celery -A calcapp worker --loglevel=INFO
+CMD celery -A chatbot worker --loglevel=INFO
