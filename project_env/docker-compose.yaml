@@ -240,7 +240,7 @@ services:
     ports:
       - "8000:8000"
     volumes:
-      - ./myproject:/app
+      - ./codegenius:/app
     environment:
       DATABASE_NAME: ${DJANGO_NAME}
       DATABASE_USER: ${DATABASE_USER}
@@ -272,7 +272,7 @@ services:
       context: .
       dockerfile: Dockerfile.celery
     volumes:
-      - ./myproject:/app
+      - ./codegenius:/app
     environment:
       DATABASE_NAME: ${DJANGO_NAME}
       DATABASE_USER: ${DATABASE_USER}
@@ -280,7 +280,7 @@ services:
       DATABASE_HOST: postgres
       DATABASE_PORT: 5432
       REDIS_HOST: redis-django
-    command: celery -A calcapp worker --loglevel=INFO
+    command: celery -A chatbot worker --loglevel=INFO
     depends_on:
       postgres:
         condition: service_healthy

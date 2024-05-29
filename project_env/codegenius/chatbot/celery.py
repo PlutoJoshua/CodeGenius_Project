@@ -2,10 +2,10 @@ import os
 from celery import Celery
 
 # Django settings를 사용할 수 있도록 환경변수 설정
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'myproject.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'codegenius.settings')
 
 # Celery 앱 생성
-app = Celery('calcapp')
+app = Celery('chatbot')
 
 # Celery 설정 로드
 app.config_from_object('django.conf:settings', namespace='CELERY')
