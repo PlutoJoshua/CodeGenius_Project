@@ -6,6 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href= "{% static 'css/homepage.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
 
     <!--전체 css-->
     <style>
@@ -13,13 +14,14 @@
           margin: 0;
           padding: 0;
           display: flex;
-          justify-content: center;
-          align-items: flex-end;
+          flex-direction: column;
+          justify-content: space-between; /* 상단과 하단으로 정렬 */
+          align-items: center;
           height: 100vh;
           background: url("{% static 'img/back.png' %}") no-repeat center center fixed;
           background-size: cover;
           position: relative;
-          font-family: 'Audiowide', sans-serif;  /*전체 글씨체*/
+          font-family: 'Montserrat', sans-serif;  /*전체 글씨체*/
       }
 
       .container {
@@ -30,6 +32,47 @@
           width: 100%;
           height: 100%;  /*start 버튼*/
       }
+
+      /*로고 텍스트 스타일*/
+      .logo-text {
+          color: white;
+          font-size: 2.5rem;
+          text-align: center;
+          margin-top: 50px;
+          margin-bottom: 10px; /* 로고와 설명 문구 사이 여백 */
+        }
+
+      /*웹페이지 설명 문구*/  
+      .description {
+          color: white;
+          font-size: 1.5rem;
+          font-family: 'Montserrat', sans-serif;  /* 설명 문구 글씨체 */
+          text-align: center;
+          margin-bottom: 20px; /* 설명 문구와 이메일 입력 폼 사이 여백 */
+          margin-top: -510px;  /* 설명 문구의 상단 여백 (값을 증가시키면 설명 문구가 더 아래로 이동) */
+          margin-left: 250px; /* 설명 문구를 오른쪽으로 이동 */
+          padding: 0 10%;  /* 좌우 여백 */     
+      }
+
+      /*설명 문구 반응형 추가*/
+      @media (max-width: 768px) {
+            .description {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .description {
+                font-size: 1rem;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .description {
+                font-size: 2rem;
+            }
+        }
+
     </style>
 
     <!--키워드박스 css-->
@@ -46,12 +89,13 @@
           align-items: center;
           position: relative;
           color: white;
+          margin-bottom: 20px; /* 하단 여백 추가 */
       }
       .weekly-title {  /*키워드박스 제목위치*/
           position: absolute;
-          top: -30px;
-          left: 20px;
-          font-size: 30px;
+          top: 50px;  /* 제목을 아래로 이동 */
+          left: 100px;  /* 제목을 오른쪽으로 이동 */
+          font-size: 25px;
           font-weight: bold;
           color: white;
       }
@@ -103,29 +147,48 @@
 
     <!--버튼 css (임시)-->
     <style>
+      .email-form {  /* 이메일 입력 폼 스타일 */
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-top: 20px; /* 폼 상단 여백 */
+          position: absolute;
+          top: 35%; /* 수직 위치 조정 */
+          left: 51%; /* 수평 중앙에 배치 */
+          transform: translate(-50%, -50%); /* 정확히 중앙에 위치시키기 위한 변환 */
+    }
+
+      .email-input {
+          padding: 10px;
+          font-size: 16px;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          margin-top: 10px;
+          width: 300px;
+    }
       .button_container {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 100%;
-        position: absolute;  /* 부모 요소 기준으로 절대 위치 지정 */
-        top: 50%;  /* 수직 중앙에 배치 */
-        left: 51%;  /* 수평 중앙에 배치 */
-        transform: translate(-50%, -50%);  /* 정확히 중앙에 위치시키기 위한 변환 */
+          display: flex;
+          justify-content: center; /* 가운데 정렬 */
+          align-items: center;
+          width: 100%;
+          padding-left: 400px; /* 왼쪽 여백 추가 */
+          position: absolute;  /* 부모 요소 기준으로 절대 위치 지정 */
+          top: 35%;  /* 수직 중앙에 배치 */
+          left: 51%;  /* 수평 중앙에 배치 */
+          transform: translate(-50%, -50%);  /* 정확히 중앙에 위치시키기 위한 변환 */
       }
       .button {
-        padding: 30px 60px;
-        font-size: 32px;
-        cursor: pointer;
-        background-color: #bf8690;
-        color: white;
-        border: none;
-        border-radius: 10px;
-        margin-top: 20px;
+          padding: 20px 30px;
+          font-size: 16px;
+          cursor: pointer;
+          background-color: #bf8690;
+          color: white;
+          border: none;
+          border-radius: 10px;
+          margin-top: 20px;
       }
       .button:hover {
-        background-color: #7c4646;
+          background-color: #7c4646;
         }
 
     </style>
@@ -150,7 +213,10 @@
 
 </head>
 <body>
-
+    <!-- 로고와 설명 문구 추가 -->
+    <div class="logo-text">CodeGenius</div>
+    <div class="description">python chatbot</div>
+    
     <!--키워드박스 생성-->
     <div class="keyword-box">
         <div class="weekly-title">Weekly Keyword</div>
@@ -185,10 +251,16 @@
     </script>
 
 
-    <!--start버튼 생성 (임시)--> 
-    <div class="button_container">
-      <button class="button" onclick="animateAndRedirect()">start</button>
-    </div>
+    <!-- 이메일 입력 폼과 start 버튼 -->
+    <form method="post" class="email-form">
+        {% csrf_token %}
+        <!-- 이메일 입력 필드 -->
+        <input type="email" name="email" class="email-input" placeholder="Enter your email" required>
+        <!-- start 버튼 -->
+        <div class="button_container">
+            <button type="submit" class="button" onclick="animateAndRedirect()">start</button>
+        </div>
+    </form>
 
     <!--로켓이미지 생성-->
     <div class="rocket">
