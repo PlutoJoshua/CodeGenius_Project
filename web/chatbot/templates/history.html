@@ -33,7 +33,7 @@
     <style>
         .navbar {
             height: 55px; /* 고정 높이 설정 */
-            background-image: url('texture5.png');
+            background-image: url('texture9.png');
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -42,7 +42,8 @@
             position: fixed;
             width: calc(100% - 40px); /* 패딩을 고려한 너비 설정 */
             top: 0;
-            border-bottom-right-radius: 10px; /* 오른쪽 아래 모서리 둥글게 */
+            border-bottom-right-radius: 13px; /* 오른쪽 아래 모서리 둥글게 */
+            border-bottom-left-radius: 13px; /* 왼쪽 아래 모서리 둥글게 */
         }
         .navbar .logo {
             font-size: 1.75em;
@@ -97,6 +98,94 @@
             </div>
         </div>
     </div>
-</div>
+
+
+
+    <!--히스토리바 css-->
+    <style>
+        .toggle-button {
+            position: fixed;
+            margin-top: 62px;
+            z-index: 1000; /* Ensures the button is always on top */
+        }
+        .history-bar {
+            position: fixed;
+            top: 0;
+            left: 2px;
+            width: 150px;
+            height: 700px;
+            background-image: url('texture7.png');
+            /*background-color: #f0f0f0;*/
+            border: 1px solid #ccc;
+            padding: 10px;
+            box-sizing: border-box;
+            margin-top: 62px;
+            border-radius: 10px;
+            z-index: 1; /* Ensure history bar is below the button */
+        }
+        .history-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        .history-title {
+            text-align: center;
+            font-weight: 900;
+            margin-left: 38px;
+            margin-bottom: 10px;
+        }
+        .keyword-button {
+            display: block;
+            width: 100%;
+            margin-bottom: 5px;
+            padding: 5px;
+            text-align: center;
+            background-color: #ddd;
+            border: none;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        .keyword-button:hover {
+            background-color: #ccc;
+        }
+    </style>
+
+
+    <!--히스토리바 생성-->
+    <button class="toggle-button" id="toggleButton">←</button>
+    <div class="history-bar" id="historyBar">
+        <div class="history-header">
+            <div class="history-title">History</div>
+        </div>
+        <button class="keyword-button">Keyword 1</button>
+        <button class="keyword-button">Keyword 2</button>
+        <button class="keyword-button">Keyword 3</button>
+        <button class="keyword-button">Keyword 4</button>
+        <button class="keyword-button">Keyword 5</button>
+        <button class="keyword-button">Keyword 6</button>
+        <button class="keyword-button">Keyword 7</button>
+        <button class="keyword-button">Keyword 8</button>
+        <button class="keyword-button">Keyword 9</button>
+        <button class="keyword-button">Keyword 10</button>
+        <button class="keyword-button">Keyword 11</button>
+        <button class="keyword-button">Keyword 12</button>
+        <button class="keyword-button">Keyword 13</button>
+        <button class="keyword-button">Keyword 14</button>
+        <button class="keyword-button">Keyword 15</button>
+    </div>
+
+    <script>
+        document.getElementById('toggleButton').addEventListener('click', function() {
+            var historyBar = document.getElementById('historyBar');
+            if (historyBar.style.display === 'none') {
+                historyBar.style.display = 'block';
+                this.textContent = '←';
+            } else {
+                historyBar.style.display = 'none';
+                this.textContent = '→';
+            }
+        });
+    </script>
+
 </body>
 </html>
