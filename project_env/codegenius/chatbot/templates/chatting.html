@@ -1,0 +1,336 @@
+{% load static %}
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <title>chatting</title>
+
+    <!-- 전체 스타일 설정 -->
+    <style>
+      body {
+          margin: 0;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          height: 100vh;
+          background: url("{% static 'img/back.png' %}") no-repeat center center fixed;
+          background-size: cover;
+          font-family: 'Montserrat', sans-serif; /* 전체 글씨체 설정 */
+      }
+
+      .container {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;
+      }
+
+      /* 채팅과 코드 예시를 나누는 컨테이너 */
+      .chat-container {
+          display: flex;
+          flex-direction: row; /* 좌우로 나누기 위해 flex-direction을 row로 설정 */
+          width: 90%;
+          height: 80%;
+          border: 2px solid #ccc;
+          border-radius: 10px;
+          overflow: hidden;
+          margin-bottom: 10px; /* 입력 영역과의 간격 추가 */
+
+      }
+      .chat-container h2 {
+          font-size: 1.2rem;
+          margin: 0;
+          padding: 10px;
+          text-align: center;
+          border-bottom: 1px solid #b1b5b0;
+          background-color: #f5f5f5;
+          color: black;
+          width: 100%;
+      }
+
+      /* 채팅 영역 스타일 */
+      .chat-area {
+          width: 50%;
+          padding: 10px;
+          overflow-y: auto;  /* 스크롤 가능하도록 설정 */
+          border-right: 1px solid #b1b5b0;
+          background-color: rgb(78, 79, 78);
+          color: black; /* 글씨 색 색으로 설정 */
+          display: flex;
+          flex-direction: column;
+      }
+
+      .chat-content {
+          flex: 1;
+          overflow-y: auto; /* 스크롤 가능하도록 설정 */
+      }
+
+      /* 코드 예시 및 문서 링크 영역 스타일 */
+      .code-area {
+          width: 50%;
+          display: flex;
+          flex-direction: column;
+          padding: 10px;
+          background-color: black; /* 영역 배경색 검정색으로 설정 */
+          color: white; /* 글씨 색 색으로 설정 */
+      }
+
+      /* 코드 예시 영역 스타일 */
+      .code-example {
+          flex: 7;
+          overflow-y: auto; /* 스크롤 가능하도록 설정 */
+          border-bottom: 1px solid #ccc; /* 구분선 추가 */
+          padding: 10px;
+      }
+
+      /* 문서 링크 영역 스타일 */
+      .doc-links {
+          flex: 3;
+          overflow-y: auto; /* 스크롤 가능하도록 설정 */
+          padding: 10px;
+      }
+
+      /* 입력 영역 스타일 */
+      .input-area {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          width: 90%; /* 입력 영역이 채팅 영역과 동일한 너비를 가짐 */
+          margin-top: 10px; /* 위쪽 간격 추가 */
+
+      }
+
+      /* 텍스트 입력 필드 스타일 */
+      .input-area input[type="text"] {
+          width: 80%;
+          padding: 10px;
+          font-size: 16px;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          margin-right: 10px;
+      }
+
+      /* 버튼 스타일 */
+      .input-area button {
+          padding: 10px 20px;
+          font-size: 16px;
+          border-radius: 5px;
+          border: none;
+          background-color: #3498db;
+          color: white;
+          cursor: pointer;
+      }
+
+      /* 버튼 호버 스타일 */
+      .input-area button:hover {
+          background-color: #2980b9;
+      }
+
+      /* 로딩 아이콘 스타일 */
+      .loader {
+          border: 16px solid #f3f3f3;
+          border-top: 16px solid #3498db;
+          border-radius: 50%;
+          width: 120px;
+          height: 120px;
+          animation: spin 2s linear infinite;
+          position: fixed;
+          top: 50%;
+          left: 50%;
+          transform: translate(-50%, -50%);
+          display: none;
+      }
+
+      /* 회전 애니메이션 */
+      @keyframes spin {
+          0% { transform: translate(-50%, -50%) rotate(0deg); }
+          100% { transform: translate(-50%, -50%) rotate(360deg); }
+      }
+
+      /* 말풍선 스타일 */
+      .message {
+          display: flex;
+          margin-bottom: 10px;
+          align-items: center;
+      }
+
+      /* 사용자 메시지 스타일 */
+      .user-message {
+          justify-content: flex-end;
+      }
+
+      /* 봇 메시지 스타일 */
+      .bot-message {
+          justify-content: flex-start;
+      }
+
+      /* 메시지 내용 스타일 */
+      .message-content {
+          max-width: 60%;
+          padding: 10px;
+          border-radius: 10px;
+      }
+
+      /* 사용자 메시지 말풍선 스타일 */
+      .user-message .message-content {
+          background-color: #3498db;
+          color: white;
+      }
+
+      /* 봇 메시지 말풍선 스타일 */
+      .bot-message .message-content {
+          background-color: #ecf0f1;
+          color: black;
+      }
+    </style>
+  </head>
+    
+  <body>
+    <!-- 페이지 제목 및 링크 -->
+    <h1>chatting</h1>
+
+    <h2><a href="{% url 'homepage' %}">homepage</a></h2>
+    <h2><a href="{% url 'history' %}">history</a></h2>
+  
+    <div id="text-content">
+        웹사이트가 표시되면 하이퍼링크가 되도록: https://docs.python.org/3/
+    </div>
+
+    <input type="button" value="error 발생시 팝업창 띄우기" onclick="
+    alert('error');
+  ">
+
+  <div class="container">
+    <div class="chat-container">
+      <div class="chat-area">
+        <h2>대화</h2>
+        <div class="chat-content" id="chat-area"></div>
+      </div>
+      <div class="code-area">
+        <h2>코드 예시 및 문서 링크</h2>
+        <div id="code-example" class="code-example"></div>
+        <div id="doc-links" class="doc-links"></div>
+      </div>
+    </div>
+    <div class="input-area">
+      <input type="text" id="user-input" placeholder="질문을 입력하세요" required>
+      <button type="button" onclick="sendMessage()">Send</button>
+    </div>
+  </div>
+
+  <div id="loader" class="loader"></div>
+
+
+  <!-- JavaScript 코드 -->
+  <script>
+    // 페이지 로드 시 로더 표시
+    window.addEventListener('load', function() {
+      const loader = document.getElementById('loader');
+      loader.style.display = 'block';
+      
+      setTimeout(() => {
+        loader.style.display = 'none';
+      }, 3000); // 3초 후에 로딩 아이콘 숨기기
+    });
+
+    // 사용자 메시지 전송 함수
+    function sendMessage() {
+      const userInput = document.getElementById('user-input').value;
+      if (!userInput) return;
+
+      // 사용자 입력을 대화 영역에 추가
+      const chatArea = document.getElementById('chat-area');
+      const userMessage = document.createElement('div');
+      userMessage.className = 'message user-message';
+      userMessage.innerHTML = `<div class="message-content">${userInput}</div>`;
+      chatArea.appendChild(userMessage);
+      chatArea.scrollTop = chatArea.scrollHeight; // 대화창 스크롤을 맨 아래로
+
+      // 로더 표시
+      const loader = document.getElementById('loader');
+      loader.style.display = 'block';
+
+      // 챗봇 응답 생성 (여기서는 간단한 예시 응답)
+      setTimeout(() => {
+        // 로더 숨기기
+        loader.style.display = 'none';
+
+        // 챗봇의 개념 설명 응답
+        const botMessage = document.createElement('div');
+        botMessage.className = 'message bot-message';
+        botMessage.innerHTML = `<div class="message-content">챗봇 응답: ${userInput}에 대한 개념 설명</div>`;
+        chatArea.appendChild(botMessage);
+
+        // 챗봇의 코드 예시 응답
+        const codeExample = document.getElementById('code-example');
+        codeExample.innerHTML = `<pre><code>예시 코드:\nfunction example() {\n  console.log("${userInput} 관련 예시 코드");\n}</code></pre>`;
+
+        // 주요 라이브러리의 공식 문서 링크 (하이퍼링크로 변환)
+        const docLinks = document.getElementById('doc-links');
+        const docLink = document.createElement('a');
+        docLink.href = 'https://example.com'; // 여기에 실제 문서 링크를 넣습니다.
+        docLink.target = '_blank';
+        docLink.textContent = '공식 문서 링크';
+        docLinks.appendChild(docLink);
+
+        // 입력 필드 초기화
+        document.getElementById('user-input').value = '';
+        chatArea.scrollTop = chatArea.scrollHeight; // 대화창 스크롤을 맨 아래로
+      }, 1000); // 1초 후에 응답 표시
+    }
+
+    // 엔터 키로 메시지 전송 기능 추가
+    document.getElementById('user-input').addEventListener('keypress', function(event) {
+        if (event.key === 'Enter') {
+          sendMessage();
+        }
+      });
+
+    // 페이지 로드 시 링크를 하이퍼링크로 변환하는 함수
+    document.addEventListener('DOMContentLoaded', function() {
+        const textElement = document.getElementById('text-content');
+        const text = textElement.innerHTML;
+        const urlRegex = /(\bhttps?:\/\/[\-A-Z0-9+&@#\/%?=~_|!:,.;]*[\-A-Z0-9+&@#\/%=~_|])/ig;
+        const linkedText = text.replace(urlRegex, function(url) {
+            return '<a href="' + url + '">' + url + '</a>';
+        });
+        textElement.innerHTML = linkedText;
+    });
+
+    // 오류 처리 예시
+    function handleError(errorMessage) {
+      const chatArea = document.getElementById('chat-area');
+      const errorDiv = document.createElement('div');
+      errorDiv.className = 'message bot-message';
+      errorDiv.innerHTML = `<div class="message-content">오류: ${errorMessage}</div>`;
+      chatArea.appendChild(errorDiv);
+      chatArea.scrollTop = chatArea.scrollHeight;
+    }
+
+    // 로그 작성 예시
+    function logError(error) {
+      console.error(`Error: ${error}`);
+      // 여기서 로그를 서버에 전송하는 추가 작업을 할 수 있습니다.
+    }
+
+    // 예시로 오류 발생 시 처리
+    document.addEventListener('DOMContentLoaded', function() {
+      try {
+        // 임의로 오류를 발생시켜 처리 예시
+        throw new Error("예시 오류");
+      } catch (error) {
+        handleError(error.message);
+        logError(error);
+      }
+    });
+  </script>
+  </body>
+  </html>
+ 

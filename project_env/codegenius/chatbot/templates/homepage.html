@@ -1,0 +1,282 @@
+{% load static %}
+<!doctype html>
+<html>
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" type="text/css" href= "{% static 'css/homepage.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <!--전체 css-->
+    <style>
+      body {  /*이미지로 대체*/
+          margin: 0;
+          padding: 0;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between; /* 상단과 하단으로 정렬 */
+          align-items: center;
+          height: 100vh;
+          background: url("{% static 'img/back.png' %}") no-repeat center center fixed;
+          background-size: cover;
+          position: relative;
+          font-family: 'Montserrat', sans-serif;  /*전체 글씨체*/
+          
+      }
+
+      .container {
+          display: flex;
+          flex-direction: column;
+          justify-content: center;
+          align-items: center;
+          width: 100%;
+          height: 100%;  /*start 버튼*/
+      }
+
+      /*로고 텍스트 스타일*/
+      .logo-text {
+          color: white;
+          font-size: 2.5rem;
+          text-align: center;
+          margin-top: 50px;
+          margin-bottom: 10px; /* 로고와 설명 문구 사이 여백 */
+        }
+
+      /*웹페이지 설명 문구*/  
+      .description {
+          color: white;
+          font-size: 1.5rem;
+          font-family: 'Montserrat', sans-serif;  /* 설명 문구 글씨체 */
+          text-align: center;
+          margin-bottom: 20px; /* 설명 문구와 이메일 입력 폼 사이 여백 */
+          margin-top: -510px;  /* 설명 문구의 상단 여백 (값을 증가시키면 설명 문구가 더 아래로 이동) */
+          margin-left: 250px; /* 설명 문구를 오른쪽으로 이동 */
+          padding: 0 10%;  /* 좌우 여백 */     
+      }
+
+      /*설명 문구 반응형 추가*/
+      @media (max-width: 768px) {
+            .description {
+                font-size: 1.2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .description {
+                font-size: 1rem;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .description {
+                font-size: 2rem;
+            }
+        }
+
+    </style>
+
+    <!--키워드박스 css-->
+    <style>
+      .keyword-box {
+          width: 98%;
+          height: 30%;
+          background-color: none;  /*배경 이미지로 대체*/
+          border-top-left-radius: 20px;
+          border-top-right-radius: 20px;
+          /*box-shadow: 0 -2px 10px rgba(0,0,0,0.1);*/
+          display: flex;
+          justify-content: space-around;
+          align-items: center;
+          position: absolute;
+          color: white;
+          margin-top: 900px; /* 하단 여백 추가 */
+      }
+      .weekly-title {  /*키워드박스 제목위치*/
+          position: absolute;
+          top: 50px;  /* 제목을 아래로 이동 */
+          left: 100px;  /* 제목을 오른쪽으로 이동 */
+          font-size: 25px;
+          font-weight: bold;
+          color: white;
+      }
+      .keyword-item {
+          text-align: center;
+          animation: moveUpDown 1s infinite alternate;
+      }
+      .keyword-item img {
+          width: 50px;
+          height: 50px;
+      }
+      .keyword-item .rank {
+          font-size: 18px;
+          font-weight: bold;
+      }
+      .keyword-item .keyword {
+          margin-top: 5px;
+          font-size: 14px;
+      }
+      @keyframes moveUp {  /*아이콘 위아래로 움직이기*/
+        0% {
+            transform: translateY(0);
+        }
+        50% {
+          transform: translateY(3px);
+        }
+        100% {
+            transform: translateY(-3px);
+        }
+      }
+      @keyframes moveDown {
+          0% {
+              transform: translateY(0);
+          }
+          50% {
+            transform: translateY(-3px);
+          }
+          100% {
+              transform: translateY(3px);
+          }
+      }
+      .keyword-item:nth-child(odd) {
+          animation: moveUp 3s infinite alternate;
+      }
+      .keyword-item:nth-child(even) {
+          animation: moveDown 3s infinite alternate;
+      }
+    </style>
+
+    <!--버튼 css (임시)-->
+    <style>
+      .email-form {  /* 이메일 입력 폼 스타일 */
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          margin-top: 20px; /* 폼 상단 여백 */
+          position: absolute;
+          top: 35%; /* 수직 위치 조정 */
+          left: 51%; /* 수평 중앙에 배치 */
+          transform: translate(-50%, -50%); /* 정확히 중앙에 위치시키기 위한 변환 */
+    }
+
+      .email-input {
+          padding: 10px;
+          font-size: 16px;
+          border-radius: 5px;
+          border: 1px solid #ccc;
+          margin-top: 10px;
+          width: 300px;
+    }
+      .button_container {
+          display: flex;
+          justify-content: center; /* 가운데 정렬 */
+          align-items: center;
+          width: 100%;
+          padding-left: 400px; /* 왼쪽 여백 추가 */
+          position: absolute;  /* 부모 요소 기준으로 절대 위치 지정 */
+          top: 35%;  /* 수직 중앙에 배치 */
+          left: 51%;  /* 수평 중앙에 배치 */
+          transform: translate(-50%, -50%);  /* 정확히 중앙에 위치시키기 위한 변환 */
+      }
+      .button {
+          padding: 10px;
+          font-size: 16px;
+          cursor: pointer;
+          background-color: #bf8690;
+          color: white;
+          border: none;
+          border-radius: 10px;
+          margin-top: 20px;
+      }
+      .button:hover {
+          background-color: #7c4646;
+        }
+
+    </style>
+
+    <style>
+      .rocket {  /*로켓이미지 위치*/
+          position: absolute;
+          right: 100px;
+          top: 50%;
+          transform: translateY(-50%);
+      }
+      .rocket img {
+          width: 100px;
+          height: 100px;
+          transition: transform 1s ease-in-out;
+      }
+      .rocket img.move-up {
+          transform: translateY(-100vh);
+      }
+    </style>
+
+
+</head>
+<body>
+    <!-- 로고와 설명 문구 추가 -->
+    <div class="logo-text">CodeGenius</div>
+    <div class="description">python chatbot</div>
+    
+    <!--키워드박스 생성-->
+    <div class="keyword-box">
+        <div class="weekly-title">Weekly Keyword</div>
+        <!--script src="{% static '/js/keyword_box.js' %}"></script-->
+    </div> 
+
+    <script>
+        const keywords = ["JavaScript", "Python", "HTML", "CSS", "React", "Node.js", "Django"];
+        const keywordBox = document.querySelector('.keyword-box');
+
+        keywords.forEach((keyword, index) => {
+            const keywordItem = document.createElement('div');
+            keywordItem.className = 'keyword-item';
+
+            const rank = document.createElement('div');
+            rank.className = 'rank';
+            rank.innerText = index + 1;
+
+            const icon = document.createElement('img');
+            icon.src = `{% static 'img/icon${index + 1}.png' %}`; // 아이콘 파일 경로는 적절히 수정
+
+            const keywordText = document.createElement('div');
+            keywordText.className = 'keyword';
+            keywordText.innerText = keyword;
+
+            keywordItem.appendChild(rank);
+            keywordItem.appendChild(icon);
+            keywordItem.appendChild(keywordText);
+
+            keywordBox.appendChild(keywordItem);
+        });
+    </script>
+
+
+    <!-- 이메일 입력 폼과 start 버튼 -->
+    <form method="post" class="email-form">
+        {% csrf_token %}
+        <!-- 이메일 입력 필드 -->
+        <input type="email" name="email" class="email-input" placeholder="Enter your email" required>
+        <!-- start 버튼 -->
+        <div class="button_container">
+            <button type="submit" class="button" onclick="animateAndRedirect()">start</button>
+        </div>
+    </form>
+
+    <!--로켓이미지 생성-->
+    <div class="rocket">
+        <img src="{% static 'img/rocket.png' %}" alt="Image">
+    </div>
+
+    <!--script src="{% static '/js/start_button.js' %}"></script-->
+    <script>
+      function animateAndRedirect() {
+          const image = document.querySelector('.rocket img');
+          image.classList.add('move-up');
+          setTimeout(() => {
+              window.location.href = "{% url 'chatting' %}";
+          }, 1000); // 1초간 로켓 이동 후 채팅페이지로 이동
+      }
+  </script>
+</body>
+</html>
