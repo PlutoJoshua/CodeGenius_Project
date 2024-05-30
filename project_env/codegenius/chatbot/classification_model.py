@@ -1,11 +1,7 @@
 import fasttext
-from django.core.cache import caches
 import logging
 
 logger = logging.getLogger(__name__)
-
-### Django Redis 캐시 ###
-redis_cache = caches['default']
 
 ### 모델 변수 ###
 fasttext_model = None
@@ -14,15 +10,16 @@ fasttext_model = None
 def load_model(model_path):
     global fasttext_model
     if fasttext_model is None:
+        logger.info('classification_model.py/load_model -> Fasttext model is None, so.... load the fasttext model')
         fasttext_model = fasttext.load_model(model_path)
-         ### 모델 경로를 캐시에 저장 ###
-        redis_cache.set('fasttext_model_path', model_path) 
+    else:
+        logger.info('classification_model.py/load_model -> Use cached fasttext model')
     return fasttext_model
 
 ### FastText를 사용한 라벨 예측 함수 정의 ###
 def predict_label(model, text, threshold):
     if model is None:
-        logger.error("classification_model.py/predict_label -> predict_label -> model is None!!!")
+        logger.error("classification_model.py/predict_label -> predict_label -> fasttext model is None!!!")
         return None
     
     ### 두 개의 라벨 확률을 반환하도록 설정 ###
@@ -45,7 +42,7 @@ def main(input_text, model_path, threshold):
     ### 모델 로드 ###
     model = load_model(model_path)
     if model is None:
-        logger.error("classification_model.py/main -> Model loading failed, unable to proceed.")
+        logger.error("classification_model.py/main -> Fasttext model loading failed, unable to proceed.")
         return None
     
     # 라벨 예측

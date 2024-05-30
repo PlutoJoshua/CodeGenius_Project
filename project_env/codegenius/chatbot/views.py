@@ -56,7 +56,8 @@ def input_form_view(request):
             logger.error(f'views.py/input_form_view -> Failed to response:classification_model = {email}, input: {user_input}, error: {str(e)}')
             return HttpResponse('잠시 후 다시 이용해주세요')
         
-        return render(request, 'result.html', {'user_output': classification_output, 'probability': probability})
+        return render(request, 'result.html', {'user_output': classification_output})
+        #return render(request, 'result.html', {'user_output': classification_output, 'probability': probability})
     
     else:
         return render(request, 'input_form.html')
