@@ -5,4 +5,8 @@ fasttext/data
 fasttext/fasttext_save
 fasttext/train_fasttext.txt
 fasttext/valid_fasttext.txt
-keyword/keyword.xlsx
+keyword/keyword.csv
+create_data/enddata
+create_data/rawdata
+create_data/testdata
+gpt2/gpt2_chatbot
