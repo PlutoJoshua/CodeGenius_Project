@@ -36,8 +36,8 @@
       .chat-container {
           display: flex;
           flex-direction: row; /* 좌우로 나누기 위해 flex-direction을 row로 설정 */
-          width: 90%;
-          height: 80%;
+          width: 80%;
+          height: 70%;
           border: 2px solid #ccc;
           border-radius: 10px;
           overflow: hidden;
@@ -189,23 +189,79 @@
           background-color: #ecf0f1;
           color: black;
       }
+
+      /* 메뉴바 css */
+      .navbar {
+          height: 50px; /* 고정 높이 설정 */
+          background-color: #ffffff; /* 배경색을 하얀색으로 설정 */
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 0 20px;
+          box-shadow: 0 5px 6px 0px gray; /* 그림자 추가 */
+          position: fixed;
+          width: calc(100% - 40px); /* 패딩을 고려한 너비 설정 */
+          top: 0;
+          border-bottom-right-radius: 13px; /* 오른쪽 아래 모서리 둥글게 */
+          border-bottom-left-radius: 13px; /* 왼쪽 아래 모서리 둥글게 */
+          font-family: 'Montserrat', sans-serif; /* 글씨체를 Montserrat로 설정 */
+      }
+      .navbar .logo {
+          font-size: 1.75em;
+          color: #000;
+          margin-left: 30px;  /* 로고 위치 */
+          font-weight: 780;
+      }
+      .navbar .logo:hover {
+          color: #ac3232;  /* 붉은색 텍스트 (호버 시) */
+      }
+      .navbar .menu-container {
+          display: flex;
+          flex-grow: 1;
+          justify-content: flex-end; /* 메뉴 아이템을 오른쪽으로 정렬 */
+          margin-right: 40px; /* 오른쪽 여백 */
+      }
+      .navbar .menu-item {
+          height: 50px; /* navbar 높이와 동일하게 설정 */
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+          margin-right: 30px;
+          position: relative; /* border-bottom을 위한 상대 위치 */
+      }
+      .navbar .menu-item:hover {
+          border-bottom: 4px solid #ac3232; /* 붉은색 밑줄 */
+      }
+      .navbar .menu-item a {
+          color: #000;  /* 메뉴글자 색깔 */
+          text-decoration: none;
+          font-size: 1.4em;
+          font-weight: 800;
+          transition: color 0.1s;
+          font-family: 'Montserrat', sans-serif; /* 글씨체를 Montserrat로 설정 */
+      }
+      .navbar .menu-item a:hover {
+          color: #ac3232;  /* 붉은색 텍스트 (호버 시) */
+          text-decoration: none;
+      }
     </style>
   </head>
     
   <body>
-    <!-- 페이지 제목 및 링크 -->
-    <h1>chatting</h1>
-
-    <h2><a href="{% url 'homepage' %}">homepage</a></h2>
-    <h2><a href="{% url 'history' %}">history</a></h2>
-  
-    <div id="text-content">
-        웹사이트가 표시되면 하이퍼링크가 되도록: https://docs.python.org/3/
-    </div>
-
-    <input type="button" value="error 발생시 팝업창 띄우기" onclick="
-    alert('error');
-  ">
+    <!-- 메뉴바 생성 -->
+    <div class="navbar">
+      <div class="logo">
+          <a href="{% url 'homepage' %}" style="text-decoration: none; color: inherit;">CodeGenius</a>
+      </div>
+      <div class="menu-container">
+          <div class="menu-item">
+              <a href="{% url 'chatting' %}">Chatting</a>
+          </div>
+          <div class="menu-item">
+              <a href="{% url 'history' %}">History</a>
+          </div>
+      </div>
+  </div>
 
   <div class="container">
     <div class="chat-container">
