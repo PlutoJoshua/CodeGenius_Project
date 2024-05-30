@@ -219,9 +219,13 @@
         <div id="doc-links" class="doc-links"></div>
       </div>
     </div>
-    <div class="input-area">
-      <input type="text" id="user-input" placeholder="질문을 입력하세요" required>
-      <button type="button" onclick="sendMessage()">Send</button>
+      <form method="post">
+        {% csrf_token %}
+        <div class="input-area">
+          <input type="text" id="user-input" name="user_input" placeholder="질문을 입력하세요" required>
+          <button type="submit">Send</button>
+        </div>
+      </form>
     </div>
   </div>
 
