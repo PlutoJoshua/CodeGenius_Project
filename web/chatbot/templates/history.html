@@ -22,7 +22,7 @@
             margin: 0;
             padding: 0;
             font-family: Arial, sans-serif;
-            background: url('space.webp') no-repeat center center fixed;
+            background: url('back.png') no-repeat center center fixed;
             background-size: cover;
             height: 100%; /* body에도 height 지정 */
         }
@@ -32,8 +32,8 @@
     <!--메뉴바 css-->
     <style>
         .navbar {
-            height: 60px; /* 고정 높이 설정 */
-            background-color: #F5F5F5; /* 더 연한 색상 */
+            height: 55px; /* 고정 높이 설정 */
+            background-image: url('texture5.png');
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -45,9 +45,10 @@
             border-bottom-right-radius: 10px; /* 오른쪽 아래 모서리 둥글게 */
         }
         .navbar .logo {
-            font-size: 1.5em;
+            font-size: 1.75em;
             color: #000;
-            margin-left: 20px;  /* 로고 위치 */
+            margin-left: 30px;  /* 로고 위치 */
+            font-weight: 780;
         }
         .navbar .logo:hover {
             color: #008080;  /* 청록색 텍스트 (호버 시) */
@@ -59,11 +60,11 @@
             margin-right: 40px; /* 오른쪽 여백 */
         }
         .navbar .menu-item {
-            height: 60px; /* navbar 높이와 동일하게 설정 */
+            height: 55px; /* navbar 높이와 동일하게 설정 */
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-right: 50px;
+            margin-right: 30px;
             position: relative; /* border-bottom을 위한 상대 위치 */
         }
         .navbar .menu-item:hover {
@@ -72,7 +73,8 @@
         .navbar .menu-item a {
             color: #000;  /* 메뉴글자 색깔 */
             text-decoration: none;
-            font-size: 1.2em;
+            font-size: 1.4em;
+            font-weight: 800;
             transition: color 0.1s;
         }
         .navbar .menu-item a:hover {
