@@ -1,17 +1,18 @@
+# from django.contrib import admin
 from django.urls import path
-from django.contrib import admin
-import logging
-
-from chatbot.views import login_view, input_form_view
-
-# 로거 생성
-logger = logging.getLogger(__name__)
+import chatbot.views
 
 urlpatterns = [
-    path('', login_view, name='login'),  
-    path('login/', login_view, name='login'),  # 로그인 페이지
-    path('input-form/', input_form_view, name='input_form'),  # 입력 폼 페이지
+#    path('admin/', admin.site.urls),
+    path('', chatbot.views.homepage, name='homepage'),
+    path('chatting/', chatbot.views.chatting, name='chatting'),
+    path('history/', chatbot.views.history, name='history'),
 ]
 
-# 로깅 추가
-logger.info('URL configuration loaded successfully.')
+
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib import admin
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

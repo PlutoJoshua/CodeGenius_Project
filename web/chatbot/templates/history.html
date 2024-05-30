@@ -201,19 +201,25 @@
         <div>
         <button class="toggle-button" id="toggleButton">▲</button>
         </div>
-        <div class="history-title">{{사용자}}'s History</div>
+        <div class="history-title">
+            {% if userDB.userName %}
+                {{userDB.userName}}'s History
+            {% else %}
+                User
+            {% endif %}
+        </div>
     </div>
 
     <div class="history-bar" id="historyBar">
         <div class="list-box">
+            {% for date in keywordDB.dates %}
             <div class="date">
-                <button class="date-button">2024-03-02</button>
-                    <button class="keyword-button">Keyword 1</button>
-                    <button class="keyword-button">Keyword 2</button>
-                    <button class="keyword-button">Keyword 3</button>
-                    <button class="keyword-button">Keyword 4</button>
-                    <button class="keyword-button">Keyword 5</button>
+                <button class="date-button">{{date}}</button>
+                    {% for keyword in keywordDB.keywords %}
+                    <button class="keyword-button">{{keyword}}</button>
+                    {% endfor %}
             </div>
+            {% endfor %}
             <div class="date">
                 <button class="date-button">2024-03-03</button>
                     <button class="keyword-button">Keyword 6</button>
