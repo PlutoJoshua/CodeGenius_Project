@@ -127,6 +127,8 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+
+### logging ###
 LOGGING = {
     'version': 1,
     'disable_existing_loggers': False,
@@ -145,6 +147,17 @@ LOGGING = {
     },
 }
 
-
+### celery ###
 CELERY_BROKER_URL = 'redis://redis-django:6379/0'
 CELERY_RESULT_BACKEND = 'redis://redis-django:6379/0'
+
+CACHES = {
+    'default': {
+        'BACKEND': 'django_redis.cache.RedisCache',
+        'LOCATION': 'redis://redis-django:6379/1',
+        'OPTIONS': {
+            'CLIENT_CLASS': 'django_redis.client.DefaultClient',
+        },
+        'KEY_PREFIX': 'example'
+    }
+}
