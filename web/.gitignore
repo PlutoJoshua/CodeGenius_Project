@@ -5,3 +5,4 @@ codegenius/__pycache__/*
 logs/
 __pycache__/
 test.html
+myenv/*

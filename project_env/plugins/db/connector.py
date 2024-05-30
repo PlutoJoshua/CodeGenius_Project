@@ -9,17 +9,16 @@ class DBconnector:
         input data를 conn_params 변수에 넣어 DB에 접속하는 함수
         """
         self.engine = engine
-       
-        if engine == 'postgresql':
-            self.conn_params = dict(
-                    host = host,
-                    dbname = database,
-                    user = user,
-                    password = password,
-                    port = port
-                )
-            self.postgres_connect()
-        
+
+        self.conn_params = dict(
+                host = host,
+                dbname = database,
+                user = user,
+                password = password,
+                port = port
+            )
+        self.postgres_connect()
+    
         self.sqlalchemy_param = f'{engine}://{user}:{password}@{host}:{port}/{database}'
         self.sqlalchemy_connect()
 
@@ -28,11 +27,7 @@ class DBconnector:
         return self
 
     def __exit__(self, exc_type, exc_value, traceback):
-        if self.engine == 'postgresql':
-            self.postgres_connect.close()
-
-        elif self.engine == 'mysql+pymysql':    
-            self.mysql_connect.close()
+        self.postgres_connect.close()
         
         print("exit 종료")
 
