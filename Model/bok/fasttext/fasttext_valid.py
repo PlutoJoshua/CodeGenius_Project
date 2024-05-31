@@ -1,5 +1,8 @@
 import fasttext
 
+model_path = './fasttext_save/fasttext_model_v1.bin'  # 검증에 사용할 모델 파일 경로
+threshold = 0.7  # 임계값
+
 # FastText 모델 로드
 def load_model(model_path):
     return fasttext.load_model(model_path)
@@ -32,8 +35,6 @@ def main(input_text, model_path, threshold):
 
 if __name__ == "__main__":
     input_text = input()  # 입력 문장
-    model_path = './fasttext_save/fasttext_model_v1.bin'  # 모델 파일 경로
-    threshold = 0.7  # 임계값
     
     label, prob = main(input_text, model_path, threshold)
     print(f"Predicted label: {label}, Probability: {prob}")
