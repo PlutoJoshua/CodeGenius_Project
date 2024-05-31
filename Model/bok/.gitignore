@@ -5,4 +5,5 @@
 *.xlsx
 !requirements.txt
 data
-gpt2/gpt2_chatbot
+gpt2/my_model_final
+gpt2/results

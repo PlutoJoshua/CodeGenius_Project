@@ -28,7 +28,7 @@ class FastTextModel:
         self.train_df = train_df
         self.valid_df = valid_df
 
-    # fasttext
+    # 질문 포맷팅
     def convert_to_fasttext_format(self, df, filename):
         with open(filename, 'w') as f:
             for _, row in df.iterrows():
@@ -36,19 +36,23 @@ class FastTextModel:
                 text = row['question']
                 f.write(f"{label} {text}\n")
 
+    # 포맷팅한 데이터 txt파일 형식으로 저장
     def prepare_data(self):
         self.convert_to_fasttext_format(self.train_df, 'train_fasttext.txt')
         self.convert_to_fasttext_format(self.valid_df, 'valid_fasttext.txt')
 
+    # 모델 학습
     def train_model(self, train_file):
         return fasttext.train_supervised(input=train_file, epoch=self.epoch, lr=self.lr, wordNgrams=self.wordNgrams, verbose=2, minCount=self.minCount)
 
+    # 모델 평가 지표
     def evaluate_model(self, model, valid_file):
         result = model.test(valid_file)
         accuracy = result[1]
         loss = result[2]
         return accuracy, loss
 
+    # 모델 학습 및 평가 시작
     def train_and_evaluate(self):
         best_valid_loss = float('inf')
         epochs_no_improve = 0
@@ -82,6 +86,7 @@ class FastTextModel:
         
         return self.train_accuracies, self.valid_accuracies, self.train_losses, self.valid_losses
 
+    # 결과 시각화
     def plot_metrics(self, output_file):
         epochs = range(1, len(self.train_accuracies) + 1)
         plt.figure(figsize=(12, 5))
@@ -106,6 +111,7 @@ class FastTextModel:
         plt.savefig(output_file)
         plt.close
 
+    # class 내 모든 함수 실행
     def run(self):
         self.load_and_preprocess_data()
         self.prepare_data()
