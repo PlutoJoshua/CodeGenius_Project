@@ -37,14 +37,14 @@
       }
       .logo-text {
           color: white;
-          font-size: 3.5rem;
-          padding: 30px;
+          font-size: 4.5rem;
+          padding: 0px;
           font-weight: 700;
         }
       .description {
           color: white;
-          font-size: 1.3rem;
-          padding-bottom: 20px;
+          font-size: 1.1rem;
+          padding-bottom: 60px;
       }
 
     </style>
@@ -187,11 +187,6 @@
 
     <style>
     /*반응형 추가*/
-    @media (max-width: 768px) {
-          .logo-text {
-              font-size: 3.5rem;
-          }
-      }
       @media (min-width: 1200px) {
           .logo-text {
               font-size: 5rem;
@@ -203,9 +198,9 @@
     <style>
         .rocket {  /*로켓이미지 위치*/
             position: absolute;
-            right: 100px;
+            left: 5%;
             top: 50%;
-            transform: translateY(10%);
+            transform: translateY(20%);
         }
         .rocket img {
             width: 170px;
@@ -213,7 +208,7 @@
             transition: transform 1s ease-in-out;
         }
         .rocket img.move-up {
-            transform: rotate(30deg) translate(-200vh, -100vh);  /*로켓 발사*/
+            transform: rotate(90deg) translate(-50vh, -100vh);  /*로켓 발사*/
         }
     </style>
 
