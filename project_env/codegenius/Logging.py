@@ -25,11 +25,11 @@ class DatabaseHandler(logging.Handler):
             create_table_query = '''
                 CREATE TABLE IF NOT EXISTS test_log (
                     id SERIAL PRIMARY KEY,
-                    logLv VARCHAR(10),
+                    log_level VARCHAR(10),
                     insertTime TIMESTAMPTZ,
-                    filename VARCHAR(255),
+                    file_name VARCHAR(255),
                     lineno INT,
-                    message TEXT
+                    log_message TEXT
                 )
             '''
             cur.execute(create_table_query)
@@ -40,7 +40,7 @@ class DatabaseHandler(logging.Handler):
             self.connect()
 
         insert_log_query = '''
-            INSERT INTO test_log (logLv, insertTime, filename, lineno, message)
+            INSERT INTO test_log (log_level, insertTime, file_name, lineno, log_message)
             VALUES (%s, %s, %s, %s, %s)
         '''
         insert_time = datetime.fromtimestamp(record.created).isoformat()

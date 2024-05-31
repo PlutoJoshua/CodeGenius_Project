@@ -9,7 +9,10 @@ class save_data(models.Model):
     ### 유저 인풋 ###
     user_input = models.CharField(max_length=255)
     ### 유저 아웃풋 ###
-    user_output = models.CharField(max_length=255)
+    user_output = models.CharField(max_length=255, blank=True, null=True)
+    keyword = models.CharField(max_length=255, blank=True, null=True)
+    code = models.CharField(max_length=255, blank=True, null=True)
+    doc_url = models.CharField(max_length=255, blank=True, null=True)
     ### 시간 ###
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

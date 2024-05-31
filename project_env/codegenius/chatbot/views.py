@@ -4,6 +4,7 @@ from django.core.cache import cache
 from .models import save_data
 import logging
 import fasttext
+from datetime import datetime
 
 from .classification_model import main as classificate_user_input
 from .tasks import (chatting_model_predict, 
@@ -71,13 +72,20 @@ def chatting(request):
                     record = save_data.objects.create(
                         email=email,
                         user_input=user_input,
-                        user_output=chatting_result
+                        user_output=chatting_result,
+                        keyword=keyword_result.get('keyword', ''),
+                        code=keyword_result.get('code', ''),
+                        doc_url=keyword_result.get('doc_url', '')
                     )
+
+                    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
                     return render(request, 'chatting.html', {
                                                         'chatting_output': chatting_result, 
                                                         'keyword': keyword_result.get('keyword', ''), 
                                                         'code': keyword_result.get('code', ''), 
-                                                        'doc_url': keyword_result.get('doc_url', '')
+                                                        'doc_url': keyword_result.get('doc_url', ''),
+                                                        'current_time': current_time
                                                         }
                                                     )
                 except Exception as e:

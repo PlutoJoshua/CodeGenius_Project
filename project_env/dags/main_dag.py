@@ -27,16 +27,29 @@ dag = DAG(
 ### etl pipe line ###
 #####################
 
-def extract_data():
-    data = extractor()
+table_name = "test_log"
+db_obj = DBconnector(**DB_SETTINGS["DJANGO_log"])
+_date = datetime.now() - timedelta(days = 1)
+batch_date = _date.strftime("%Y-%m-%d")
+
+def extract_data(db_connector = db_obj, table_name = table_name, batch_date = batch_date):
+    with ElapseTime():
+        print("extract_data 시작")
+        data = extractor(db_connector=db_obj, table_name=table_name, batch_date=batch_date)
     return data
 
 def data_preprocessing(data):
     processed_df = transformer(data)
     return processed_df
 
-def load_to_pg(processed_df):
-    loader(processed_df)
+# db_obj로 db 변경해야함: setting.py에 추가
+table_name = "dmart_log"
+db_obj = DBconnector(**DB_SETTINGS["DJANGO_datamart"])
+
+def load_to_pg(df = processed_df, db_connector = db_obj, table_name = table_name):
+    with ElapseTime():
+        print("load_to_pg 시작")
+        loader(df = processed_df, db_connector = db_obj, table_name = table_name)
 
 ############
 ### task ###

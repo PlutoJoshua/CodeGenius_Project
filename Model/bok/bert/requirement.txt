@@ -1,5 +1,0 @@
-torch
-transformers
-kobert-tokenizer
-tqdm
-yake
