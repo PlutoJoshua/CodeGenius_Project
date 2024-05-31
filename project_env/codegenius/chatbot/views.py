@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.cache import cache
+from django.template.loader import render_to_string
 from .models import save_data
 import logging
 import fasttext
+from datetime import datetime
 
 from .classification_model import main as classificate_user_input
 from .tasks import (chatting_model_predict, 
@@ -61,25 +63,36 @@ def chatting(request):
             if classification_output == 1:
                 try:    
                     ######################## 비동기 작업 ########################
-                    chatting_output = chatting_model_predict.delay(user_input)
-                    keyword_output = extract_keyword_user_input.delay(user_input)
+                    chatting_task = chatting_model_predict.delay(user_input)
+                    keyword_task = extract_keyword_user_input.delay(user_input)
 
-                    chatting_result = chatting_output.get()
-                    keyword_result = keyword_output.get()
+                    chatting_output = chatting_task.get()
+                    keyword_output = keyword_task.get()
                     ############################################################
 
                     record = save_data.objects.create(
                         email=email,
                         user_input=user_input,
-                        user_output=chatting_result
+                        chatting_output=chatting_output,
+                        keyword=keyword_output.get('keyword', ''),
+                        code=keyword_output.get('code', ''),
+                        doc_url=keyword_output.get('doc_url', '')
                     )
-                    return render(request, 'chatting.html', {
-                                                        'chatting_output': chatting_result, 
-                                                        'keyword': keyword_result.get('keyword', ''), 
-                                                        'code': keyword_result.get('code', ''), 
-                                                        'doc_url': keyword_result.get('doc_url', '')
-                                                        }
-                                                    )
+
+                    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+                    #################### chatting.html 렌더링 ####################
+                    chatting_html = render_to_string('chatting.html', {
+                        'chatting_output': chatting_output, 
+                        'keyword': keyword_output.get('keyword', ''), 
+                        'code': keyword_output.get('code', ''), 
+                        'doc_url': keyword_output.get('doc_url', ''),
+                        'current_time': current_time
+                    })
+
+                    return HttpResponse(chatting_html)
+
+
                 except Exception as e:
                     logger.error(f'views.py/chatting/chatting_model_predict -> error: {e}')
 
@@ -89,7 +102,7 @@ def chatting(request):
                 record = save_data.objects.create(
                     email=email,
                     user_input=user_input,
-                    user_output=classification_output
+                    chatting_output=classification_output
                 )
                 return render(request, 'chatting.html', {'chatting_output': '파이썬에 관한 질문만 해. 사람 화나게하지 말고'})
         
@@ -101,4 +114,11 @@ def chatting(request):
         return render(request, 'chatting.html')
 
 def history(request):
+    email = request.session.get('email')
+    #################### history.html 렌더링 ####################
+    ### created_at 기준 내림차순 정렬, email = email ###
+    history_records = save_data.objects.filter(email=email).exclude(chatting_output=0).order_by('-created_at')
+    history_html = render_to_string('history.html', {
+        'history_records': history_records
+    })
     return render(request, 'history.html')

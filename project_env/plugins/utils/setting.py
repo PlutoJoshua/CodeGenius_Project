@@ -21,4 +21,11 @@ DB_SETTINGS = {
         password = os.environ.get("DATABASE_PASSWORD", ""),
         port = os.environ.get("DATABASE_PORT", "") 
     ),
+    "DJANGO_datamart" : dict(
+    engine = os.environ.get("DATABASE_ENGINE", ""),
+    host = os.environ.get("DATABASE_HOST", ""), #(호출, 호출value가 없을 경우)
+    database = os.environ.get("DJANGO_DATAMART", ""),
+    user = os.environ.get("DATABASE_USER", ""),
+    password = os.environ.get("DATABASE_PASSWORD", ""),
+    port = os.environ.get("DATABASE_PORT", "") 
 }

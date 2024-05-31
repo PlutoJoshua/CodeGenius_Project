@@ -12,7 +12,7 @@ def loader(df: pd.DataFrame, db_connector: DBconnector, table_name: str) -> bool
             sqlalchemy_conn = connected.sqlalchemy_connect
             
             df.to_sql(
-                name = "table_name", 
+                name = table_name, 
                 con = sqlalchemy_conn, 
                 if_exists = "append", 
                 index = False
