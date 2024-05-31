@@ -18,7 +18,7 @@ default_args = {
 }
 
 dag = DAG(
-    'Django_Log',
+    'Code-genius',
     default_args=default_args,
     schedule_interval='@daily'
 )

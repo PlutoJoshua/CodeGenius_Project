@@ -18,11 +18,11 @@ class save_data(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
     def __str__(self):
-        return f'Input: {self.user_input}, Output: {self.user_output}'
+        return f'Input: {self.user_input}, Output: {self.chatting_output}'
 
     def save(self, *args, **kwargs):
 
-        logger.info(f'Saving model instance: email={self.email}, user_input={self.user_input}, user_output={self.user_output}')
+        logger.info(f'Saving model instance: email={self.email}, user_input={self.user_input}, chatting_output={self.chatting_output}')
         super().save(*args, **kwargs)
 
     class Meta:

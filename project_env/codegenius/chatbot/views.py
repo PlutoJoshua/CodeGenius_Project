@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.cache import cache
+from django.template.loader import render_to_string
 from .models import save_data
 import logging
 import fasttext
@@ -73,9 +74,9 @@ def chatting(request):
                         email=email,
                         user_input=user_input,
                         chatting_output=chatting_output,
-                        keyword=keyword_result.get('keyword', ''),
-                        code=keyword_result.get('code', ''),
-                        doc_url=keyword_result.get('doc_url', '')
+                        keyword=keyword_output.get('keyword', ''),
+                        code=keyword_output.get('code', ''),
+                        doc_url=keyword_output.get('doc_url', '')
                     )
 
                     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -83,20 +84,13 @@ def chatting(request):
                     #################### chatting.html 렌더링 ####################
                     chatting_html = render_to_string('chatting.html', {
                         'chatting_output': chatting_output, 
-                        'keyword': keyword_result.get('keyword', ''), 
-                        'code': keyword_result.get('code', ''), 
-                        'doc_url': keyword_result.get('doc_url', ''),
+                        'keyword': keyword_output.get('keyword', ''), 
+                        'code': keyword_output.get('code', ''), 
+                        'doc_url': keyword_output.get('doc_url', ''),
                         'current_time': current_time
                     })
 
-                    #################### history.html 렌더링 ####################
-                    ### created_at 기준 내림차순 정렬, email = email ###
-                    history_records = save_data.objects.filter(email=email, chatting_output__ne=0).order_by('-created_at')
-                    history_html = render_to_string('history.html', {
-                        'history_records': history_records
-                    })
-
-                  return HttpResponse(chatting_html + history_html)
+                    return HttpResponse(chatting_html)
 
 
                 except Exception as e:
@@ -120,4 +114,11 @@ def chatting(request):
         return render(request, 'chatting.html')
 
 def history(request):
+    email = request.session.get('email')
+    #################### history.html 렌더링 ####################
+    ### created_at 기준 내림차순 정렬, email = email ###
+    history_records = save_data.objects.filter(email=email).exclude(chatting_output=0).order_by('-created_at')
+    history_html = render_to_string('history.html', {
+        'history_records': history_records
+    })
     return render(request, 'history.html')
