@@ -18,7 +18,7 @@
           justify-content: center;
           align-items: center;
           height: 100vh;
-          background: url("{% static 'img/back.png' %}") no-repeat center center fixed;
+          background: url("{% static 'img/back2.png' %}") no-repeat center center fixed;
           background-size: cover;
           font-family: 'Montserrat', sans-serif; /* 전체 글씨체 설정 */
       }
@@ -35,15 +35,15 @@
       /* 채팅과 코드 예시를 나누는 컨테이너 */
       .chat-container {
           display: flex;
-          flex-direction: row; /* 좌우로 나누기 위해 flex-direction을 row로 설정 */
+          flex-direction: row;  /*좌우로 나누기 위해 flex-direction을 row로 설정 */
           width: 80%;
           height: 70%;
           border: 2px solid #ccc;
           border-radius: 10px;
           overflow: hidden;
           margin-bottom: 10px; /* 입력 영역과의 간격 추가 */
-
       }
+
       .chat-container h2 {
           font-size: 1.2rem;
           margin: 0;
@@ -73,13 +73,10 @@
       }
 
       /* 코드 예시 및 문서 링크 영역 스타일 */
-      .code-area {
+      .code-area-container {
           width: 50%;
           display: flex;
           flex-direction: column;
-          padding: 10px;
-          background-color: black; /* 영역 배경색 검정색으로 설정 */
-          color: white; /* 글씨 색 색으로 설정 */
       }
 
       /* 코드 예시 영역 스타일 */
@@ -88,6 +85,8 @@
           overflow-y: auto; /* 스크롤 가능하도록 설정 */
           border-bottom: 1px solid #ccc; /* 구분선 추가 */
           padding: 10px;
+          background-color: black; /* 영역 배경색 검정색으로 설정 */
+          color: white; /* 글씨 색 흰색으로 설정 */
       }
 
       /* 문서 링크 영역 스타일 */
@@ -95,6 +94,8 @@
           flex: 3;
           overflow-y: auto; /* 스크롤 가능하도록 설정 */
           padding: 10px;
+          background-color: black; /* 영역 배경색 검정색으로 설정 */
+          color: white; /* 글씨 색 흰색으로 설정 */
       }
 
       /* 입력 영역 스타일 */
@@ -267,21 +268,30 @@
     <div class="chat-container">
       <div class="chat-area">
         <h2>대화</h2>
-        <div class="chat-content" id="chat-area"></div>
+        <div class="chat-content" id="chat-area">
+          <div class="message bot-message">
+            <div class="message-content">{{ chatting_output }}</div>
+        </div>
       </div>
-      <div class="code-area">
-        <h2>코드 예시 및 문서 링크</h2>
-        <div id="code-example" class="code-example"></div>
-        <div id="doc-links" class="doc-links"></div>
+      <div class="code-area-container"> <!-- 코드 영역 컨테이너 -->
+        <div class="code-example">
+          <h2>코드 예시</h2>
+          <pre><code>{{ code }}</code></pre> <!-- 코드 예시를 출력 -->
+        </div>
+        <div class="doc-links">
+          <h2>문서 링크</h2>
+          <a href="{{ doc_url }}" target="_blank">{{ keyword }}</a> <!-- 문서 링크를 출력 -->
+        </div>
       </div>
     </div>
     <div class="input-area">
-      <input type="text" id="user-input" placeholder="질문을 입력하세요" required>
+      <input type="text" id="user-input" name="user_input" placeholder="질문을 입력하세요" required>
       <button type="button" onclick="sendMessage()">Send</button>
     </div>
   </div>
 
-  <div id="loader" class="loader"></div>
+  <div id="loader" class="loader"></div>  
+
 
 
   <!-- JavaScript 코드 -->
