@@ -39,6 +39,6 @@ class DBconnector:
         self.sqlalchemy_connect = create_engine(self.sqlalchemy_param)
 
     def get_query(self, table_name: str, batch_date: str) -> str:
-        _query = postgresql_query.queries[table_name]
+        _query = queries.queries[table_name]
         _query = _query.format(batch_date = batch_date)
         return _query

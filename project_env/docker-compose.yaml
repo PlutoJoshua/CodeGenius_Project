@@ -50,6 +50,7 @@ services:
       - postgres-db-volume:/var/lib/postgresql/data
       # log data를 넣기위한 db를 만들기 위해 sql file 사용 #
       # 마운트 #
+      - ./data:/docker-entrypoint-initdb.d
       - ./init_logging.sql:/docker-entrypoint-initdb.d/init_logging.sql
     healthcheck:
       test: ["CMD", "pg_isready", "-U", "${DATABASE_USER}", "-d", "${DJANGO_NAME}"]
