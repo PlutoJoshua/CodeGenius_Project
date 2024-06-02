@@ -22,7 +22,7 @@
         body {
             margin: 0;
             padding: 0;
-            font-family: Arial, sans-serif;
+            font-family: 'Montserrat', sans-serif;
             background: url("{% static 'img/back2.png' %}") no-repeat center center fixed;
             background-size: cover;
             height: 100%; /* body에도 height 지정 */
@@ -114,7 +114,7 @@
             border-top-right-radius: 10px;
             border-bottom-right-radius: 5px;
             box-shadow: 5px 5px 5px -1px gray; /* 그림자 추가 */
-            background-color: #999;
+            background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 */
 
             display: flex;
             align-items: center;
@@ -123,6 +123,7 @@
             padding-left: 5px;
             padding-right: 5px;
             padding-top:5px;
+            color: white; /* 글자색 흰색 */
         }
         .toggle-button {
             width: 60px;
@@ -132,9 +133,10 @@
             background: none; /* 배경 제거 */
             font-weight: 500; /* 글자 굵게 */
             margin-bottom: 3px;
+            color: white; /* 글자색 흰색 */
         }
         .toggle-button:hover {
-            background-color: #e6b5b5;
+            background-color: #ac3232;
         }   
         .history-title {
             text-align: center;
@@ -143,6 +145,7 @@
             margin-bottom: 10px;
             flex-grow: 1; /* 남은 공간을 차지하도록 설정 */
             font-size: 1em;
+            color: white; /* 글자색 흰색 */
         }
 
         .history-bar {
@@ -151,6 +154,7 @@
             left: 2px;
             width: 250px;
             height: calc(100% - 115px);
+            background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 */
             /*background-color: #f0f0f0;*/
             border: 1px solid #ccc;
             padding: 5px;
@@ -160,11 +164,13 @@
             box-shadow: 6px 5px 5px -1px gray; /* 그림자 추가 */
             z-index: 1; /* Ensure history bar is below the button */
             overflow-y: auto; /* 스크롤 추가 */
+            color: white; /* 글자색 흰색 */
         }
         .list-box .date {
             margin-bottom: 10px;
             border-radius: 13px; /* 모서리 둥글게 */
             box-shadow: 4px 5px 5px -1px gray; /* 그림자 추가 */
+            background-color: rgba(255, 255, 255, 0.1); /* 반투명 배경 */
         }
         .date-button{
             display: block;
@@ -172,10 +178,12 @@
             margin-bottom: 5px;
             padding: 5px;
             text-align: center;
-            background-color: #e6b5b5;
+            background-color: rgba(255, 0, 0, 0.3); /* 반투명 배경 */
+            /*background-color: #e6b5b5;*/
             border: none;
             cursor: pointer;
             font-size: 14px;
+            color: white; /* 글자색 흰색 */
         }
         .keyword-button {
             display: block;
@@ -187,10 +195,167 @@
             border: none;
             cursor: pointer;
             font-size: 14px;
+            background-color: rgba(255, 255, 255, 0.2); /* 반투명 배경 */
+            color: white; /* 글자색 흰색 */
         }
         .keyword-button:hover {
             background-image: none;
-            background-color: #e6b5b5;
+            background-color: rgba(230, 181, 181, 0.5); /* 반투명 배경 */
+            /*background-color: #e6b5b5;*/
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: 100%;
+            height: 100%;
+            transition: width 0.3s; /* 애니메이션 추가 */
+            margin-left: 250px; /* 히스토리바를 고려한 시작 위치 */
+        }
+
+        .chat-container {
+            display: flex;
+            flex-direction: row;  /* 좌우로 나누기 위해 flex-direction을 row로 설정 */
+            width: 80%;
+            height: 70%;
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px; /* 입력 영역과의 간격 추가 */
+            transition: width 0.3s; /* 애니메이션 추가 */
+            background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 */
+        }
+
+        .chat-container h2 {
+            font-size: 1.2rem;
+            margin: 0;
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #b1b5b0;
+            background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+            color: white; /* 글자색 흰색 */
+            width: 100%;
+        }
+
+        .chat-area {
+            width: 50%; /* 좌우 5:5 비율 */
+            padding: 10px;
+            overflow-y: auto;  /* 스크롤 가능하도록 설정 */
+            border-right: 1px solid #b1b5b0;
+            background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 */
+            color: white; /* 글자색 흰색 */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-content {
+            flex: 1;
+            overflow-y: auto; /* 스크롤 가능하도록 설정 */
+        }
+
+        .code-area-container {
+            width: 50%; /* 좌우 5:5 비율 */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .code-example {
+            flex: 7; /* 상하 7:3 비율 */
+            overflow-y: auto; /* 스크롤 가능하도록 설정 */
+            border-bottom: 1px solid #ccc; /* 구분선 추가 */
+            padding: 10px;
+            background-color: black; /* 영역 배경색 검정색으로 설정 */
+            color: white; /* 글자색 흰색 */
+        }
+
+        .doc-links {
+            flex: 3; /* 상하 7:3 비율 */
+            overflow-y: auto; /* 스크롤 가능하도록 설정 */
+            padding: 10px;
+            background-color: black; /* 영역 배경색 검정색으로 설정 */
+            color: white; /* 글자색 흰색 */
+        }
+
+        .input-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 90%; /* 입력 영역이 채팅 영역과 동일한 너비를 가짐 */
+            margin-top: 10px; /* 위쪽 간격 추가 */
+        }
+
+        .input-area input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
+
+        .input-area button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: #3498db;
+            color: white;
+            cursor: pointer;
+        }
+
+        .input-area button:hover {
+            background-color: #2980b9;
+        }
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #3498db;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .user-message {
+            justify-content: flex-end;
+        }
+
+        .bot-message {
+            justify-content: flex-start;
+        }
+
+        .message-content {
+            max-width: 60%;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .user-message .message-content {
+            background-color: #3498db;
+            color: white;
+        }
+
+        .bot-message .message-content {
+            background-color: #ecf0f1;
+            color: black;
         }
 
     </style>
@@ -199,7 +364,7 @@
     <!--히스토리바 생성-->
     <div class="history-header">
         <div>
-        <button class="toggle-button" id="toggleButton">▲</button>
+            <button class="toggle-button" id="toggleButton">▲</button>
         </div>
         <div class="history-title">
             {% if userDB.userName %}
@@ -275,14 +440,43 @@
         </div>
     </div>
 
+    <div class="container" id="container">
+        <div class="chat-container" id="chatContainer">
+            <div class="chat-area">
+                <h2>대화</h2>
+                <div class="chat-content" id="chat-area">
+                    <div class="message bot-message">
+                        <div class="message-content">{{ chatting_output }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="code-area-container">
+                <div class="code-example">
+                    <h2>코드 예시</h2>
+                    <pre><code>{{ code }}</code></pre>
+                </div>
+                <div class="doc-links">
+                    <h2>문서 링크</h2>
+                    <a href="{{ doc_url }}" target="_blank">{{ keyword }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         document.getElementById('toggleButton').addEventListener('click', function() {
             var historyBar = document.getElementById('historyBar');
+            var container = document.getElementById('container');
+            var chatContainer = document.getElementById('chatContainer');
             if (historyBar.style.display === 'none') {
                 historyBar.style.display = 'block';
+                container.style.marginLeft = '250px';
+                chatContainer.style.width = '80%';
                 this.textContent = '▲';
             } else {
                 historyBar.style.display = 'none';
+                container.style.marginLeft = '0';
+                chatContainer.style.width = '100%';
                 this.textContent = '▼';
             }
         });
