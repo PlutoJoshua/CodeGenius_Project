@@ -114,11 +114,9 @@ def chatting(request):
         return render(request, 'chatting.html')
 
 def history(request):
-    email = request.session.get('email')
     #################### history.html 렌더링 ####################
     ### created_at 기준 내림차순 정렬, email = email ###
-    history_records = save_data.objects.filter(email=email).exclude(chatting_output=0).order_by('-created_at')
-    history_html = render_to_string('history.html', {
-        'history_records': history_records
-    })
-    return render(request, 'history.html')
+    history_records = save_data.objects.filter(email=request.session.get('email')).exclude(chatting_output=0).order_by('-created_at')
+
+    # history.html에 history_records 전달
+    return render(request, 'history.html', {'history_records': history_records})
