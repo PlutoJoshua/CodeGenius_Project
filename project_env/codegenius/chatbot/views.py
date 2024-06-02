@@ -19,7 +19,7 @@ def homepage(request):
         email = request.POST.get('email')
         ### 이메일을 session에 저장 ###
         request.session['email'] = email
-        logger.info(f'User Logged In: {email}')
+        logger.info(f'HOMEPAGE // User Logged In: {email}')
         ### chatting 페이지로 리디렉션 ###
         return redirect('chatting')    
 
@@ -33,6 +33,8 @@ def chatting(request):
         logger.warning("views.py/chatting -> This is login_view warning - user email is NONE")
         return redirect('homepage')  
     
+    logger.info(f"CHATTING // session email: {request.session.get('email')}")
+
     ### fasttext classification model setting ###
     classification_model_path = '/app/chatbot/service_model/fasttext_model_v1.bin'
     threshold = 0.7
@@ -114,6 +116,14 @@ def chatting(request):
         return render(request, 'chatting.html')
 
 def history(request):
+    email = request.session.get('email')
+    if email is None:
+    ### chatting page로 바로 접속하여 서비스 이용시 에러 log ### 
+        logger.warning("views.py/history -> This is login_view warning - user email is NONE")
+        return redirect('homepage')  
+
+    logger.info(f"HISTORY // session email: {request.session.get('email')}")
+    
     #################### history.html 렌더링 ####################
     ### created_at 기준 내림차순 정렬, email = email ###
     history_records = save_data.objects.filter(email=request.session.get('email')).exclude(chatting_output=0).order_by('-created_at')
