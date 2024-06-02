@@ -42,9 +42,8 @@ psql -U service -d {DB}
 
 > DB / TABLE LIST
 
-DB: django_log        
-test_log -> 로그 데이터
- 
-DB: django_db             
-keyword -> keyword 추출              
-test_io -> data                  
+* DB: django_db             
+  * django_io -> data          
+  * django_log -> log data                       
+  * keyword -> keyword 추출              
+* DB: django_datamart
