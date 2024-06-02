@@ -42,6 +42,7 @@
           border-radius: 10px;
           overflow: hidden;
           margin-bottom: 10px; /* 입력 영역과의 간격 추가 */
+          background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 */
       }
 
       .chat-container h2 {
@@ -50,8 +51,9 @@
           padding: 10px;
           text-align: center;
           border-bottom: 1px solid #b1b5b0;
-          background-color: #f5f5f5;
-          color: black;
+          background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+          /*background-color: #f5f5f5;*/
+          color: white;
           width: 100%;
       }
 
@@ -61,8 +63,9 @@
           padding: 10px;
           overflow-y: auto;  /* 스크롤 가능하도록 설정 */
           border-right: 1px solid #b1b5b0;
-          background-color: rgb(78, 79, 78);
-          color: black; /* 글씨 색 색으로 설정 */
+          /*background-color: rgb(78, 79, 78);*/
+          background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 */
+          color: white; /* 글씨 색 색으로 설정 */
           display: flex;
           flex-direction: column;
       }
@@ -273,22 +276,22 @@
             <div class="message-content">{{ chatting_output }}</div>
         </div>
       </div>
-      <div class="code-area-container"> <!-- 코드 영역 컨테이너 -->
-        <div class="code-example">
-          <h2>코드 예시</h2>
-          <pre><code>{{ code }}</code></pre> <!-- 코드 예시를 출력 -->
-        </div>
-        <div class="doc-links">
-          <h2>문서 링크</h2>
-          <a href="{{ doc_url }}" target="_blank">{{ keyword }}</a> <!-- 문서 링크를 출력 -->
-        </div>
+    </div>
+    <div class="code-area-container"> <!-- 코드 영역 컨테이너 -->
+      <div class="code-example">
+        <h2>코드 예시</h2>
+        <pre><code>{{ code }}</code></pre> <!-- 코드 예시를 출력 -->
+      </div>
+      <div class="doc-links">
+        <h2>문서 링크</h2>
+        <a href="{{ doc_url }}" target="_blank">{{ keyword }}</a> <!-- 문서 링크를 출력 -->
       </div>
     </div>
+  </div>
 
-    <div class="input-area">
-      <input type="text" id="user-input" name="user_input" placeholder="질문을 입력하세요" required>
-      <button type="button" onclick="sendMessage()">Send</button>
-    </div>
+  <div class="input-area">
+    <input type="text" id="user-input" name="user_input" placeholder="질문을 입력하세요" required>
+    <button type="button" onclick="sendMessage()">Send</button>
   </div>
 
   <div id="loader" class="loader"></div>  
