@@ -1,6 +1,5 @@
-CREATE DATABASE django_log;
-CREATE DATABASE django_datamart;
 CREATE DATABASE django_db;
+CREATE DATABASE django_datamart;
 
 -------------------------------------------------------
 
@@ -22,9 +21,9 @@ CREATE TABLE IF NOT EXISTS keyword (
 -- Data load
 COPY keyword FROM '/docker-entrypoint-initdb.d/keyword.csv' DELIMITER ',' CSV HEADER;
 
-\c django_log;
+\c django_db;
 
-CREATE TABLE IF NOT EXISTS test_log (
+CREATE TABLE IF NOT EXISTS django_log (
     id SERIAL PRIMARY KEY,
     log_level VARCHAR(10) NOT NULL,
     insertTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP, 

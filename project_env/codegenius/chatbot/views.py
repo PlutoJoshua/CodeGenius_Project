@@ -44,7 +44,7 @@ def chatting(request):
     ### User input ###
     if request.method == 'POST':
         user_input = request.POST.get('user_input')
-        logger.info(f'user input: {user_input}')
+        logger.info(f'USER-INPUT | user input: {user_input}')
 
     ############################################################################# 파이썬 분류 모델 #############################################################################
         try:
@@ -78,7 +78,8 @@ def chatting(request):
                         chatting_output=chatting_output,
                         keyword=keyword_output.get('keyword', ''),
                         code=keyword_output.get('code', ''),
-                        doc_url=keyword_output.get('doc_url', '')
+                        doc_url=keyword_output.get('doc_url', ''),
+                        classification_label = 1
                     )
 
                     current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -104,9 +105,9 @@ def chatting(request):
                 record = save_data.objects.create(
                     email=email,
                     user_input=user_input,
-                    chatting_output=classification_output
+                    classification_label = 0
                 )
-                return render(request, 'chatting.html', {'chatting_output': '파이썬에 관한 질문만 해. 사람 화나게하지 말고'})
+                return render(request, 'chatting.html', {'chatting_output': '파이썬에 관해 궁금한 점은 없으신가요?'})
         
         except Exception as e:
             logger.error(f'views.py/chatting -> Failed to response: chatbot_model = {email}, input: {user_input}, error: {str(e)}')           

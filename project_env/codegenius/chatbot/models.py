@@ -13,6 +13,7 @@ class save_data(models.Model):
     keyword = models.CharField(max_length=255, blank=True, null=True)
     code = models.CharField(max_length=255, blank=True, null=True)
     doc_url = models.CharField(max_length=255, blank=True, null=True)
+    classification_label = models.CharField(max_length=10, blank=True, null=True)
     ### 시간 ###
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
@@ -26,4 +27,4 @@ class save_data(models.Model):
         super().save(*args, **kwargs)
 
     class Meta:
-        db_table = 'test_io'
+        db_table = 'django_io'

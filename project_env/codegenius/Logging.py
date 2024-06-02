@@ -12,7 +12,7 @@ class DatabaseHandler(logging.Handler):
     def connect(self):
         ### postgresql connect 및 cursor 설정 ###
         self.conn = psycopg2.connect(
-            dbname = 'django_log',
+            dbname = 'django_db',
             user = 'service',
             password = 'service',
             host = 'postgres',
@@ -23,7 +23,7 @@ class DatabaseHandler(logging.Handler):
         with self.conn.cursor() as cur:
             ### db table 생성(test_log) -> 없을 경우 ###
             create_table_query = '''
-                CREATE TABLE IF NOT EXISTS test_log (
+                CREATE TABLE IF NOT EXISTS django_log (
                     id SERIAL PRIMARY KEY,
                     log_level VARCHAR(10),
                     insertTime TIMESTAMPTZ,
