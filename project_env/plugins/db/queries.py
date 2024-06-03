@@ -6,14 +6,14 @@ queries = {
             substring(log_message FROM '^(.*?)//') AS log_message
         FROM django_log 
         WHERE log_message LIKE '%//%' 
-        AND inserttime::date = '2024-06-03')
+        AND inserttime::date = %(batchdate)s)
 
     SELECT 
         log_message AS html,
         COUNT(log_message) AS access_count,
         inserttime::date as date
     FROM T1
-    WHERE inserttime::date = '2024-06-03'
+    WHERE inserttime::date = %(batchdate)s
     GROUP BY
         log_message, 
         inserttime::date
@@ -40,7 +40,7 @@ queries = {
                 substring(log_message FROM '^(.*?)//') AS log_message
             FROM django_log 
             WHERE log_message LIKE '%//%' 
-            AND inserttime::date = '2024-06-03'
+            AND inserttime::date = %(batchdate)s
         ),
         GROUPED_T1 AS (
             SELECT 
@@ -54,7 +54,7 @@ queries = {
     SELECT
         BASE.N AS HOUR,
         COALESCE(GROUPED_T1.COUNT, 0) AS COUNT,
-        '2024-06-03'::date AS DATE
+        %(batchdate)s::date AS DATE
     FROM 
         BASE
     LEFT JOIN
@@ -74,11 +74,12 @@ queries = {
     FROM django_io 
     WHERE 
         keyword is not null
-        AND updated_at::date = '2024-06-03'
+        AND updated_at::date = %(batchdate)s
     GROUP BY
         keyword,
         updated_at::date
     ORDER BY
+        keyword_count desc,
         keyword asc
     LIMIT 7
     ;

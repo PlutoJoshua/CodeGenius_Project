@@ -7,17 +7,18 @@ dotenv.load_dotenv(env_path)
 DB_SETTINGS = {
     "DJANGO_db" : dict(
         engine = os.environ.get("DATABASE_ENGINE", ""),
-        host = os.environ.get("DATABASE_HOST", ""), #(호출, 호출value가 없을 경우)
+        host = os.environ.get("DATABASE_HOST", ""),
         database = os.environ.get("DJANGO_NAME", ""),
         user = os.environ.get("DATABASE_USER", ""),
         password = os.environ.get("DATABASE_PASSWORD", ""),
         port = os.environ.get("DATABASE_PORT", "") 
     ),
     "DJANGO_datamart" : dict(
-    engine = os.environ.get("DATABASE_ENGINE", ""),
-    host = os.environ.get("DATABASE_HOST", ""), #(호출, 호출value가 없을 경우)
-    database = os.environ.get("DJANGO_DATAMART", ""),
-    user = os.environ.get("DATABASE_USER", ""),
-    password = os.environ.get("DATABASE_PASSWORD", ""),
-    port = os.environ.get("DATABASE_PORT", "") 
+        engine = os.environ.get("DATABASE_ENGINE", ""),
+        host = os.environ.get("DATABASE_HOST", ""),
+        database = os.environ.get("DJANGO_DATAMART", ""), 
+        user = os.environ.get("DATABASE_USER", ""),
+        password = os.environ.get("DATABASE_PASSWORD", ""),
+        port = os.environ.get("DATABASE_PORT", "")
+    ),
 }
