@@ -14,19 +14,33 @@
 
     <!--전체 css-->
     <style>
-        html {
+        html, body {
             margin: 0;
             padding: 0;
             height: 100%;
         }
         body {
-            margin: 0;
-            padding: 0;
+
             font-family: 'Montserrat', sans-serif;
             background: url("{% static 'img/back2.png' %}") no-repeat center center fixed;
             background-size: cover;
-            height: 100%; /* body에도 height 지정 */
+
         }
+
+        /* 모든 요소의 기본 스타일 초기화 */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        outline: none; /* 포커스된 요소의 외곽선을 제거 */
+    }
+
+    /* 특정 요소 초기화 */
+    button, input, textarea {
+        border: none;
+        outline: none;
+        background: none;
+    }
     </style>
 
 
@@ -54,7 +68,7 @@
             font-weight: 780;
         }
         .navbar .logo:hover {
-            color: #ac3232;  /* 붉은색 텍스트 (호버 시) */
+            color: #34D6DA;  /* 민트색 텍스트 (호버 시) */
         }
         .navbar .menu-container {
             display: flex;
@@ -71,7 +85,7 @@
             position: relative; /* border-bottom을 위한 상대 위치 */
         }
         .navbar .menu-item:hover {
-            border-bottom: 4px solid #ac3232; /* 붉은색 밑줄 */
+            border-bottom: 4px solid #34D6DA; /* 민트색 밑줄 */
         }
         .navbar .menu-item a {
             color: #000;  /* 메뉴글자 색깔 */
@@ -81,7 +95,7 @@
             transition: color 0.1s;
         }
         .navbar .menu-item a:hover {
-            color: #ac3232;  /* 붉은색 텍스트 (호버 시) */
+            color: #34D6DA;  /* 민트색 텍스트 (호버 시) */
             text-decoration: node;
         }
     </style>
@@ -107,7 +121,7 @@
     <style>
         .history-header {
             position: fixed;
-            width: 253px;
+            width: 300px;
             margin-top: 62px;
             z-index: 1000; /* Ensures the button is always on top */
             border: 1px solid #ccc;
@@ -136,7 +150,7 @@
             color: white; /* 글자색 흰색 */
         }
         .toggle-button:hover {
-            background-color: #ac3232;
+            background-color: #34D6DA;
         }   
         .history-title {
             text-align: center;
@@ -152,7 +166,7 @@
             position: fixed;
             top: 0;
             left: 2px;
-            width: 250px;
+            width: 295px;
             height: calc(100% - 115px);
             background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 */
             /*background-color: #f0f0f0;*/
@@ -178,7 +192,7 @@
             margin-bottom: 5px;
             padding: 5px;
             text-align: center;
-            background-color: rgba(255, 0, 0, 0.3); /* 반투명 배경 */
+            background-color: rgba(52, 214, 218, 0.7); /* 반투명 배경 */
             /*background-color: #e6b5b5;*/
             border: none;
             cursor: pointer;
@@ -200,7 +214,7 @@
         }
         .keyword-button:hover {
             background-image: none;
-            background-color: rgba(230, 181, 181, 0.5); /* 반투명 배경 */
+            background-color: rgba(52, 214, 218, 0.7); /* 반투명 배경 */
             /*background-color: #e6b5b5;*/
         }
 
@@ -209,17 +223,18 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            width: 100%;
+            width: calc(100% - 250px); /* 히스토리바를 고려한 너비 설정 */
             height: 100%;
-            transition: width 0.3s; /* 애니메이션 추가 */
+            transition: margin-left 0.3s, width 0.3s; /* 애니메이션 추가 */
             margin-left: 250px; /* 히스토리바를 고려한 시작 위치 */
         }
 
         .chat-container {
             display: flex;
             flex-direction: row;  /* 좌우로 나누기 위해 flex-direction을 row로 설정 */
-            width: 80%;
+            width: 100%;
             height: 70%;
+            max-width: 2000px; /* 최대 너비 설정 */
             border: 2px solid #ccc;
             border-radius: 10px;
             overflow: hidden;
@@ -300,18 +315,18 @@
             font-size: 16px;
             border-radius: 5px;
             border: none;
-            background-color: #3498db;
+            background-color: #34D6DA;
             color: white;
             cursor: pointer;
         }
 
         .input-area button:hover {
-            background-color: #2980b9;
+            background-color: #34D6DA;
         }
 
         .loader {
             border: 16px solid #f3f3f3;
-            border-top: 16px solid #3498db;
+            border-top: 16px solid #34D6DA;
             border-radius: 50%;
             width: 120px;
             height: 120px;
@@ -349,7 +364,7 @@
         }
 
         .user-message .message-content {
-            background-color: #3498db;
+            background-color: #34D6DA;
             color: white;
         }
 
@@ -443,7 +458,7 @@
     <div class="container" id="container">
         <div class="chat-container" id="chatContainer">
             <div class="chat-area">
-                <h2>대화</h2>
+                <h2>Chat</h2>
                 <div class="chat-content" id="chat-area">
                     <div class="message bot-message">
                         <div class="message-content">{{ chatting_output }}</div>
@@ -452,11 +467,11 @@
             </div>
             <div class="code-area-container">
                 <div class="code-example">
-                    <h2>코드 예시</h2>
+                    <h2>Examples</h2>
                     <pre><code>{{ code }}</code></pre>
                 </div>
                 <div class="doc-links">
-                    <h2>문서 링크</h2>
+                    <h2>Docs</h2>
                     <a href="{{ doc_url }}" target="_blank">{{ keyword }}</a>
                 </div>
             </div>
@@ -471,15 +486,39 @@
             if (historyBar.style.display === 'none') {
                 historyBar.style.display = 'block';
                 container.style.marginLeft = '250px';
-                chatContainer.style.width = '80%';
+                container.style.width = 'calc(100% - 250px)';
+                chatContainer.style.width = '100%';
+                chatContainer.style.maxWidth = '1200px';
                 this.textContent = '▲';
             } else {
                 historyBar.style.display = 'none';
                 container.style.marginLeft = '0';
+                container.style.width = '100%';
                 chatContainer.style.width = '100%';
+                chatContainer.style.maxWidth = '2000px';
                 this.textContent = '▼';
             }
         });
+
+        // 키워드 버튼 클릭 시 대화 내용을 불러오는 함수 추가
+        document.querySelectorAll('.keyword-button').forEach(button => {
+            button.addEventListener('click', function() {
+                var keyword = this.textContent;
+                fetchConversation(keyword);
+            });
+        });
+
+        function fetchConversation(keyword) {
+            // 여기서 AJAX 요청을 보내서 해당 키워드에 따른 대화 내용을 불러옵니다.
+            // 이 예제에서는 간단히 예시 응답을 보여줍니다.
+            var chatArea = document.getElementById('chat-area');
+            chatArea.innerHTML = ''; // 기존 대화 내용 지우기
+
+            var botMessage = document.createElement('div');
+            botMessage.className = 'message bot-message';
+            botMessage.innerHTML = `<div class="message-content">대화 내용 불러오기: ${keyword}</div>`;
+            chatArea.appendChild(botMessage);
+        }
     </script>
 
 </body>
