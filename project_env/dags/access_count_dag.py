@@ -13,7 +13,7 @@ from utils.execution_time_check import ElapseTime
 
 default_args = {
     'owner': 'airflow',
-    'start_date': datetime(2099, 1, 1, 8, 0, 0, tzinfo=pytz.timezone('Asia/Seoul')),
+    'start_date': datetime(2024, 6, 3, 8, 0, 0, tzinfo=pytz.timezone('Asia/Seoul')),
     'retries': 1,
     'retry_delay': timedelta(minutes=5)
 }
@@ -31,8 +31,8 @@ dag = DAG(
 def extract_data(**kwargs):
     db_obj = DBconnector(**DB_SETTINGS["DJANGO_db"])
     table_name = "codegenius_access_count"
-    _date = datetime.now() #- timedelta(days=1)
-    batch_date = _date.strftime("%Y-%m-%d")
+    _date = datetime.now() - timedelta(days=1)
+    batch_date = _date.date()
     with ElapseTime():
         print("extract_data 시작")
         extracted_data = extractor(db_connector=db_obj, table_name=table_name, batch_date=batch_date)

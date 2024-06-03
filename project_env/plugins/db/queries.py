@@ -6,14 +6,14 @@ queries = {
             substring(log_message FROM '^(.*?)//') AS log_message
         FROM django_log 
         WHERE log_message LIKE '%//%' 
-        AND inserttime::date = %(batchdate)s)
-
+        AND inserttime::date = '{batch_date}'
+    )
     SELECT 
         log_message AS html,
         COUNT(log_message) AS access_count,
         inserttime::date as date
     FROM T1
-    WHERE inserttime::date = %(batchdate)s
+    WHERE inserttime::date = '{batch_date}'
     GROUP BY
         log_message, 
         inserttime::date
@@ -40,7 +40,7 @@ queries = {
                 substring(log_message FROM '^(.*?)//') AS log_message
             FROM django_log 
             WHERE log_message LIKE '%//%' 
-            AND inserttime::date = %(batchdate)s
+            AND inserttime::date = '{batch_date}'
         ),
         GROUPED_T1 AS (
             SELECT 
@@ -54,7 +54,7 @@ queries = {
     SELECT
         BASE.N AS HOUR,
         COALESCE(GROUPED_T1.COUNT, 0) AS COUNT,
-        %(batchdate)s::date AS DATE
+        '{batch_date}' AS DATE
     FROM 
         BASE
     LEFT JOIN
@@ -74,7 +74,7 @@ queries = {
     FROM django_io 
     WHERE 
         keyword is not null
-        AND updated_at::date = %(batchdate)s
+        AND updated_at::date = '{batch_date}'
     GROUP BY
         keyword,
         updated_at::date

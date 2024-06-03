@@ -32,8 +32,9 @@ def extract_data():
     print(DB_SETTINGS["DJANGO_db"])
     db_obj = DBconnector(**DB_SETTINGS["DJANGO_db"])
     table_name = "codegenius_time_distribution"
-    _date = datetime.now()# - timedelta(days=1)
-    batch_date = _date.strftime("%Y-%m-%d")
+    _date = datetime.now() - timedelta(days=1)
+    batch_date = _date.date()
+    print(batch_date)
     with ElapseTime():
         print("extract_data 시작")
         return extractor(db_connector=db_obj, table_name=table_name, batch_date=batch_date)
