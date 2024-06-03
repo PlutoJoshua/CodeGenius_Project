@@ -21,7 +21,7 @@ class DatabaseHandler(logging.Handler):
         ### auto commit ###
         self.conn.autocommit = True 
         with self.conn.cursor() as cur:
-            ### db table 생성(test_log) -> 없을 경우 ###
+            ### db table 생성(django_log) -> 없을 경우 ###
             create_table_query = '''
                 CREATE TABLE IF NOT EXISTS django_log (
                     id SERIAL PRIMARY KEY,
@@ -40,7 +40,7 @@ class DatabaseHandler(logging.Handler):
             self.connect()
 
         insert_log_query = '''
-            INSERT INTO test_log (log_level, insertTime, file_name, lineno, log_message)
+            INSERT INTO django_log (log_level, insertTime, file_name, lineno, log_message)
             VALUES (%s, %s, %s, %s, %s)
         '''
         insert_time = datetime.fromtimestamp(record.created).isoformat()

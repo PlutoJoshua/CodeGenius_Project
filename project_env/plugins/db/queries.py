@@ -1,4 +1,86 @@
 queries = {
-    "test_data" : "SELECT * FROM test_io WHERE created_at::date = '{batch_date}'::date",
-    "test_log"  : "SELECT * FROM test_log WHERE insertTime::date = '{batch_date}'::date"
-}
+    "codegenius_access_count" : 
+    """
+    WITH T1 AS (SELECT 
+            inserttime,
+            substring(log_message FROM '^(.*?)//') AS log_message
+        FROM django_log 
+        WHERE log_message LIKE '%//%' 
+        AND inserttime::date = '2024-06-03')
+
+    SELECT 
+        log_message AS html,
+        COUNT(log_message) AS access_count,
+        inserttime::date as date
+    FROM T1
+    WHERE inserttime::date = '2024-06-03'
+    GROUP BY
+        log_message, 
+        inserttime::date
+    ORDER BY
+        log_message ASC
+    ;
+    """,
+
+    "codegenius_time_distribution" :
+    """
+    WITH RECURSIVE BASE(N) AS (
+        SELECT 0
+        
+        UNION ALL
+        
+        SELECT N+1
+        FROM BASE 
+        WHERE 
+            N < 23
+        ),
+        T1 AS (
+            SELECT 
+                inserttime,
+                substring(log_message FROM '^(.*?)//') AS log_message
+            FROM django_log 
+            WHERE log_message LIKE '%//%' 
+            AND inserttime::date = '2024-06-03'
+        ),
+        GROUPED_T1 AS (
+            SELECT 
+                EXTRACT(HOUR FROM inserttime) AS HOUR,
+                COUNT(*) AS COUNT,
+                inserttime::date AS date
+            FROM T1
+            GROUP BY EXTRACT(HOUR FROM inserttime), inserttime::date
+        )
+
+    SELECT
+        BASE.N AS HOUR,
+        COALESCE(GROUPED_T1.COUNT, 0) AS COUNT,
+        '2024-06-03'::date AS DATE
+    FROM 
+        BASE
+    LEFT JOIN
+        GROUPED_T1
+    ON BASE.N = GROUPED_T1.HOUR
+    ORDER BY
+        BASE.N
+    ;
+    """,
+
+    "codegenius_keyword" :
+    """
+    SELECT
+	keyword,
+	COUNT(keyword) AS keyword_count,
+	updated_at::date AS date
+    FROM django_io 
+    WHERE 
+        keyword is not null
+        AND updated_at::date = '2024-06-03'
+    GROUP BY
+        keyword,
+        updated_at::date
+    ORDER BY
+        keyword asc
+    LIMIT 7
+    ;
+    """
+}   
