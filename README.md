@@ -46,4 +46,8 @@ psql -U service -d {DB}
   * django_io -> data          
   * django_log -> log data                       
   * keyword -> keyword 추출              
+  * keyword_top7 -> 전일 keyword 빈도수 탑 7
 * DB: django_datamart
+  * access_count -> 전일 html 접속 카운트
+  * time_distribution -> 전일 시간 별 행동 수
+  

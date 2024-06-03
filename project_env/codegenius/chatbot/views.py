@@ -33,8 +33,6 @@ def chatting(request):
         logger.warning("views.py/chatting -> This is login_view warning - user email is NONE")
         return redirect('homepage')  
     
-    logger.info(f"CHATTING // session email: {request.session.get('email')}")
-
     ### fasttext classification model setting ###
     classification_model_path = '/app/chatbot/service_model/fasttext_model_v1.bin'
     threshold = 0.7
@@ -45,7 +43,7 @@ def chatting(request):
     if request.method == 'POST':
         user_input = request.POST.get('user_input')
         logger.info(f'USER-INPUT | user input: {user_input}')
-
+        logger.info(f"CHATTING // session email: {request.session.get('email')}")
     ############################################################################# 파이썬 분류 모델 #############################################################################
         try:
             classification_output = classificate_user_input(
