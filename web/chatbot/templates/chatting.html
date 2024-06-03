@@ -1,314 +1,301 @@
 {% load static %}
 <!doctype html>
 <html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
-    <title>chatting</title>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}">
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+  <title>chatting</title>
 
-    <!-- 전체 스타일 설정 -->
-    <style>
-      body {
-          margin: 0;
-          padding: 0;
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          height: 100vh;
-          background: url("{% static 'img/back2.png' %}") no-repeat center center fixed;
-          background-size: cover;
-          font-family: 'Montserrat', sans-serif; /* 전체 글씨체 설정 */
-      }
+  <!-- 전체 스타일 설정 -->
+  <style>
+    body {
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+        background: url("{% static 'img/back2.png' %}") no-repeat center center fixed;
+        background-size: cover;
+        font-family: 'Montserrat', sans-serif; /* 전체 글씨체 설정 */
+    }
 
-      .container {
-          display: flex;
-          flex-direction: column;
-          justify-content: center;
-          align-items: center;
-          width: 100%;
-          height: 100%;
-      }
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+        height: 100%;
+    }
 
-      /* 채팅과 코드 예시를 나누는 컨테이너 */
-      .chat-container {
-          display: flex;
-          flex-direction: row;  /*좌우로 나누기 위해 flex-direction을 row로 설정 */
-          width: 80%;
-          height: 70%;
-          border: 2px solid #ccc;
-          border-radius: 10px;
-          overflow: hidden;
-          margin-bottom: 10px; /* 입력 영역과의 간격 추가 */
-          background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 */
-      }
+    /* 채팅과 코드 예시를 나누는 컨테이너 */
+    .chat-container {
+        display: flex;
+        flex-direction: row;  /*좌우로 나누기 위해 flex-direction을 row로 설정 */
+        width: 80%;
+        height: 70%;
+        border: 2px solid #ccc;
+        border-radius: 10px;
+        overflow: hidden;
+        margin-bottom: 10px; /* 입력 영역과의 간격 추가 */
+        background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 */
+    }
 
-      .chat-container h2 {
-          font-size: 1.2rem;
-          margin: 0;
-          padding: 10px;
-          text-align: center;
-          border-bottom: 1px solid #b1b5b0;
-          background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
-          /*background-color: #f5f5f5;*/
-          color: white;
-          width: 100%;
-      }
+    .chat-container h2 {
+        font-size: 1.2rem;
+        margin: 0;
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #b1b5b0;
+        background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+        /*background-color: #f5f5f5;*/
+        color: white;
+        width: 100%;
+    }
 
-      /* 채팅 영역 스타일 */
-      .chat-area {
-          width: 50%;
-          padding: 10px;
-          overflow-y: auto;  /* 스크롤 가능하도록 설정 */
-          border-right: 1px solid #b1b5b0;
-          /*background-color: rgb(78, 79, 78);*/
-          background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 */
-          color: white; /* 글씨 색 색으로 설정 */
-          display: flex;
-          flex-direction: column;
-      }
+    /* 채팅 영역 스타일 */
+    .chat-area {
+        width: 50%;
+        padding: 10px;
+        overflow-y: auto;  /* 스크롤 가능하도록 설정 */
+        border-right: 1px solid #b1b5b0;
+        /*background-color: rgb(78, 79, 78);*/
+        background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 */
+        color: white; /* 글씨 색 색으로 설정 */
+        display: flex;
+        flex-direction: column;
+    }
 
-      .chat-content {
-          flex: 1;
-          overflow-y: auto; /* 스크롤 가능하도록 설정 */
-      }
+    .chat-content {
+        flex: 1;
+        overflow-y: auto; /* 스크롤 가능하도록 설정 */
+    }
 
-      /* 코드 예시 및 문서 링크 영역 스타일 */
-      .code-area-container {
-          width: 50%;
-          display: flex;
-          flex-direction: column;
-      }
+    /* 코드 예시 및 문서 링크 영역 스타일 */
+    .code-area-container {
+        width: 50%;
+        display: flex;
+        flex-direction: column;
+    }
 
-      /* 코드 예시 영역 스타일 */
-      .code-example {
-          flex: 7;
-          overflow-y: auto; /* 스크롤 가능하도록 설정 */
-          border-bottom: 1px solid #ccc; /* 구분선 추가 */
-          padding: 10px;
-          background-color: black; /* 영역 배경색 검정색으로 설정 */
-          color: white; /* 글씨 색 흰색으로 설정 */
-      }
+    /* 코드 예시 영역 스타일 */
+    .code-example {
+        flex: 7;
+        overflow-y: auto; /* 스크롤 가능하도록 설정 */
+        border-bottom: 1px solid #ccc; /* 구분선 추가 */
+        padding: 10px;
+        background-color: black; /* 영역 배경색 검정색으로 설정 */
+        color: white; /* 글씨 색 흰색으로 설정 */
+    }
 
-      /* 문서 링크 영역 스타일 */
-      .doc-links {
-          flex: 3;
-          overflow-y: auto; /* 스크롤 가능하도록 설정 */
-          padding: 10px;
-          background-color: black; /* 영역 배경색 검정색으로 설정 */
-          color: white; /* 글씨 색 흰색으로 설정 */
-      }
+    /* 문서 링크 영역 스타일 */
+    .doc-links {
+        flex: 3;
+        overflow-y: auto; /* 스크롤 가능하도록 설정 */
+        padding: 10px;
+        background-color: black; /* 영역 배경색 검정색으로 설정 */
+        color: white; /* 글씨 색 흰색으로 설정 */
+    }
 
-      /* 입력 영역 스타일 */
-      .input-area {
-          display: flex;
-          justify-content: center;
-          align-items: center;
-          width: 90%; /* 입력 영역이 채팅 영역과 동일한 너비를 가짐 */
-          margin-top: 10px; /* 위쪽 간격 추가 */
+    /* 입력 영역 스타일 */
+    .input-area {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        width: 90%; /* 입력 영역이 채팅 영역과 동일한 너비를 가짐 */
+        margin-top: 10px; /* 위쪽 간격 추가 */
 
-      }
+    }
 
-      /* 텍스트 입력 필드 스타일 */
-      .input-area input[type="text"] {
-          width: 80%;
-          padding: 10px;
-          font-size: 16px;
-          border-radius: 5px;
-          border: 1px solid #ccc;
-          margin-right: 10px;
-      }
+    /* 텍스트 입력 필드 스타일 */
+    .input-area input[type="text"] {
+        width: 80%;
+        padding: 10px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        margin-right: 10px;
+    }
 
-      /* 버튼 스타일 */
-      .input-area button {
-          padding: 10px 20px;
-          font-size: 16px;
-          border-radius: 5px;
-          border: none;
-          background-color: #3498db;
-          color: white;
-          cursor: pointer;
-      }
+    /* 버튼 스타일 */
+    .input-area button {
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        border: none;
+        background-color: #34D6DA;
+        color: white;
+        cursor: pointer;
+    }
 
-      /* 버튼 호버 스타일 */
-      .input-area button:hover {
-          background-color: #2980b9;
-      }
+    /* 버튼 호버 스타일 */
+    .input-area button:hover {
+        background-color: #34D6DA;
+    }
 
-      /* 로딩 아이콘 스타일 */
-      .loader {
-          border: 16px solid #f3f3f3;
-          border-top: 16px solid #3498db;
-          border-radius: 50%;
-          width: 120px;
-          height: 120px;
-          animation: spin 2s linear infinite;
-          position: fixed;
-          top: 50%;
-          left: 50%;
-          transform: translate(-50%, -50%);
-          display: none;
-      }
+    /* 로딩 아이콘 스타일 */
+    .loader {
+        border: 8px solid #f3f3f3;
+        border-top: 8px solid #34D6DA;
+        border-radius: 50%;
+        width: 30px;
+        height: 30px;
+        animation: spin 1s linear infinite;
+    }
 
-      /* 회전 애니메이션 */
-      @keyframes spin {
-          0% { transform: translate(-50%, -50%) rotate(0deg); }
-          100% { transform: translate(-50%, -50%) rotate(360deg); }
-      }
+    /* 회전 애니메이션 */
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
+    }
 
-      /* 말풍선 스타일 */
-      .message {
-          display: flex;
-          margin-bottom: 10px;
-          align-items: center;
-      }
+    /* 말풍선 스타일 */
+    .message {
+        display: flex;
+        margin-bottom: 10px;
+        align-items: center;
+    }
 
-      /* 사용자 메시지 스타일 */
-      .user-message {
-          justify-content: flex-end;
-      }
+    /* 사용자 메시지 스타일 */
+    .user-message {
+        justify-content: flex-end;
+    }
 
-      /* 봇 메시지 스타일 */
-      .bot-message {
-          justify-content: flex-start;
-      }
+    /* 봇 메시지 스타일 */
+    .bot-message {
+        justify-content: flex-start;
+    }
 
-      /* 메시지 내용 스타일 */
-      .message-content {
-          max-width: 60%;
-          padding: 10px;
-          border-radius: 10px;
-      }
+    /* 메시지 내용 스타일 */
+    .message-content {
+        max-width: 60%;
+        padding: 10px;
+        border-radius: 10px;
+    }
 
-      /* 사용자 메시지 말풍선 스타일 */
-      .user-message .message-content {
-          background-color: #3498db;
-          color: white;
-      }
+    /* 사용자 메시지 말풍선 스타일 */
+    .user-message .message-content {
+        background-color: #34D6DA;
+        color: white;
+    }
 
-      /* 봇 메시지 말풍선 스타일 */
-      .bot-message .message-content {
-          background-color: #ecf0f1;
-          color: black;
-      }
+    /* 봇 메시지 말풍선 스타일 */
+    .bot-message .message-content {
+        background-color: #ecf0f1;
+        color: black;
+    }
 
-      /* 메뉴바 css */
-      .navbar {
-          height: 50px; /* 고정 높이 설정 */
-          background-color: #ffffff; /* 배경색을 하얀색으로 설정 */
-          display: flex;
-          justify-content: space-between;
-          align-items: center;
-          padding: 0 20px;
-          box-shadow: 0 5px 6px 0px gray; /* 그림자 추가 */
-          position: fixed;
-          width: calc(100% - 40px); /* 패딩을 고려한 너비 설정 */
-          top: 0;
-          border-bottom-right-radius: 13px; /* 오른쪽 아래 모서리 둥글게 */
-          border-bottom-left-radius: 13px; /* 왼쪽 아래 모서리 둥글게 */
-          font-family: 'Montserrat', sans-serif; /* 글씨체를 Montserrat로 설정 */
-      }
-      .navbar .logo {
-          font-size: 1.75em;
-          color: #000;
-          margin-left: 30px;  /* 로고 위치 */
-          font-weight: 780;
-      }
-      .navbar .logo:hover {
-          color: #ac3232;  /* 붉은색 텍스트 (호버 시) */
-      }
-      .navbar .menu-container {
-          display: flex;
-          flex-grow: 1;
-          justify-content: flex-end; /* 메뉴 아이템을 오른쪽으로 정렬 */
-          margin-right: 40px; /* 오른쪽 여백 */
-      }
-      .navbar .menu-item {
-          height: 50px; /* navbar 높이와 동일하게 설정 */
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          margin-right: 30px;
-          position: relative; /* border-bottom을 위한 상대 위치 */
-      }
-      .navbar .menu-item:hover {
-          border-bottom: 4px solid #ac3232; /* 붉은색 밑줄 */
-      }
-      .navbar .menu-item a {
-          color: #000;  /* 메뉴글자 색깔 */
-          text-decoration: none;
-          font-size: 1.4em;
-          font-weight: 800;
-          transition: color 0.1s;
-          font-family: 'Montserrat', sans-serif; /* 글씨체를 Montserrat로 설정 */
-      }
-      .navbar .menu-item a:hover {
-          color: #ac3232;  /* 붉은색 텍스트 (호버 시) */
-          text-decoration: none;
-      }
-    </style>
-  </head>
+    /* 메뉴바 css */
+    .navbar {
+        height: 50px; /* 고정 높이 설정 */
+        background-color: #ffffff; /* 배경색을 하얀색으로 설정 */
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 0 20px;
+        box-shadow: 0 5px 6px 0px gray; /* 그림자 추가 */
+        position: fixed;
+        width: calc(100% - 40px); /* 패딩을 고려한 너비 설정 */
+        top: 0;
+        border-bottom-right-radius: 13px; /* 오른쪽 아래 모서리 둥글게 */
+        border-bottom-left-radius: 13px; /* 왼쪽 아래 모서리 둥글게 */
+        font-family: 'Montserrat', sans-serif; /* 글씨체를 Montserrat로 설정 */
+    }
+    .navbar .logo {
+        font-size: 1.75em;
+        color: #000;
+        margin-left: 30px;  /* 로고 위치 */
+        font-weight: 780;
+    }
+    .navbar .logo:hover {
+        color: #34D6DA;  /* 민트색 텍스트 (호버 시) */
+    }
+    .navbar .menu-container {
+        display: flex;
+        flex-grow: 1;
+        justify-content: flex-end; /* 메뉴 아이템을 오른쪽으로 정렬 */
+        margin-right: 40px; /* 오른쪽 여백 */
+    }
+    .navbar .menu-item {
+        height: 50px; /* navbar 높이와 동일하게 설정 */
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-right: 30px;
+        position: relative; /* border-bottom을 위한 상대 위치 */
+    }
+    .navbar .menu-item:hover {
+        border-bottom: 4px solid #34D6DA; /* 민트색 밑줄 */
+    }
+    .navbar .menu-item a {
+        color: #000;  /* 메뉴글자 색깔 */
+        text-decoration: none;
+        font-size: 1.4em;
+        font-weight: 800;
+        transition: color 0.1s;
+        font-family: 'Montserrat', sans-serif; /* 글씨체를 Montserrat로 설정 */
+    }
+    .navbar .menu-item a:hover {
+        color: #34D6DA;  /* 민트색 텍스트 (호버 시) */
+        text-decoration: none;
+    }
+  </style>
+</head>
     
-  <body>
-    <!-- 메뉴바 생성 -->
-    <div class="navbar">
-      <div class="logo">
-          <a href="{% url 'homepage' %}" style="text-decoration: none; color: inherit;">CodeGenius</a>
-      </div>
-      <div class="menu-container">
-          <div class="menu-item">
-              <a href="{% url 'chatting' %}">Chatting</a>
-          </div>
-          <div class="menu-item">
-              <a href="{% url 'history' %}">History</a>
-          </div>
-      </div>
+<body>
+  <!-- 메뉴바 생성 -->
+  <div class="navbar">
+    <div class="logo">
+        <a href="{% url 'homepage' %}" style="text-decoration: none; color: inherit;">CodeGenius</a>
+    </div>
+    <div class="menu-container">
+        <div class="menu-item">
+            <a href="{% url 'chatting' %}">Chatting</a>
+        </div>
+        <div class="menu-item">
+            <a href="{% url 'history' %}">History</a>
+        </div>
+    </div>
   </div>
 
   <div class="container">
     <div class="chat-container">
       <div class="chat-area">
-        <h2>대화</h2>
+        <h2>Chat</h2>
         <div class="chat-content" id="chat-area">
           <div class="message bot-message">
             <div class="message-content">{{ chatting_output }}</div>
+          </div>
+        </div>
+      </div>
+      <div class="code-area-container"> <!-- 코드 영역 컨테이너 -->
+        <div class="code-example">
+          <h2>Examples</h2>
+          <pre><code>{{ code }}</code></pre> <!-- 코드 예시를 출력 -->
+        </div>
+        <div class="doc-links">
+          <h2>Docs</h2>
+          <div id="doc-links"><a href="{{ doc_url }}" target="_blank">{{ keyword }}</a></div> <!-- 문서 링크를 출력 -->
         </div>
       </div>
     </div>
-    <div class="code-area-container"> <!-- 코드 영역 컨테이너 -->
-      <div class="code-example">
-        <h2>코드 예시</h2>
-        <pre><code>{{ code }}</code></pre> <!-- 코드 예시를 출력 -->
-      </div>
-      <div class="doc-links">
-        <h2>문서 링크</h2>
-        <a href="{{ doc_url }}" target="_blank">{{ keyword }}</a> <!-- 문서 링크를 출력 -->
-      </div>
+
+    <div class="input-area">
+      <input type="text" id="user-input" name="user_input" placeholder="질문을 입력하세요" required>
+      <button type="button" onclick="sendMessage()">Send</button>
     </div>
   </div>
 
-  <div class="input-area">
-    <input type="text" id="user-input" name="user_input" placeholder="질문을 입력하세요" required>
-    <button type="button" onclick="sendMessage()">Send</button>
-  </div>
-
-  <div id="loader" class="loader"></div>  
+  <!--<div id="loader" class="loader"></div>-->  
 
 
 
   <!-- JavaScript 코드 -->
   <script>
-    // 페이지 로드 시 로더 표시
-    window.addEventListener('load', function() {
-      const loader = document.getElementById('loader');
-      loader.style.display = 'block';
-      
-      setTimeout(() => {
-        loader.style.display = 'none';
-      }, 3000); // 3초 후에 로딩 아이콘 숨기기
-    });
 
     // 사용자 메시지 전송 함수
     function sendMessage() {
@@ -323,45 +310,39 @@
       chatArea.appendChild(userMessage);
       chatArea.scrollTop = chatArea.scrollHeight; // 대화창 스크롤을 맨 아래로
 
-      // 로더 표시
-      const loader = document.getElementById('loader');
-      loader.style.display = 'block';
+      // 로더 메시지 추가
+      const botMessage = document.createElement('div');
+      botMessage.className = 'message bot-message';
+      botMessage.innerHTML = `<div class="message-content"><div class="loader"></div></div>`;
+      chatArea.appendChild(botMessage);
+      chatArea.scrollTop = chatArea.scrollHeight; // 대화창 스크롤을 맨 아래로
 
-      // 챗봇 응답 생성 (여기서는 간단한 예시 응답)
-      setTimeout(() => {
-        // 로더 숨기기
-        loader.style.display = 'none';
-
-        // 챗봇의 개념 설명 응답
-        const botMessage = document.createElement('div');
-        botMessage.className = 'message bot-message';
-        botMessage.innerHTML = `<div class="message-content">챗봇 응답: ${userInput}에 대한 개념 설명</div>`;
-        chatArea.appendChild(botMessage);
-
-        // 챗봇의 코드 예시 응답
-        const codeExample = document.getElementById('code-example');
-        codeExample.innerHTML = `<pre><code>예시 코드:\nfunction example() {\n  console.log("${userInput} 관련 예시 코드");\n}</code></pre>`;
-
-        // 주요 라이브러리의 공식 문서 링크 (하이퍼링크로 변환)
-        const docLinks = document.getElementById('doc-links');
-        const docLink = document.createElement('a');
-        docLink.href = 'https://example.com'; // 여기에 실제 문서 링크를 넣습니다.
-        docLink.target = '_blank';
-        docLink.textContent = '공식 문서 링크';
-        docLinks.appendChild(docLink);
-
-        // 입력 필드 초기화
+      fetch("{% url 'chatting' %}", {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': '{{ csrf_token }}'
+        },
+        body: JSON.stringify({ user_input: userInput })
+      })
+      .then(response => response.json())
+      .then(data => {
+        botMessage.innerHTML = `<div class="message-content">${data.chatting_output}</div>`;
+        document.getElementById('code-example').innerText = data.code;
+        document.getElementById('doc-links').innerHTML = `<a href="${data.doc_url}" target="_blank">${data.keyword}</a>`;
         document.getElementById('user-input').value = '';
-        chatArea.scrollTop = chatArea.scrollHeight; // 대화창 스크롤을 맨 아래로
-      }, 1000); // 1초 후에 응답 표시
+        chatArea.scrollTop = chatArea.scrollHeight;
+      })
+      .catch(error => {
+        botMessage.innerHTML = `<div class="message-content">오류: ${error.message}</div>`;
+      });
     }
 
-    // 엔터 키로 메시지 전송 기능 추가
     document.getElementById('user-input').addEventListener('keypress', function(event) {
-        if (event.key === 'Enter') {
-          sendMessage();
-        }
-      });
+      if (event.key === 'Enter') {
+        sendMessage();
+      }
+    });
 
     // 페이지 로드 시 링크를 하이퍼링크로 변환하는 함수
     document.addEventListener('DOMContentLoaded', function() {
@@ -373,34 +354,7 @@
         });
         textElement.innerHTML = linkedText;
     });
-
-    // 오류 처리 예시
-    function handleError(errorMessage) {
-      const chatArea = document.getElementById('chat-area');
-      const errorDiv = document.createElement('div');
-      errorDiv.className = 'message bot-message';
-      errorDiv.innerHTML = `<div class="message-content">오류: ${errorMessage}</div>`;
-      chatArea.appendChild(errorDiv);
-      chatArea.scrollTop = chatArea.scrollHeight;
-    }
-
-    // 로그 작성 예시
-    function logError(error) {
-      console.error(`Error: ${error}`);
-      // 여기서 로그를 서버에 전송하는 추가 작업을 할 수 있습니다.
-    }
-
-    // 예시로 오류 발생 시 처리
-    document.addEventListener('DOMContentLoaded', function() {
-      try {
-        // 임의로 오류를 발생시켜 처리 예시
-        throw new Error("예시 오류");
-      } catch (error) {
-        handleError(error.message);
-        logError(error);
-      }
-    });
   </script>
-  </body>
-  </html>
+</body>
+</html>
  
