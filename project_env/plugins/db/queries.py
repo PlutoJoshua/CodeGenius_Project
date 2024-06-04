@@ -1,7 +1,8 @@
 queries = {
     "codegenius_access_count" : 
     """
-    WITH T1 AS (SELECT 
+    WITH T1 AS (
+        SELECT 
             inserttime,
             substring(log_message FROM '^(.*?)//') AS log_message
         FROM django_log 
@@ -25,31 +26,31 @@ queries = {
     "codegenius_time_distribution" :
     """
     WITH RECURSIVE BASE(N) AS (
-    SELECT 0
-    
-    UNION ALL
-    
-    SELECT N+1
-    FROM BASE 
-    WHERE 
-        N < 23
-    ),
-    T1 AS (
-    SELECT 
-        inserttime,
-        substring(log_message FROM '^(.*?)//') AS log_message
-    FROM django_log 
-    WHERE log_message LIKE '%//%' 
-    AND inserttime::date = '{batch_date}'
-    ),
-    GROUPED_T1 AS (
-    SELECT 
-        EXTRACT(HOUR FROM inserttime) AS HOUR,
-        COUNT(*) AS COUNT,
-        inserttime::date AS date
-    FROM T1
-    GROUP BY EXTRACT(HOUR FROM inserttime), inserttime::date
-    )
+        SELECT 0
+        
+        UNION ALL
+        
+        SELECT N+1
+        FROM BASE 
+        WHERE 
+            N < 23
+        ),
+        T1 AS (
+        SELECT 
+            inserttime,
+            substring(log_message FROM '^(.*?)//') AS log_message
+        FROM django_log 
+        WHERE log_message LIKE '%//%' 
+        AND inserttime::date = '{batch_date}'
+        ),
+        GROUPED_T1 AS (
+        SELECT 
+            EXTRACT(HOUR FROM inserttime) AS HOUR,
+            COUNT(*) AS COUNT,
+            inserttime::date AS date
+        FROM T1
+        GROUP BY EXTRACT(HOUR FROM inserttime), inserttime::date
+        )
 
     SELECT
         BASE.N AS HOUR,
