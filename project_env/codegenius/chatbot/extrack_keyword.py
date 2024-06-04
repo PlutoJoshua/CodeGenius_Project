@@ -17,7 +17,6 @@ def extrack_keyword(user_input):
                         keyword4,
                         question,
                         label,
-                        -- 입력 문자열에 각 키워드가 포함된 횟수를 계산합니다.
                         (CASE WHEN %s LIKE CONCAT('%%', keyword1, '%%') THEN 1 ELSE 0 END +
                          CASE WHEN %s LIKE CONCAT('%%', keyword2, '%%') THEN 1 ELSE 0 END +
                          CASE WHEN %s LIKE CONCAT('%%', keyword3, '%%') THEN 1 ELSE 0 END +
