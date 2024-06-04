@@ -1,10 +1,11 @@
-<!--{% load static %}-->
+{% load static %}
 <!doctype html>
 <html>
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href= "{% static 'css/history.css' %}">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <title>history</title>
     
   </head>
@@ -13,19 +14,33 @@
 
     <!--전체 css-->
     <style>
-        html {
+        html, body {
             margin: 0;
             padding: 0;
             height: 100%;
         }
         body {
-            margin: 0;
-            padding: 0;
-            font-family: Arial, sans-serif;
-            background: url('back.png') no-repeat center center fixed;
+
+            font-family: 'Montserrat', sans-serif;
+            background: url("{% static 'img/back2.png' %}") no-repeat center center fixed;
             background-size: cover;
-            height: 100%; /* body에도 height 지정 */
+
         }
+
+        /* 모든 요소의 기본 스타일 초기화 */
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        outline: none; /* 포커스된 요소의 외곽선을 제거 */
+    }
+
+    /* 특정 요소 초기화 */
+    button, input, textarea {
+        border: none;
+        outline: none;
+        background: none;
+    }
     </style>
 
 
@@ -33,7 +48,7 @@
     <style>
         .navbar {
             height: 50px; /* 고정 높이 설정 */
-            background-image: url('texture9.png');
+            background-color: #ffffff;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -44,6 +59,7 @@
             top: 0;
             border-bottom-right-radius: 13px; /* 오른쪽 아래 모서리 둥글게 */
             border-bottom-left-radius: 13px; /* 왼쪽 아래 모서리 둥글게 */
+            font-family: 'Montserrat', sans-serif; /* 글씨체를 Montserrat로 설정 */
         }
         .navbar .logo {
             font-size: 1.75em;
@@ -52,7 +68,7 @@
             font-weight: 780;
         }
         .navbar .logo:hover {
-            color: #00FFEF;  /* 청록색 텍스트 (호버 시) */
+            color: #34D6DA;  /* 민트색 텍스트 (호버 시) */
         }
         .navbar .menu-container {
             display: flex;
@@ -69,7 +85,7 @@
             position: relative; /* border-bottom을 위한 상대 위치 */
         }
         .navbar .menu-item:hover {
-            border-bottom: 4px solid #00FFEF; /* 청록색 밑줄 */
+            border-bottom: 4px solid #34D6DA; /* 민트색 밑줄 */
         }
         .navbar .menu-item a {
             color: #000;  /* 메뉴글자 색깔 */
@@ -79,7 +95,7 @@
             transition: color 0.1s;
         }
         .navbar .menu-item a:hover {
-            color: #00FFEF;  /* 청록색 텍스트 (호버 시) */
+            color: #34D6DA;  /* 민트색 텍스트 (호버 시) */
             text-decoration: node;
         }
     </style>
@@ -105,15 +121,14 @@
     <style>
         .history-header {
             position: fixed;
-            width: 253px;
+            width: 300px;
             margin-top: 62px;
             z-index: 1000; /* Ensures the button is always on top */
             border: 1px solid #ccc;
             border-top-right-radius: 10px;
             border-bottom-right-radius: 5px;
             box-shadow: 5px 5px 5px -1px gray; /* 그림자 추가 */
-            background-image: url('texture7.png');
-            background-color: #999;
+            background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 */
 
             display: flex;
             align-items: center;
@@ -122,6 +137,7 @@
             padding-left: 5px;
             padding-right: 5px;
             padding-top:5px;
+            color: white; /* 글자색 흰색 */
         }
         .toggle-button {
             width: 60px;
@@ -131,9 +147,10 @@
             background: none; /* 배경 제거 */
             font-weight: 500; /* 글자 굵게 */
             margin-bottom: 3px;
+            color: white; /* 글자색 흰색 */
         }
         .toggle-button:hover {
-            background-color: #00FFEF;
+            background-color: #34D6DA;
         }   
         .history-title {
             text-align: center;
@@ -142,14 +159,16 @@
             margin-bottom: 10px;
             flex-grow: 1; /* 남은 공간을 차지하도록 설정 */
             font-size: 1em;
+            color: white; /* 글자색 흰색 */
         }
 
         .history-bar {
             position: fixed;
             top: 0;
             left: 2px;
-            width: 250px;
+            width: 295px;
             height: calc(100% - 115px);
+            background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 */
             /*background-color: #f0f0f0;*/
             border: 1px solid #ccc;
             padding: 5px;
@@ -159,11 +178,13 @@
             box-shadow: 6px 5px 5px -1px gray; /* 그림자 추가 */
             z-index: 1; /* Ensure history bar is below the button */
             overflow-y: auto; /* 스크롤 추가 */
+            color: white; /* 글자색 흰색 */
         }
         .list-box .date {
             margin-bottom: 10px;
             border-radius: 13px; /* 모서리 둥글게 */
             box-shadow: 4px 5px 5px -1px gray; /* 그림자 추가 */
+            background-color: rgba(255, 255, 255, 0.1); /* 반투명 배경 */
         }
         .date-button{
             display: block;
@@ -171,10 +192,12 @@
             margin-bottom: 5px;
             padding: 5px;
             text-align: center;
-            background-color: #00FFEF;
+            background-color: rgba(52, 214, 218, 0.7); /* 반투명 배경 */
+            /*background-color: #e6b5b5;*/
             border: none;
             cursor: pointer;
             font-size: 14px;
+            color: white; /* 글자색 흰색 */
         }
         .keyword-button {
             display: block;
@@ -183,14 +206,171 @@
             padding: 5px;
             text-align: center;
             border-radius: 13px; /* 모서리 둥글게 */
-            background-image: url('texture7.png');
             border: none;
             cursor: pointer;
             font-size: 14px;
+            background-color: rgba(255, 255, 255, 0.2); /* 반투명 배경 */
+            color: white; /* 글자색 흰색 */
         }
         .keyword-button:hover {
             background-image: none;
-            background-color: #00FFEF;
+            background-color: rgba(52, 214, 218, 0.7); /* 반투명 배경 */
+            /*background-color: #e6b5b5;*/
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            width: calc(100% - 250px); /* 히스토리바를 고려한 너비 설정 */
+            height: 100%;
+            transition: margin-left 0.3s, width 0.3s; /* 애니메이션 추가 */
+            margin-left: 250px; /* 히스토리바를 고려한 시작 위치 */
+        }
+
+        .chat-container {
+            display: flex;
+            flex-direction: row;  /* 좌우로 나누기 위해 flex-direction을 row로 설정 */
+            width: 100%;
+            height: 70%;
+            max-width: 2000px; /* 최대 너비 설정 */
+            border: 2px solid #ccc;
+            border-radius: 10px;
+            overflow: hidden;
+            margin-bottom: 10px; /* 입력 영역과의 간격 추가 */
+            transition: width 0.3s; /* 애니메이션 추가 */
+            background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 */
+        }
+
+        .chat-container h2 {
+            font-size: 1.2rem;
+            margin: 0;
+            padding: 10px;
+            text-align: center;
+            border-bottom: 1px solid #b1b5b0;
+            background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
+            color: white; /* 글자색 흰색 */
+            width: 100%;
+        }
+
+        .chat-area {
+            width: 50%; /* 좌우 5:5 비율 */
+            padding: 10px;
+            overflow-y: auto;  /* 스크롤 가능하도록 설정 */
+            border-right: 1px solid #b1b5b0;
+            background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 */
+            color: white; /* 글자색 흰색 */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .chat-content {
+            flex: 1;
+            overflow-y: auto; /* 스크롤 가능하도록 설정 */
+        }
+
+        .code-area-container {
+            width: 50%; /* 좌우 5:5 비율 */
+            display: flex;
+            flex-direction: column;
+        }
+
+        .code-example {
+            flex: 7; /* 상하 7:3 비율 */
+            overflow-y: auto; /* 스크롤 가능하도록 설정 */
+            border-bottom: 1px solid #ccc; /* 구분선 추가 */
+            padding: 10px;
+            background-color: black; /* 영역 배경색 검정색으로 설정 */
+            color: white; /* 글자색 흰색 */
+        }
+
+        .doc-links {
+            flex: 3; /* 상하 7:3 비율 */
+            overflow-y: auto; /* 스크롤 가능하도록 설정 */
+            padding: 10px;
+            background-color: black; /* 영역 배경색 검정색으로 설정 */
+            color: white; /* 글자색 흰색 */
+        }
+
+        .input-area {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 90%; /* 입력 영역이 채팅 영역과 동일한 너비를 가짐 */
+            margin-top: 10px; /* 위쪽 간격 추가 */
+        }
+
+        .input-area input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-right: 10px;
+        }
+
+        .input-area button {
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: none;
+            background-color: #34D6DA;
+            color: white;
+            cursor: pointer;
+        }
+
+        .input-area button:hover {
+            background-color: #34D6DA;
+        }
+
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-top: 16px solid #34D6DA;
+            border-radius: 50%;
+            width: 120px;
+            height: 120px;
+            animation: spin 2s linear infinite;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            display: none;
+        }
+
+        @keyframes spin {
+            0% { transform: translate(-50%, -50%) rotate(0deg); }
+            100% { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+
+        .message {
+            display: flex;
+            margin-bottom: 10px;
+            align-items: center;
+        }
+
+        .user-message {
+            justify-content: flex-end;
+        }
+
+        .bot-message {
+            justify-content: flex-start;
+        }
+
+        .message-content {
+            max-width: 60%;
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .user-message .message-content {
+            background-color: #34D6DA;
+            color: white;
+        }
+
+        .bot-message .message-content {
+            background-color: #ecf0f1;
+            color: black;
         }
 
     </style>
@@ -199,52 +379,47 @@
     <!--히스토리바 생성-->
     <div class="history-header">
         <div>
-        <button class="toggle-button" id="toggleButton">▲</button>
+            <button class="toggle-button" id="toggleButton">▲</button>
         </div>
-        <div class="history-title">{{사용자}}'s History</div>
+        <div class="history-title">
+            {% if userDB.userName %}
+                {{userDB.userName}}'s History
+            {% else %}
+                User
+            {% endif %}
+        </div>
     </div>
 
     <div class="history-bar" id="historyBar">
         <div class="list-box">
+            {% for record in history_records %}
             <div class="date">
-                <button class="date-button">2024-03-02</button>
-                    <button class="keyword-button">Keyword 1</button>
-                    <button class="keyword-button">Keyword 2</button>
-                    <button class="keyword-button">Keyword 3</button>
-                    <button class="keyword-button">Keyword 4</button>
-                    <button class="keyword-button">Keyword 5</button>
+                <button class="date-button">{{ record.created_at|date:"Y-m-d" }}</button>
+                <button class="keyword-button">{{ record.keyword }}</button>
             </div>
-            <div class="date">
-                <button class="date-button">2024-03-03</button>
-                    <button class="keyword-button">Keyword 6</button>
-                    <button class="keyword-button">Keyword 7</button>
-                    <button class="keyword-button">Keyword 8</button>
-                    <button class="keyword-button">Keyword 9</button>
-                    <button class="keyword-button">Keyword 10</button>
+            {% endfor %}
+        </div>
+    </div>
+
+    <div class="container" id="container">
+        <div class="chat-container" id="chatContainer">
+            <div class="chat-area">
+                <h2>Chat</h2>
+                <div class="chat-content" id="chat-area">
+                    <div class="message bot-message">
+                        <div class="message-content">{{ chatting_output }}</div>
+                    </div>
+                </div>
             </div>
-            <div class="date">
-                <button class="date-button">2024-03-03</button>
-                    <button class="keyword-button">Keyword 6</button>
-                    <button class="keyword-button">Keyword 7</button>
-                    <button class="keyword-button">Keyword 8</button>
-                    <button class="keyword-button">Keyword 9</button>
-                    <button class="keyword-button">Keyword 10</button>
-            </div>
-            <div class="date">
-                <button class="date-button">2024-03-03</button>
-                    <button class="keyword-button">Keyword 6</button>
-                    <button class="keyword-button">Keyword 7</button>
-                    <button class="keyword-button">Keyword 8</button>
-                    <button class="keyword-button">Keyword 9</button>
-                    <button class="keyword-button">Keyword 10</button>
-            </div>
-            <div class="date">
-                <button class="date-button">2024-03-03</button>
-                    <button class="keyword-button">Keyword 6</button>
-                    <button class="keyword-button">Keyword 7</button>
-                    <button class="keyword-button">Keyword 8</button>
-                    <button class="keyword-button">Keyword 9</button>
-                    <button class="keyword-button">Keyword 10</button>
+            <div class="code-area-container">
+                <div class="code-example">
+                    <h2>Examples</h2>
+                    <pre><code>{{ code }}</code></pre>
+                </div>
+                <div class="doc-links">
+                    <h2>Docs</h2>
+                    <a href="{{ doc_url }}" target="_blank">{{ keyword }}</a>
+                </div>
             </div>
         </div>
     </div>
@@ -252,15 +427,60 @@
     <script>
         document.getElementById('toggleButton').addEventListener('click', function() {
             var historyBar = document.getElementById('historyBar');
+            var container = document.getElementById('container');
+            var chatContainer = document.getElementById('chatContainer');
             if (historyBar.style.display === 'none') {
                 historyBar.style.display = 'block';
+                container.style.marginLeft = '250px';
+                container.style.width = 'calc(100% - 250px)';
+                chatContainer.style.width = '100%';
+                chatContainer.style.maxWidth = '1200px';
                 this.textContent = '▲';
             } else {
                 historyBar.style.display = 'none';
+                container.style.marginLeft = '0';
+                container.style.width = '100%';
+                chatContainer.style.width = '100%';
+                chatContainer.style.maxWidth = '2000px';
                 this.textContent = '▼';
             }
         });
-    </script>
 
+        // 키워드 버튼 클릭 시 대화 내용을 불러오는 함수 추가
+        document.querySelectorAll('.keyword-button').forEach(button => {
+            button.addEventListener('click', function() {
+                var keyword = this.textContent;
+                fetchConversation(keyword);
+            });
+        });
+
+        function fetchConversation(keyword) {
+            // 여기서 AJAX 요청을 보내서 해당 키워드에 따른 대화 내용을 불러오도록 함
+            fetch("{% url 'fetch_conversation' %}", {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': '{{ csrf_token }}'
+            },
+            body: JSON.stringify({ keyword: keyword })
+        })
+        .then(response => response.json())
+        .then(data => {
+            var chatArea = document.getElementById('chat-area');
+            chatArea.innerHTML = ''; // 기존 대화 내용 지우기
+
+            // 새로운 대화 내용 추가
+            data.forEach(item => {
+                var botMessage = document.createElement('div');
+                botMessage.className = 'message bot-message';
+                botMessage.innerHTML = `<div class="message-content">${item.chatting_output}</div>`;
+                chatArea.appendChild(botMessage);
+            });
+        })
+        .catch(error => {
+            console.error('Error fetching conversation:', error);
+        });
+    }
+    </script>
 </body>
 </html>
