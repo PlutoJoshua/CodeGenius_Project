@@ -7,20 +7,19 @@ from django.template.loader import render_to_string
 from .models import save_data
 from datetime import datetime
 
+import logging
 # Create your views here.
 def homepage(request):
     if request.method == 'POST':
-        email = request.POST.get('email')
+        email = request.POST['email']
         ### 이메일을 session에 저장 ###
         request.session['email'] = email
         ### chatting 페이지로 리디렉션 ###
+        print(f'HOMEPAGE // User Logged In: {email}')
         return redirect('chatting')    
 
     return render(request, 'homepage.html')
 
-
-def chatting(request):
-    return render(request, 'chatting.html')
 
 
 def history(request):
@@ -41,7 +40,8 @@ def chatting(request):
 
     ### User input ###
     if request.method == 'POST':
-        user_input = request.POST.get('user_input')
+        user_input = request.POST['user_input']
+        print(user_input)
 
         classification_output = 1
 
@@ -58,13 +58,9 @@ def chatting(request):
                 'doc_url': 'doc_url',
                 'current_time': current_time
             })
-
             return HttpResponse(chatting_html)
-
 
         else:
             return render(request, 'chatting.html', {'chatting_output': '파이썬에 관해 궁금한 점은 없으신가요?'})
-        
-
     else:
         return render(request, 'chatting.html')
