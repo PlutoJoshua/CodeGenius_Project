@@ -4,12 +4,13 @@ from django.core.cache import cache
 from django.template.loader import render_to_string
 from .models import save_data
 import logging
-import fasttext
 from datetime import datetime
 
-from .classification_model import main as classificate_user_input
+from celery import Celery, group
+
+from .extrack_keyword import extrack_keyword
 from .tasks import (chatting_model_predict, 
-                    extract_keyword_user_input)
+                    classification_model_predict)
 
 # 로거 생성
 logger = logging.getLogger(__name__)
@@ -33,83 +34,92 @@ def chatting(request):
         logger.warning("views.py/chatting -> This is login_view warning - user email is NONE")
         return redirect('homepage')  
     
-    ### fasttext classification model setting ###
-    classification_model_path = '/app/chatbot/service_model/fasttext_model_v1.bin'
-    threshold = 0.7
-
+    ### gemini classification model setting ###
+    api_key = "AIzaSyAOBGlVPR_uefBsR01G6HJZ7oQ69-nDGSo"
     ### gpt2 model setting ###
+
 
     ### User input ###
     if request.method == 'POST':
         user_input = request.POST.get('user_input')
-        logger.info(f'USER-INPUT | user input: {user_input}')
-        logger.info(f"CHATTING // session email: {request.session.get('email')}")
-    ############################################################################# 파이썬 분류 모델 #############################################################################
-        try:
-            classification_output = classificate_user_input(
-                                                        input_text = user_input, 
-                                                        model_path = classification_model_path, 
-                                                        threshold = threshold
-                                                        )
-            logger.info(f'views.py/chatting -> classification successfully')
-        
-        except Exception as e:
-            logger.error(f'views.py/chatting -> Failed to response:classification_model = {email}, input: {user_input}, error: {str(e)}')           
-            return HttpResponse('++++++++시스템오류++++++++')
+        if user_input == None:
+            logger.warning(f'USER-INPUT | user input is {user_input}!!!!!')
+            logger.warning(f"CHATTING // session email: {request.session.get('email')}")
+        else:    
+            logger.info(f'USER-INPUT | user input: {user_input}')
+            logger.info(f"CHATTING // session email: {request.session.get('email')}")
 
-    ######################################################################### gpt2 모델 + keyword 추출 #########################################################################
-        try:
-            ### 파이썬 관련 질문일 때 ###
-            if classification_output == 1:
-                try:    
-                    ######################## 비동기 작업 ########################
-                    chatting_task = chatting_model_predict.delay(user_input)
-                    keyword_task = extract_keyword_user_input.delay(user_input)
-
-                    chatting_output = chatting_task.get()
-                    keyword_output = keyword_task.get()
-                    ############################################################
-
-                    record = save_data.objects.create(
-                        email=email,
-                        user_input=user_input,
-                        chatting_output=chatting_output,
-                        keyword=keyword_output.get('keyword', ''),
-                        code=keyword_output.get('code', ''),
-                        doc_url=keyword_output.get('doc_url', ''),
-                        classification_label = 1
-                    )
-
-                    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-                    #################### chatting.html 렌더링 ####################
-                    chatting_html = render_to_string('chatting.html', {
-                        'chatting_output': chatting_output, 
-                        'keyword': keyword_output.get('keyword', ''), 
-                        'code': keyword_output.get('code', ''), 
-                        'doc_url': keyword_output.get('doc_url', ''),
-                        'current_time': current_time
-                    })
-
-                    return HttpResponse(chatting_html)
-
-
-                except Exception as e:
-                    logger.error(f'views.py/chatting/chatting_model_predict -> error: {e}')
-
-            else:
-                ### 파이썬 관련 질문이 아닐 때 ###
-                ### (email, 질문, classification model result) Database에 저장 ###
-                record = save_data.objects.create(
-                    email=email,
-                    user_input=user_input,
-                    classification_label = 0
+    ########################################################################## gpt2 + fasttext ##########################################################################
+        tasks = group(
+            classification_model_predict.s(
+                user_input = user_input, 
+                api_key = api_key
+                ), 
+            chatting_model_predict.s(
+                user_input
                 )
-                return render(request, 'chatting.html', {'chatting_output': '파이썬에 관해 궁금한 점은 없으신가요?'})
+            ).apply_async()
+
+        classification_output = tasks.get()[0]
+
+    ######################################################################## 분류에 따라 query작업 ########################################################################
+        ### gtp2와 fasttext 동시진행 ###
+        ### fasttext 값에 따라 gpt2 모델 값 대기 선택 ###
+
+        ### 파이썬 관련 질문일 때 ###
+        if classification_output == "yes":
+            try:    
+
+                keyword_output = extrack_keyword(user_input)
+
+            except ObjectDoesNotExist:
+                logger.error(f'views.py/extrack_keyword -> error: No matching record found')
+            except Exception as e:
+                logger.error(f'views.py/extrack_keyword -> Error: {e}')
+
+            try:
+
+                chatting_output = tasks.get()[1]
+            
+            except Exception as e:
+                logger.error(f'views.py/chatting/chatting_model_predict -> error: {e}')
+
+
+            record = save_data.objects.create(
+                email=email,
+                user_input=user_input,
+                chatting_output=chatting_output,
+                keyword=keyword_output.get('keyword', ''),
+                code=keyword_output.get('code', ''),
+                doc_url=keyword_output.get('doc_url', ''),
+                classification_label = classification_output
+            )
+
+            current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+            #################### chatting.html 렌더링 ####################
+            chatting_html = render_to_string('chatting.html', {
+                'chatting_output': chatting_output, 
+                'keyword': keyword_output.get('keyword', ''), 
+                'code': keyword_output.get('code', ''), 
+                'doc_url': keyword_output.get('doc_url', ''),
+                'current_time': current_time
+            })
+
+
+            return HttpResponse(chatting_html)
+
+
+        else:
+            ### 파이썬 관련 질문이 아닐 때 ###
+            ### (email, 질문, classification model result) Database에 저장 ###
+            record = save_data.objects.create(
+                email=email,
+                user_input=user_input,
+                classification_label = classification_output
+            )
+            return render(request, 'chatting.html', {'chatting_output': '파이썬에 관해 궁금한 점은 없으신가요?'})
         
-        except Exception as e:
-            logger.error(f'views.py/chatting -> Failed to response: chatbot_model = {email}, input: {user_input}, error: {str(e)}')           
-            return HttpResponse('++++++++시스템오류++++++++')
 
     else:
         return render(request, 'chatting.html')

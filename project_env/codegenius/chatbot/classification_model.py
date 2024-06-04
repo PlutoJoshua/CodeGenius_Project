@@ -1,51 +1,36 @@
-import fasttext
+import google.generativeai as genai
 import logging
 
 logger = logging.getLogger(__name__)
 
-### 모델 변수 ###
-fasttext_model = None
+gemini_model = None
 
-### 글로벌 변수로 FastText 모델 로드 후 저장 ###
-def load_model(model_path):
-    global fasttext_model
-    if fasttext_model is None:
-        logger.info('classification_model.py/load_model -> Fasttext model is None, so.... load the fasttext model')
-        fasttext_model = fasttext.load_model(model_path)
+def Google_gemini(user_input, api_key):
+    global gemini_model
+    if gemini_model is None:
+        genai.configure(api_key=api_key)
+        gemini_model = genai.GenerativeModel('gemini-pro')
+        logger.info('classification_model.py/Google_gemini -> gemini model is None, so.... load the gemini model')
     else:
-        logger.info('classification_model.py/load_model -> Use cached fasttext model')
-    return fasttext_model
+        logger.info('classification_model.py/Google_gemini -> Use cached gemini model')
+    
+    # 프롬프트 엔지니어링
+    system_prompt =  """
+    당신은 user_prompt가 파이썬과 관련된 질문인지 아닌지 분류하는 모델입니다.
+    user_prompt가 파이썬과 관련된 질문 중에서 "파이썬 정의, 파이썬 기초, 조건문, 반복문, 변수, 내장함수, 기본 패키지, 개행문자, 문자열 포맷, tuple, list, set, 넘파이, 판다스, 배열, 행렬, 시각화, matplotlib, seaborn, plotly, 기초통계, 가설검정, 회귀분석, 상관분석, 차이분석, 그룹화, 탐색적 데이터 분석, 데이터 전처리, 데이터의 종류, 데이터의 특성"과 관련된 질문인지 아닌지 분류해주세요.
+    해당 키워드와 관련된 질문이면 yes로 답변해주세요.
+    파이썬과 관련된 질문이지만 해당 키워드와 관련이 없는 질문(범위를 벗어난 질문)이라면 check로 답변해주세요.
+    yes나 no로 분류하기 애매한 질문이라면 check로 답변해주세요.
+    파이썬과 완전 무관한 질문은 no로 답변해주세요.
 
-### FastText를 사용한 라벨 예측 함수 정의 ###
-def predict_label(model, text, threshold):
-    if model is None:
-        logger.error("classification_model.py/predict_label -> predict_label -> fasttext model is None!!!")
-        return None
-    
-    ### 두 개의 라벨 확률을 반환하도록 설정 ###
-    labels, probabilities = model.predict(text, k=2)  
-    label_prob_dict = dict(zip(labels, probabilities))
-    label_0_prob = label_prob_dict.get('__label__0', 0)
-    label_1_prob = label_prob_dict.get('__label__1', 0)
-    
-    ### 임계값에 따라 라벨을 예측하는 로직 ###
-    if label_1_prob >= threshold:
-        return 1, max(probabilities)
-    elif label_0_prob >= threshold and label_0_prob > label_1_prob:
-        return 0, max(probabilities)
-    else:
-        ### 두 라벨 모두 임계값 미달인 경우 더 높은 확률을 가진 라벨로 설정 ###
-        return (0 if label_0_prob > label_1_prob else 1), max(probabilities)
+    답변이 yes인 질문 예시: 문자열의 소문자를 대문자로 변환하는 방법
+    답변이 no인 질문 예시: 문자열의 소문자를 방법
+    답변이 check인 질문 예시: 파이썬에서 RNN이 무엇인가요?
+    """
 
-### 실행 함수 ###
-def main(input_text, model_path, threshold):
-    ### 모델 로드 ###
-    model = load_model(model_path)
-    if model is None:
-        logger.error("classification_model.py/main -> Fasttext model loading failed, unable to proceed.")
-        return None
-    
-    # 라벨 예측
-    predicted_label, probability = predict_label(model, input_text, threshold)
-    logger.info(f'classification output: {predicted_label}, probability: {probability}')
-    return predicted_label
+    # 답변 생성
+    result = gemini_model.generate_content(system_prompt + user_input)
+    output = result.text
+    logger.info(f'classification_model.py/Google_gemini -> UserInput: {user_input} classificationOutput: {output}')
+
+    return output
