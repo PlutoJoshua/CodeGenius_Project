@@ -64,7 +64,7 @@ def chatting(request):
         ### fasttext 값에 따라 gpt2 모델 값 대기 선택 ###
 
         ### 파이썬 관련 질문일 때 ###
-        if classification_output == 1:
+        if classification_output == "yes":
             try:    
 
                 keyword_output = extrack_keyword(user_input)
@@ -89,7 +89,7 @@ def chatting(request):
                 keyword=keyword_output.get('keyword', ''),
                 code=keyword_output.get('code', ''),
                 doc_url=keyword_output.get('doc_url', ''),
-                classification_label = 1
+                classification_label = classification_output
             )
 
             current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -113,7 +113,7 @@ def chatting(request):
             record = save_data.objects.create(
                 email=email,
                 user_input=user_input,
-                classification_label = 0
+                classification_label = classification_output
             )
             return render(request, 'chatting.html', {'chatting_output': '파이썬에 관해 궁금한 점은 없으신가요?'})
         

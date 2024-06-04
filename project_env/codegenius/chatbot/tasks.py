@@ -4,7 +4,7 @@ from .models import save_data
 import logging
 
 from .chatting_model import chatting_model 
-from .classification_model import main as classificate_user_input 
+from .classification_model import Google_gemini as classificate_user_input 
 
 logger = logging.getLogger(__name__)
 
@@ -21,11 +21,10 @@ def chatting_model_predict(user_input):
 
 
 @shared_task
-def classification_model_predict(text, path, threshold):
+def classification_model_predict(user_input, api_key):
 
     classification_output = classificate_user_input(
-        input_text = text, 
-        model_path = path,
-        threshold = threshold
+        input_text = user_input, 
+        api_key = api_key
         )
     return classification_output
