@@ -36,7 +36,7 @@ def chatting(request):
         return redirect('homepage')  
     
     ### gemini classification model setting ###
-    api_key = "AIzaSyCLmV2CGmQRyqRlfysRuW1XzOB-2c_Yd44"
+    api_key = "AIzaSyAOBGlVPR_uefBsR01G6HJZ7oQ69-nDGSo"
     ### gpt2 model setting ###
 
 
