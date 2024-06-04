@@ -127,20 +127,20 @@
         font-size: 16px;
         border-radius: 5px;
         border: none;
-        background-color: #34D6DA;
+        background-color: #5ba06b;
         color: white;
         cursor: pointer;
     }
 
     /* 버튼 호버 스타일 */
     .input-area button:hover {
-        background-color: #34D6DA;
+        background-color: #5ba06b;
     }
 
     /* 로딩 아이콘 스타일 */
     .loader {
         border: 8px solid #f3f3f3;
-        border-top: 8px solid #34D6DA;
+        border-top: 8px solid #5ba06b;
         border-radius: 50%;
         width: 30px;
         height: 30px;
@@ -179,7 +179,7 @@
 
     /* 사용자 메시지 말풍선 스타일 */
     .user-message .message-content {
-        background-color: #34D6DA;
+        background-color: #5ba06b;
         color: white;
     }
 
@@ -212,7 +212,7 @@
         font-weight: 780;
     }
     .navbar .logo:hover {
-        color: #34D6DA;  /* 민트색 텍스트 (호버 시) */
+        color: #5ba06b;  /* 민트색 텍스트 (호버 시) */
     }
     .navbar .menu-container {
         display: flex;
@@ -229,7 +229,7 @@
         position: relative; /* border-bottom을 위한 상대 위치 */
     }
     .navbar .menu-item:hover {
-        border-bottom: 4px solid #34D6DA; /* 민트색 밑줄 */
+        border-bottom: 4px solid #5ba06b; /* 민트색 밑줄 */
     }
     .navbar .menu-item a {
         color: #000;  /* 메뉴글자 색깔 */
@@ -240,7 +240,7 @@
         font-family: 'Montserrat', sans-serif; /* 글씨체를 Montserrat로 설정 */
     }
     .navbar .menu-item a:hover {
-        color: #34D6DA;  /* 민트색 텍스트 (호버 시) */
+        color: #5ba06b;  /* 민트색 텍스트 (호버 시) */
         text-decoration: none;
     }
   </style>
@@ -296,6 +296,60 @@
 
   <!-- JavaScript 코드 -->
   <script>
+    function typeWriter(text, element, delay = 50, callback) {
+      let i = 0;
+      function type() {
+        if (i < text.length) {
+          element.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(type, delay);
+        } else if (callback) {
+          callback();
+        }
+      }
+      type();
+    }
+
+    // 깜빡이는 로딩 메시지를 출력하는 함수
+    function blinkingLoader(text, element, delay = 100) {
+      let i = 0;
+      function blink() {
+        if (i < text.length) {
+          element.innerHTML += text.charAt(i);
+          i++;
+        } else {
+          element.innerHTML = '';
+          i = 0;
+        }
+        setTimeout(blink, delay);
+      }
+      blink();
+    }
+
+    // 환영 인사를 출력하는 함수
+    function displayWelcomeMessage() {
+      const chatArea = document.getElementById('chat-area');
+      const welcomeMessages = [
+        "안녕하세요! 저는 당신의 코딩 학습을 돕는 챗봇입니다.😊",
+        "언제든지 질문이 있거나 도움이 필요하면 말씀해주세요!🤗"
+      ];
+      const botMessage1 = document.createElement('div');
+      botMessage1.className = 'message bot-message';
+      const botContent1 = document.createElement('div');
+      botContent1.className = 'message-content';
+      botMessage1.appendChild(botContent1);
+      chatArea.appendChild(botMessage1);
+      typeWriter(welcomeMessages[0], botContent1, 50, () => {
+        const botMessage2 = document.createElement('div');
+        botMessage2.className = 'message bot-message';
+        const botContent2 = document.createElement('div');
+        botContent2.className = 'message-content';
+        botMessage2.appendChild(botContent2);
+        chatArea.appendChild(botMessage2);
+        typeWriter(welcomeMessages[1], botContent2, 50);
+      });
+      chatArea.scrollTop = chatArea.scrollHeight; // 대화창 스크롤을 맨 아래로
+    }
 
     // 사용자 메시지 전송 함수
     function sendMessage() {
@@ -310,11 +364,19 @@
       chatArea.appendChild(userMessage);
       chatArea.scrollTop = chatArea.scrollHeight; // 대화창 스크롤을 맨 아래로
 
-      // 로더 메시지 추가
+      // 입력 필드를 비움
+      document.getElementById('user-input').value = '';
+
+      // 로딩 메시지 추가
       const botMessage = document.createElement('div');
       botMessage.className = 'message bot-message';
-      botMessage.innerHTML = `<div class="message-content"><div class="loader"></div></div>`;
+      const botContent = document.createElement('div');
+      botContent.className = 'message-content';
+      botMessage.appendChild(botContent);
       chatArea.appendChild(botMessage);
+
+      // "답변을 생성중입니다.." 깜빡이는 효과 추가
+      blinkingLoader("답변을 생성중입니다..", botContent);
       chatArea.scrollTop = chatArea.scrollHeight; // 대화창 스크롤을 맨 아래로
 
       fetch("{% url 'chatting' %}", {
@@ -327,14 +389,14 @@
       })
       .then(response => response.json())
       .then(data => {
-        botMessage.innerHTML = `<div class="message-content">${data.chatting_output}</div>`;
+        botContent.innerHTML = '';
+        typeWriter(data.chatting_output, botContent, 50);
         document.getElementById('code-example').innerText = data.code;
         document.getElementById('doc-links').innerHTML = `<a href="${data.doc_url}" target="_blank">${data.keyword}</a>`;
-        document.getElementById('user-input').value = '';
         chatArea.scrollTop = chatArea.scrollHeight;
       })
       .catch(error => {
-        botMessage.innerHTML = `<div class="message-content">오류: ${error.message}</div>`;
+        botContent.innerHTML = `<div class="message-content">오류: ${error.message}</div>`;
       });
     }
 
@@ -342,6 +404,11 @@
       if (event.key === 'Enter') {
         sendMessage();
       }
+    });
+
+    // 페이지 로드 시 환영 인사 메시지를 표시
+    document.addEventListener('DOMContentLoaded', function() {
+      displayWelcomeMessage();
     });
 
     // 페이지 로드 시 링크를 하이퍼링크로 변환하는 함수
