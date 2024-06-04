@@ -2,4 +2,3 @@
 logs/
 __pycache__/
 service_model/
-venv/*
