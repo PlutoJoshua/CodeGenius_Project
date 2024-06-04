@@ -35,9 +35,8 @@ def chatting(request):
         logger.warning("views.py/chatting -> This is login_view warning - user email is NONE")
         return redirect('homepage')  
     
-    ### fasttext classification model setting ###
-    classification_model_path = '/app/chatbot/service_model/fasttext_model_v1.bin'
-    threshold = 0.7
+    ### gemini classification model setting ###
+    api_key = "AIzaSyCLmV2CGmQRyqRlfysRuW1XzOB-2c_Yd44"
     ### gpt2 model setting ###
 
 
@@ -50,11 +49,12 @@ def chatting(request):
     ########################################################################## gpt2 + fasttext ##########################################################################
         tasks = group(
             classification_model_predict.s(
-                text = user_input, 
-                path = classification_model_path, 
-                threshold = threshold
+                user_input = user_input, 
+                api_key = api_key
                 ), 
-            chatting_model_predict.s(user_input)
+            chatting_model_predict.s(
+                user_input
+                )
             ).apply_async()
 
         classification_output = tasks.get()[0]
