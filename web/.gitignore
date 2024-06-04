@@ -1,6 +1,7 @@
 venv/*
 db.sqlite3
 chatbot/__pycache__/*
+chatbot/migrations/*
 codegenius/__pycache__/*
 logs/
 __pycache__/
