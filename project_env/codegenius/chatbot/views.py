@@ -4,7 +4,6 @@ from django.core.cache import cache
 from django.template.loader import render_to_string
 from .models import save_data
 import logging
-import fasttext
 from datetime import datetime
 
 from celery import Celery, group
@@ -43,8 +42,12 @@ def chatting(request):
     ### User input ###
     if request.method == 'POST':
         user_input = request.POST.get('user_input')
-        logger.info(f'USER-INPUT | user input: {user_input}')
-        logger.info(f"CHATTING // session email: {request.session.get('email')}")
+        if user_input == None:
+            logger.warning(f'USER-INPUT | user input is {user_input}!!!!!')
+            logger.warning(f"CHATTING // session email: {request.session.get('email')}")
+        else:    
+            logger.info(f'USER-INPUT | user input: {user_input}')
+            logger.info(f"CHATTING // session email: {request.session.get('email')}")
 
     ########################################################################## gpt2 + fasttext ##########################################################################
         tasks = group(

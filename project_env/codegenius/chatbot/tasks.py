@@ -24,7 +24,7 @@ def chatting_model_predict(user_input):
 def classification_model_predict(user_input, api_key):
 
     classification_output = classificate_user_input(
-        input_text = user_input, 
+        user_input = user_input, 
         api_key = api_key
         )
     return classification_output
