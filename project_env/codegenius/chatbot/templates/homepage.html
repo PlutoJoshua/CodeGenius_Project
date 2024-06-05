@@ -72,7 +72,7 @@
             color: white; /* 흰색 글자 */
         }
         .button:hover {
-            background-color: #7c4646;
+            background-color: #5ba06b;
           }
     </style>
 
@@ -97,9 +97,9 @@
     
         <!-- 이메일 입력 폼과 start 버튼 -->
         <form method="post" class="email-form">
-            {% csrf_token %}
             <!-- 이메일 입력 필드 -->
             <div class="button_container">
+                {% csrf_token %}
                 <input type="email" name="email" class="email-input" placeholder="Enter your email" required>
                 <button type="submit" class="button" onclick="animateAndRedirect()">start</button>
             </div>
@@ -275,7 +275,6 @@
           const image = document.querySelector('.rocket img');
           image.classList.add('move-up');
           setTimeout(() => {
-              window.location.href = "{% url 'chatting' %}";
           }, 1000); // 1초간 로켓 이동 후 채팅페이지로 이동
       }
   </script>

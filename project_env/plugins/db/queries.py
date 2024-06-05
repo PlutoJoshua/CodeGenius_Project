@@ -69,9 +69,9 @@ queries = {
     "codegenius_keyword" :
     """
     SELECT
-	keyword,
-	COUNT(keyword) AS keyword_count,
-	updated_at::date AS date
+        keyword,
+        COUNT(keyword) AS keyword_count,
+        updated_at::date AS date
     FROM django_io 
     WHERE 
         keyword is not null
@@ -84,5 +84,19 @@ queries = {
         keyword asc
     LIMIT 7
     ;
+    """,
+
+    "recommendation" :
     """
-}   
+    SELECT
+        user_input
+    FROM
+        django_io
+    WHERE
+        classification_label = 'check'
+        AND updated_at::date = '{batch_date}'
+    ORDER BY
+        user_input desc
+    ;
+    """
+}

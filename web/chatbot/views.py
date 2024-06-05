@@ -1,5 +1,3 @@
-from django.shortcuts import render
-
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.cache import cache
@@ -7,36 +5,39 @@ from django.template.loader import render_to_string
 from .models import save_data
 from datetime import datetime
 
-import logging
+
 # Create your views here.
 def homepage(request):
+
+    save_datas = save_data.objects.all()
+
     if request.method == 'POST':
         email = request.POST['email']
         ### 이메일을 session에 저장 ###
         request.session['email'] = email
         ### chatting 페이지로 리디렉션 ###
         print(f'HOMEPAGE // User Logged In: {email}')
-        return redirect('chatting')    
+        return redirect('chatting')
+    
+    return render(request, 'homepage.html', {'save_datas': save_datas})
 
-    return render(request, 'homepage.html')
-
-
+    
 
 def history(request):
-    email = request.session.get('email')
-
+    email = request.session.get('email', '이메일이 설정되지 않았습니다.')
+    print(email)
     #################### history.html 렌더링 ####################
     ### created_at 기준 내림차순 정렬, email = email ###
-    history_records = save_data.objects.filter(email=request.session.get('email')).exclude(chatting_output=0).order_by('-created_at')
+    history_records = save_data.objects.filter(email=request.session.get('email'))
 
     # history.html에 history_records 전달
-    return render(request, 'history.html', {'history_records': history_records})
+    return render(request, 'history.html', {'history_records': history_records, 'user_email': email})
 
 
 
 def chatting(request):
     ### session에서 email을 load ###
-    email = request.session.get('email')
+    email = request.session.get('email', '이메일이 설정되지 않았습니다.')
 
     ### User input ###
     if request.method == 'POST':

@@ -382,8 +382,8 @@
             <button class="toggle-button" id="toggleButton">▲</button>
         </div>
         <div class="history-title">
-            {% if userDB.userName %}
-                {{userDB.userName}}'s History
+            {% if user_email %}
+                {{user_email}}'s History
             {% else %}
                 User
             {% endif %}
@@ -395,13 +395,15 @@
             {% for record in history_records %}
             <div class="date">
                 <button class="date-button">{{ record.created_at|date:"Y-m-d" }}</button>
+                {% for record in history_records %}
                 <button class="keyword-button">{{ record.keyword }}</button>
+                {% endfor %}
             </div>
             {% endfor %}
         </div>
     </div>
 
-    <div class="container" id="container">
+    <!--div class="container" id="container">
         <div class="chat-container" id="chatContainer">
             <div class="chat-area">
                 <h2>Chat</h2>
@@ -422,65 +424,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div-->
 
-    <script>
-        document.getElementById('toggleButton').addEventListener('click', function() {
-            var historyBar = document.getElementById('historyBar');
-            var container = document.getElementById('container');
-            var chatContainer = document.getElementById('chatContainer');
-            if (historyBar.style.display === 'none') {
-                historyBar.style.display = 'block';
-                container.style.marginLeft = '250px';
-                container.style.width = 'calc(100% - 250px)';
-                chatContainer.style.width = '100%';
-                chatContainer.style.maxWidth = '1200px';
-                this.textContent = '▲';
-            } else {
-                historyBar.style.display = 'none';
-                container.style.marginLeft = '0';
-                container.style.width = '100%';
-                chatContainer.style.width = '100%';
-                chatContainer.style.maxWidth = '2000px';
-                this.textContent = '▼';
-            }
-        });
 
-        // 키워드 버튼 클릭 시 대화 내용을 불러오는 함수 추가
-        document.querySelectorAll('.keyword-button').forEach(button => {
-            button.addEventListener('click', function() {
-                var keyword = this.textContent;
-                fetchConversation(keyword);
-            });
-        });
-
-        function fetchConversation(keyword) {
-            // 여기서 AJAX 요청을 보내서 해당 키워드에 따른 대화 내용을 불러오도록 함
-            fetch("{% url 'fetch_conversation' %}", {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-                'X-CSRFToken': '{{ csrf_token }}'
-            },
-            body: JSON.stringify({ keyword: keyword })
-        })
-        .then(response => response.json())
-        .then(data => {
-            var chatArea = document.getElementById('chat-area');
-            chatArea.innerHTML = ''; // 기존 대화 내용 지우기
-
-            // 새로운 대화 내용 추가
-            data.forEach(item => {
-                var botMessage = document.createElement('div');
-                botMessage.className = 'message bot-message';
-                botMessage.innerHTML = `<div class="message-content">${item.chatting_output}</div>`;
-                chatArea.appendChild(botMessage);
-            });
-        })
-        .catch(error => {
-            console.error('Error fetching conversation:', error);
-        });
-    }
-    </script>
+    
 </body>
 </html>

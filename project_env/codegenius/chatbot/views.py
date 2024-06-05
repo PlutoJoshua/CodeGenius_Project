@@ -1,8 +1,9 @@
+import random
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.cache import cache
 from django.template.loader import render_to_string
-from .models import save_data
+from .models import save_data, Label_0_answer
 import logging
 from datetime import datetime
 
@@ -37,7 +38,7 @@ def chatting(request):
     ### gemini classification model setting ###
     api_key = "AIzaSyAOBGlVPR_uefBsR01G6HJZ7oQ69-nDGSo"
     ### gpt2 model setting ###
-
+    gpt2_path = "/app/chatbot/service_model/kogpt2_chatbot_model.pth"
 
     ### User input ###
     if request.method == 'POST':
@@ -45,22 +46,25 @@ def chatting(request):
         if user_input == None:
             logger.warning(f'USER-INPUT | user input is {user_input}!!!!!')
             logger.warning(f"CHATTING // session email: {request.session.get('email')}")
+            classification_output = "no"
+
         else:    
             logger.info(f'USER-INPUT | user input: {user_input}')
             logger.info(f"CHATTING // session email: {request.session.get('email')}")
 
     ########################################################################## gpt2 + fasttext ##########################################################################
-        tasks = group(
-            classification_model_predict.s(
-                user_input = user_input, 
-                api_key = api_key
-                ), 
-            chatting_model_predict.s(
-                user_input
-                )
-            ).apply_async()
+            tasks = group(
+                classification_model_predict.s(
+                    user_input = user_input, 
+                    api_key = api_key
+                    ), 
+                chatting_model_predict.s(
+                    user_input = user_input,
+                    model_path = gpt2_path
+                    )
+                ).apply_async()
 
-        classification_output = tasks.get()[0]
+            classification_output = tasks.get()[0]
 
     ######################################################################## 분류에 따라 query작업 ########################################################################
         ### gtp2와 fasttext 동시진행 ###
@@ -113,12 +117,18 @@ def chatting(request):
         else:
             ### 파이썬 관련 질문이 아닐 때 ###
             ### (email, 질문, classification model result) Database에 저장 ###
+            random_num = random.randint(0, 9)
+            record = Label_0_answer.objects.get(id=random_num)
+            answer = record.answer
+
             record = save_data.objects.create(
-                email=email,
-                user_input=user_input,
+                email = email,
+                user_input = user_input,
+                chatting_output = answer,
                 classification_label = classification_output
             )
-            return render(request, 'chatting.html', {'chatting_output': '파이썬에 관해 궁금한 점은 없으신가요?'})
+
+            return render(request, 'chatting.html', {'chatting_output': answer})
         
 
     else:

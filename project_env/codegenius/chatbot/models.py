@@ -7,7 +7,7 @@ class save_data(models.Model):
     ### 유저 email ###
     email = models.EmailField(blank=True, null=True)
     ### 유저 인풋 ###
-    user_input = models.CharField(max_length=255)
+    user_input = models.CharField(max_length=255, null=True)
     ### 채팅 아웃풋 ###
     chatting_output = models.CharField(max_length=255, blank=True, null=True)
     keyword = models.CharField(max_length=255, blank=True, null=True)
@@ -28,3 +28,15 @@ class save_data(models.Model):
 
     class Meta:
         db_table = 'django_io'
+
+
+class Label_0_answer(models.Model):
+    # 필드 정의
+    answer = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.answer
+    
+    class Meta:
+        db_table = 'label_0_answer'
+        managed = False

@@ -56,7 +56,7 @@ with dag:
         python_callable=extract_data,
         provide_context=True
     )
-    load_to_mysql_task = PythonOperator(
+    load_to_pg_task = PythonOperator(
         task_id='Load_to_postgresql',
         python_callable=load_to_pg,
         provide_context=True
@@ -66,4 +66,4 @@ with dag:
 ### task dependency ###   
 #######################
 
-extract_data_task >> load_to_mysql_task
+extract_data_task >> load_to_pg_task

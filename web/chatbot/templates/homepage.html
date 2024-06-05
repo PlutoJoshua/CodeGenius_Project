@@ -33,24 +33,26 @@
       .main-header {
         display: grid;
         place-items: center;
-        margin-top: 60px;
+        margin-top: 100px;
       }
       .logo-text {
           color: white;
           font-size: 4.5rem;
           padding: 0px;
-          font-weight: 700;
+          font-weight: 500;
         }
       .description {
           color: white;
-          font-size: 1.1rem;
-          padding-bottom: 60px;
+          font-size: 1rem;
+          padding-bottom: 70px;
+          text-align: center; /* 가운데 정렬 */
       }
 
     </style>
 
     <style>
         .email-form {  /* 이메일 입력 폼 스타일 */
+            text-align: center; /* 이메일 입력 폼을 가운데 정렬 */
       }
         .email-input {
             padding: 10px;
@@ -89,9 +91,9 @@
         <div class="logo-text">CodeGenius</div>
         <div class="description">
             <p>
-              &nbsp;Python 학습을 도와주는 챗봇입니다<br>
-              History를 통해 검색기록을 확인하세요<br>
-              &nbsp;Email을 입력하고 채팅을 시작하세요
+              &nbsp;파이썬 학습을 도와주는 챗봇입니다.<br>
+              히스토리 페이지를 통해 날짜별 키워드를 쉽게 찾아 복습할 수 있습니다.<br>
+              &nbsp;이메일을 입력하고 시작 버튼을 눌러 나만의 코딩 학습 여정을 시작하세요.
             </p>
         </div>
     
@@ -100,14 +102,20 @@
             <!-- 이메일 입력 필드 -->
             <div class="button_container">
                 {% csrf_token %}
-                <input type="email" name="email" class="email-input" placeholder="Enter your email" required>
-                <button type="submit" class="button" onclick="animateAndRedirect()">start</button>
+                <input type="email" name="email" class="email-input" placeholder="Enter your email" required  oninput="animateAndRedirect()">
+                <button type="submit" class="button">start</button>
             </div>
         </form>
     </div>
 
-
-
+    <script>
+        function animateAndRedirect() {
+            const image = document.querySelector('.rocket img');
+            setTimeout(() => {
+                image.classList.add('move-up');
+            }, 1000); // 1초간 로켓 이동 후 채팅페이지로 이동
+        }
+    </script>
 
 
 
@@ -132,7 +140,7 @@
         }
         .weekly-title {  /*키워드박스 제목위치*/
             font-size: 25px;
-            font-weight: bold;
+            font-weight: 500;
             color: white;
         }
     </style>
@@ -217,11 +225,13 @@
     <!--키워드박스 생성-->
         <div class="keyword-box">
             <p class="weekly-title"> Weekly<br> Keyword</p>
-            <!--script src="{% static '/js/keyword_box.js' %}"></script-->
-        
    
     <script>
-        const keywords = ["JavaScript", "Python", "HTML", "CSS", "React", "Node.js", "Django"];
+        const keywords = [
+            {% for data in save_datas %}
+                "{{ data.keyword }}"{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
         const keywordBox = document.querySelector('.keyword-box');
         const iconBasePath = "/static/img/";
 
@@ -269,15 +279,6 @@
         <img src="{% static 'img/rocket5.png' %}" alt="Image">
     </div>
 
-    <!--script src="{% static '/js/start_button.js' %}"></script-->
-    <script>
-      function animateAndRedirect() {
-          const image = document.querySelector('.rocket img');
-          image.classList.add('move-up');
-          setTimeout(() => {
-          }, 1000); // 1초간 로켓 이동 후 채팅페이지로 이동
-      }
-  </script>
 
 </body>
 </html>

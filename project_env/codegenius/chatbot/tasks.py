@@ -9,15 +9,9 @@ from .classification_model import Google_gemini as classificate_user_input
 logger = logging.getLogger(__name__)
 
 @shared_task
-def chatting_model_predict(user_input):
-    try:
-        # user_input을 사용하여 모델 예측
-        result = chatting_model(user_input)
-        return result
-        
-    except Exception as e:
-        logger.error(f'tasks.py/chatting_model_predict -> Error: {e}')
-        return ' '
+def chatting_model_predict(user_input, model_path):
+    response = chatting_model(user_input, model_path)
+    return response
 
 
 @shared_task

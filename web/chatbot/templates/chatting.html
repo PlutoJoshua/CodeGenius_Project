@@ -7,6 +7,8 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
   <title>chatting</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> <!-- marked 라이브러리 추가 -->
+
 
   <!-- 전체 스타일 설정 -->
   <style>
@@ -68,11 +70,13 @@
         color: white; /* 글씨 색 색으로 설정 */
         display: flex;
         flex-direction: column;
+        overflow-x: hidden; /* 좌우 스크롤바 제거 */
     }
 
     .chat-content {
         flex: 1;
         overflow-y: auto; /* 스크롤 가능하도록 설정 */
+        overflow-x: hidden; /* 좌우 스크롤바 제거 */
     }
 
     /* 코드 예시 및 문서 링크 영역 스타일 */
@@ -90,6 +94,7 @@
         padding: 10px;
         background-color: black; /* 영역 배경색 검정색으로 설정 */
         color: white; /* 글씨 색 흰색으로 설정 */
+        overflow-x: hidden; /* 좌우 스크롤바 제거 */
     }
 
     /* 문서 링크 영역 스타일 */
@@ -99,6 +104,7 @@
         padding: 10px;
         background-color: black; /* 영역 배경색 검정색으로 설정 */
         color: white; /* 글씨 색 흰색으로 설정 */
+        overflow-x: hidden; /* 좌우 스크롤바 제거 */
     }
 
     /* 입력 영역 스타일 */
@@ -275,7 +281,7 @@
       <div class="code-area-container"> <!-- 코드 영역 컨테이너 -->
         <div class="code-example">
           <h2>Examples</h2>
-          <pre><code>{{ code }}</code></pre> <!-- 코드 예시를 출력 -->
+          <div id="code-example">{{ code }}</div> <!-- 코드 예시를 출력 -->
         </div>
         <div class="doc-links">
           <h2>Docs</h2>
@@ -391,7 +397,7 @@
       .then(data => {
         botContent.innerHTML = '';
         typeWriter(data.chatting_output, botContent, 50);
-        document.getElementById('code-example').innerText = data.code;
+        document.getElementById('code-example').innerHTML = marked(data.code); // 마크다운 형식으로 렌더링
         document.getElementById('doc-links').innerHTML = `<a href="${data.doc_url}" target="_blank">${data.keyword}</a>`;
         chatArea.scrollTop = chatArea.scrollHeight;
       })
