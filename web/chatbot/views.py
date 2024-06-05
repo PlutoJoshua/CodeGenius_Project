@@ -25,13 +25,13 @@ def homepage(request):
 
 def history(request):
     email = request.session.get('email', '이메일이 설정되지 않았습니다.')
-
+    print(email)
     #################### history.html 렌더링 ####################
     ### created_at 기준 내림차순 정렬, email = email ###
     history_records = save_data.objects.filter(email=request.session.get('email'))
 
     # history.html에 history_records 전달
-    return render(request, 'history.html', {'history_records': history_records})
+    return render(request, 'history.html', {'history_records': history_records, 'user_email': email})
 
 
 
