@@ -36,5 +36,7 @@ class Label_0_answer(models.Model):
 
     def __str__(self):
         return self.answer
+    
     class Meta:
         db_table = 'label_0_answer'
+        managed = False
