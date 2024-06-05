@@ -9,8 +9,8 @@ from .classification_model import Google_gemini as classificate_user_input
 logger = logging.getLogger(__name__)
 
 @shared_task
-def chatting_model_predict(user_input):
-    response = chatting_model(user_input)
+def chatting_model_predict(user_input, model_path):
+    response = chatting_model(user_input, model_path)
     return response
 
 

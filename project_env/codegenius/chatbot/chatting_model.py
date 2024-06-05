@@ -3,9 +3,9 @@ from tokenizer import koGPT2_TOKENIZER, Q_TKN, A_TKN, SENT, EOS
 import parameter
 from model import KoGPT2ChatbotModel
 
-def chatting_model(user_input):
+def chatting_model(user_input, model_path):
     chatbot_model = KoGPT2ChatbotModel()
-    checkpoint = torch.load(parameter.model_save_path)
+    checkpoint = torch.load(model_path)
     chatbot_model.model.load_state_dict(checkpoint['model_state_dict'])
     chatbot_model.model.eval()
 

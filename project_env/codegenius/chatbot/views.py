@@ -58,7 +58,8 @@ def chatting(request):
                     api_key = api_key
                     ), 
                 chatting_model_predict.s(
-                    user_input
+                    user_input = user_input,
+                    model_path = gpt2_path
                     )
                 ).apply_async()
 
