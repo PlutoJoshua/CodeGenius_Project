@@ -7,7 +7,7 @@ class save_data(models.Model):
     ### 유저 email ###
     email = models.EmailField(blank=True, null=True)
     ### 유저 인풋 ###
-    user_input = models.CharField(max_length=255)
+    user_input = models.CharField(max_length=255, null=True)
     ### 채팅 아웃풋 ###
     chatting_output = models.CharField(max_length=255, blank=True, null=True)
     keyword = models.CharField(max_length=255, blank=True, null=True)
@@ -36,3 +36,5 @@ class Label_0_answer(models.Model):
 
     def __str__(self):
         return self.answer
+    class Meta:
+        db_table = 'label_0_answer'

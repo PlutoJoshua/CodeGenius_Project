@@ -47,6 +47,7 @@ def chatting(request):
             logger.warning(f'USER-INPUT | user input is {user_input}!!!!!')
             logger.warning(f"CHATTING // session email: {request.session.get('email')}")
             classification_output = "no"
+
         else:    
             logger.info(f'USER-INPUT | user input: {user_input}')
             logger.info(f"CHATTING // session email: {request.session.get('email')}")
@@ -116,14 +117,16 @@ def chatting(request):
         else:
             ### 파이썬 관련 질문이 아닐 때 ###
             ### (email, 질문, classification model result) Database에 저장 ###
-            record = save_data.objects.create(
-                email=email,
-                user_input=user_input,
-                classification_label = classification_output
-            )
             random_num = random.randint(0, 9)
             record = Label_0_answer.objects.get(id=random_num)
             answer = record.answer
+
+            record = save_data.objects.create(
+                email = email,
+                user_input = user_input,
+                chatting_output = answer,
+                classification_label = classification_output
+            )
 
             return render(request, 'chatting.html', {'chatting_output': answer})
         

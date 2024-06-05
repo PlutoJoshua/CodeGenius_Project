@@ -1,32 +1,72 @@
 import torch
-from tokenizer import koGPT2_TOKENIZER, Q_TKN, A_TKN, SENT, EOS
-from model import KoGPT2ChatbotModel
+from transformers import GPT2LMHeadModel, PreTrainedTokenizerFast
+import logging
+
+logger = logging.getLogger(__name__)
+
+try:
+    Q_TKN = "<usr>" # 사용자 질문 토큰
+    A_TKN = "<sys>" # 시스템 응답 토큰
+    BOS = '</s>' # 시작 토큰
+    EOS = '</s>' # 종료 토큰
+    MASK = '<unused0>' # 마스크 토큰 (답변을 가릴 때 사용)
+    SENT = '<unused1>' # 문장 구분 토큰
+    PAD = '<pad>' # 패딩 토큰 (시퀀스의 길이를 맞추기 위해 사용)
+
+    koGPT2_TOKENIZER = PreTrainedTokenizerFast.from_pretrained(
+    "skt/kogpt2-base-v2", # KoGPT2 모델의 사전 학습된 가중치를 불러옴
+    bos_token=BOS, 
+    eos_token=EOS, 
+    unk_token='<unk>', # 알 수 없는 토큰 설정
+    pad_token=PAD, 
+    mask_token=MASK
+)
+except Exception as e:
+    print(f"!!!!!!!!!!!!!!! {e} !!!!!!!!!!!!!!!")
+    logger.error(f"Error loading tokenizer: {e}")
+
+gpt2_model = None
 
 def chatting_model(user_input, model_path):
-    chatbot_model = KoGPT2ChatbotModel()
-    checkpoint = torch.load(model_path)
-    chatbot_model.model.load_state_dict(checkpoint['model_state_dict'])
-    chatbot_model.model.eval()
+    global gpt2_model
 
-    device = chatbot_model.device
+    if gpt2_model is None:
+        gpt2_model = GPT2LMHeadModel.from_pretrained('skt/kogpt2-base-v2')
+        ### 모델 가중치 불러오기 ###
+        gpt2_model.load_state_dict(torch.load(model_path)['model_state_dict'])
+        ### 평가 모드로 설정 ###
+        gpt2_model.eval()  
 
-    response = ""  
+        logger.info('chatting_model.py/chatting_model -> gpt2 model is None, so.... load the gpt2 model')
+    
+    else:
+        logger.info('chatting_model.py/chatting_model -> Use cached gpt2 model')
+    
+    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+    gpt2_model.to(device)
 
-    with torch.no_grad():
-        q = user_input.strip() 
-        a = ""  
+    response = ""
+
+    ### 그라디언트 계산 비활성화(추론 단계에서 필요 없음) ###
+    with torch.no_grad():   
+        q = user_input.strip()
+        a = ""
         while True:
+            ### 입력 토큰화 및 텐서 변환 ##
             input_ids = torch.LongTensor(koGPT2_TOKENIZER.encode(Q_TKN + q + SENT + A_TKN + a)).unsqueeze(dim=0).to(device)
-            pred = chatbot_model.model(input_ids)
-            logits = pred.logits
-            logits = logits[:, -1, :]
-            probs = logits.softmax(dim=-1)
-            top_prob, top_idx = torch.topk(probs, k=1, dim=-1)
+            
+        #################################################### 모델 예측 수행 ####################################################
+            outputs = gpt2_model(input_ids)
+            logits = outputs.logits
+            logits = logits[:, -1, :]  
+            probs = logits.softmax(dim=-1) 
+            top_prob, top_idx = torch.topk(probs, k=1, dim=-1) 
             gen_token_id = top_idx.item()
-            gen = koGPT2_TOKENIZER.convert_ids_to_tokens(gen_token_id)
-            if gen == EOS:
+            gen = koGPT2_TOKENIZER.convert_ids_to_tokens(gen_token_id) 
+            if gen == EOS: 
                 break
             a += gen.replace("▁", " ")
+            
         response = a.strip()
 
     return response
