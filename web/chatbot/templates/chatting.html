@@ -7,6 +7,8 @@
   <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}">
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
   <title>chatting</title>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script> <!-- marked 라이브러리 추가 -->
+
 
   <!-- 전체 스타일 설정 -->
   <style>
@@ -279,7 +281,7 @@
       <div class="code-area-container"> <!-- 코드 영역 컨테이너 -->
         <div class="code-example">
           <h2>Examples</h2>
-          <pre><code>{{ code }}</code></pre> <!-- 코드 예시를 출력 -->
+          <div id="code-example">{{ code }}</div> <!-- 코드 예시를 출력 -->
         </div>
         <div class="doc-links">
           <h2>Docs</h2>
@@ -395,7 +397,7 @@
       .then(data => {
         botContent.innerHTML = '';
         typeWriter(data.chatting_output, botContent, 50);
-        document.getElementById('code-example').innerText = data.code;
+        document.getElementById('code-example').innerHTML = marked(data.code); // 마크다운 형식으로 렌더링
         document.getElementById('doc-links').innerHTML = `<a href="${data.doc_url}" target="_blank">${data.keyword}</a>`;
         chatArea.scrollTop = chatArea.scrollHeight;
       })
