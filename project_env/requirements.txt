@@ -4,3 +4,5 @@ celery==5.4.0
 redis==5.0.4
 django-redis
 google-generativeai==0.5.4
+scikit-learn==1.5.0
+konlpy==0.6.0
