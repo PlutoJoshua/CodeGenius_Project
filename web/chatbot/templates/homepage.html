@@ -100,14 +100,20 @@
             <!-- 이메일 입력 필드 -->
             <div class="button_container">
                 {% csrf_token %}
-                <input type="email" name="email" class="email-input" placeholder="Enter your email" required>
-                <button type="submit" class="button" onclick="animateAndRedirect()">start</button>
+                <input type="email" name="email" class="email-input" placeholder="Enter your email" required  oninput="animateAndRedirect()">
+                <button type="submit" class="button">start</button>
             </div>
         </form>
     </div>
 
-
-
+    <script>
+        function animateAndRedirect() {
+            const image = document.querySelector('.rocket img');
+            setTimeout(() => {
+                image.classList.add('move-up');
+            }, 1000); // 1초간 로켓 이동 후 채팅페이지로 이동
+        }
+    </script>
 
 
 
@@ -217,11 +223,13 @@
     <!--키워드박스 생성-->
         <div class="keyword-box">
             <p class="weekly-title"> Weekly<br> Keyword</p>
-            <!--script src="{% static '/js/keyword_box.js' %}"></script-->
-        
    
     <script>
-        const keywords = ["JavaScript", "Python", "HTML", "CSS", "React", "Node.js", "Django"];
+        const keywords = [
+            {% for data in save_datas %}
+                "{{ data.keyword }}"{% if not forloop.last %},{% endif %}
+            {% endfor %}
+        ];
         const keywordBox = document.querySelector('.keyword-box');
         const iconBasePath = "/static/img/";
 
@@ -269,15 +277,6 @@
         <img src="{% static 'img/rocket5.png' %}" alt="Image">
     </div>
 
-    <!--script src="{% static '/js/start_button.js' %}"></script-->
-    <script>
-      function animateAndRedirect() {
-          const image = document.querySelector('.rocket img');
-          image.classList.add('move-up');
-          setTimeout(() => {
-          }, 1000); // 1초간 로켓 이동 후 채팅페이지로 이동
-      }
-  </script>
 
 </body>
 </html>
