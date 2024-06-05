@@ -1,7 +1,7 @@
 CREATE DATABASE django_db;
 CREATE DATABASE django_datamart;
 
--------------------------------------------------------
+-----------------------------------------------------------------------------------------------------
 
 -- 데이터베이스 연결
 \c django_db;
@@ -21,6 +21,8 @@ CREATE TABLE IF NOT EXISTS keyword (
 -- Data load
 COPY keyword FROM '/docker-entrypoint-initdb.d/keyword.csv' DELIMITER ',' CSV HEADER;
 
+-----------------------------------------------------------------------------------------------------
+
 \c django_db;
 
 CREATE TABLE IF NOT EXISTS django_log (
@@ -31,3 +33,17 @@ CREATE TABLE IF NOT EXISTS django_log (
     lineno INT NOT NULL,
     log_message TEXT NOT NULL
 );
+
+-----------------------------------------------------------------------------------------------------
+
+-- 데이터베이스 선택
+\c django_db;
+
+-- 테이블 생성
+CREATE TABLE IF NOT EXISTS Label_0_answer (
+    id SERIAL PRIMARY KEY,
+    answer VARCHAR(255)
+);
+
+-- 데이터 로드
+COPY Label_0_answer FROM '/docker-entrypoint-initdb.d/Label_0_answer.csv' DELIMITER ',' CSV HEADER;
