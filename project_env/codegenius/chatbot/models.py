@@ -28,3 +28,11 @@ class save_data(models.Model):
 
     class Meta:
         db_table = 'django_io'
+
+
+class Label_0_answer(models.Model):
+    # 필드 정의
+    answer = models.CharField(max_length=255)
+
+    def __str__(self):
+        return self.answer

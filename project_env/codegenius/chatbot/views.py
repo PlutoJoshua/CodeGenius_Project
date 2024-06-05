@@ -1,8 +1,9 @@
+import random
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.core.cache import cache
 from django.template.loader import render_to_string
-from .models import save_data
+from .models import save_data, Label_0_answer
 import logging
 from datetime import datetime
 
@@ -118,7 +119,11 @@ def chatting(request):
                 user_input=user_input,
                 classification_label = classification_output
             )
-            return render(request, 'chatting.html', {'chatting_output': '파이썬에 관해 궁금한 점은 없으신가요?'})
+            random_num = random.randint(0, 9)
+            record = Label_0_answer.objects.get(id=random_num)
+            answer = record.answer
+
+            return render(request, 'chatting.html', {'chatting_output': answer})
         
 
     else:
