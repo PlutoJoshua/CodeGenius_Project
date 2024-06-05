@@ -1,1 +1,5 @@
-keybert
+pandas==2.2.2
+keybert==0.8.4
+kiwipiepy==0.17.1
+transformers==4.41.1
+wordcloud==1.9.3
