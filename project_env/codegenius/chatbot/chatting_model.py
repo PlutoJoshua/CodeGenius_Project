@@ -1,6 +1,5 @@
 import torch
 from tokenizer import koGPT2_TOKENIZER, Q_TKN, A_TKN, SENT, EOS
-import parameter
 from model import KoGPT2ChatbotModel
 
 def chatting_model(user_input, model_path):
