@@ -38,7 +38,7 @@ def chatting(request):
     ### gemini classification model setting ###
     api_key = "AIzaSyAOBGlVPR_uefBsR01G6HJZ7oQ69-nDGSo"
     ### gpt2 model setting ###
-
+    gpt2_path = "/app/chatbot/service_model/kogpt2_chatbot_model.pth"
 
     ### User input ###
     if request.method == 'POST':
@@ -46,22 +46,23 @@ def chatting(request):
         if user_input == None:
             logger.warning(f'USER-INPUT | user input is {user_input}!!!!!')
             logger.warning(f"CHATTING // session email: {request.session.get('email')}")
+            classification_output = "no"
         else:    
             logger.info(f'USER-INPUT | user input: {user_input}')
             logger.info(f"CHATTING // session email: {request.session.get('email')}")
 
     ########################################################################## gpt2 + fasttext ##########################################################################
-        tasks = group(
-            classification_model_predict.s(
-                user_input = user_input, 
-                api_key = api_key
-                ), 
-            chatting_model_predict.s(
-                user_input
-                )
-            ).apply_async()
+            tasks = group(
+                classification_model_predict.s(
+                    user_input = user_input, 
+                    api_key = api_key
+                    ), 
+                chatting_model_predict.s(
+                    user_input
+                    )
+                ).apply_async()
 
-        classification_output = tasks.get()[0]
+            classification_output = tasks.get()[0]
 
     ######################################################################## 분류에 따라 query작업 ########################################################################
         ### gtp2와 fasttext 동시진행 ###
