@@ -34,16 +34,16 @@ def chatting_model(user_input, model_path):
     if gpt2_model is None:
         gpt2_model = GPT2LMHeadModel.from_pretrained('skt/kogpt2-base-v2')
         ### 모델 가중치 불러오기 ###
-        gpt2_model.load_state_dict(torch.load(model_path, map_location=device)['model_state_dict'])
+        gpt2_model.load_state_dict(torch.load(model_path, map_location = device)['model_state_dict'])
         ### 평가 모드로 설정 ###
         gpt2_model.eval()  
+        gpt2_model.to(device)
 
-        logger.info('chatting_model.py/chatting_model -> gpt2 model is None, so.... load the gpt2 model')
+        logger.info('chatting_model.py/chatting_model -> gpt2 model is loaded')
     
     else:
         logger.info('chatting_model.py/chatting_model -> Use cached gpt2 model')
-
-    gpt2_model.to(device)
+    
     response = ""
 
     ### 그라디언트 계산 비활성화(추론 단계에서 필요 없음) ###

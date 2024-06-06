@@ -83,7 +83,7 @@ def chatting(request):
 
                     try:
 
-                        chatting_output = tasks.get(timeout=20)[1]
+                        chatting_output = tasks.get(timeout=30)[1]
                         
                     except Exception as e:
                         logger.error(f'views.py/chatting/chatting_model_predict -> error: {e}')
