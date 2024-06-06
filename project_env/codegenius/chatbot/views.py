@@ -1,6 +1,7 @@
 import random
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+import json
 from django.core.cache import cache
 from django.template.loader import render_to_string
 from .models import save_data, Label_0_answer
@@ -31,10 +32,10 @@ def chatting(request):
     ### session에서 email을 load ###
     email = request.session.get('email')
     if email is None:
-    ### chatting page로 바로 접속하여 서비스 이용시 에러 log ### 
+        ### chatting page로 바로 접속하여 서비스 이용시 에러 log ###
         logger.warning("views.py/chatting -> This is login_view warning - user email is NONE")
-        return redirect('homepage')  
-    
+        return redirect('homepage')
+
     ### gemini classification model setting ###
     api_key = "AIzaSyAOBGlVPR_uefBsR01G6HJZ7oQ69-nDGSo"
     ### gpt2 model setting ###
@@ -42,94 +43,95 @@ def chatting(request):
 
     ### User input ###
     if request.method == 'POST':
-        user_input = request.POST.get('user_input')
-        if user_input == None:
-            logger.warning(f'USER-INPUT | user input is {user_input}!!!!!')
-            logger.warning(f"CHATTING // session email: {request.session.get('email')}")
-            classification_output = "no"
+        try:
+            data = json.loads(request.body.decode('utf-8'))
+            user_input = data.get('user_input')
+            if not user_input:
+                logger.warning(f'USER-INPUT | user input is {user_input}!!!!!')
+                logger.warning(f"CHATTING // session email: {email}")
+                classification_output = "no"
+            else:
+                logger.info(f'USER-INPUT | user input: {user_input}')
+                logger.info(f"CHATTING // session email: {email}")
 
-        else:    
-            logger.info(f'USER-INPUT | user input: {user_input}')
-            logger.info(f"CHATTING // session email: {request.session.get('email')}")
-
-    ########################################################################## gpt2 + fasttext ##########################################################################
-            tasks = group(
-                classification_model_predict.s(
-                    user_input = user_input, 
-                    api_key = api_key
-                    ), 
-                chatting_model_predict.s(
-                    user_input = user_input,
-                    model_path = gpt2_path
+                # gpt2 + fasttext
+                tasks = group(
+                    classification_model_predict.s(
+                        user_input = user_input,
+                        api_key = api_key
+                    ),
+                    chatting_model_predict.s(
+                        user_input = user_input,
+                        model_path = gpt2_path
                     )
                 ).apply_async()
 
-            classification_output = tasks.get()[0]
+                classification_output = tasks.get(timeout = 20)[0]  # 타임아웃 설정
 
-    ######################################################################## 분류에 따라 query작업 ########################################################################
-        ### gtp2와 fasttext 동시진행 ###
-        ### fasttext 값에 따라 gpt2 모델 값 대기 선택 ###
+                # 분류에 따라 query 작업
+                if classification_output == "yes":
+                    try:
 
-        ### 파이썬 관련 질문일 때 ###
-        if classification_output == "yes":
-            try:    
+                        keyword_output = extrack_keyword(user_input)
 
-                keyword_output = extrack_keyword(user_input)
+                    except ObjectDoesNotExist:
+                        logger.error(f'views.py/extrack_keyword -> error: No matching record found')
+                        keyword_output = {'keyword': '', 'code': '', 'doc_url': ''}
+                    except Exception as e:
+                        logger.error(f'views.py/extrack_keyword -> Error: {e}')
+                        keyword_output = {'keyword': '', 'code': '', 'doc_url': ''}
 
-            except ObjectDoesNotExist:
-                logger.error(f'views.py/extrack_keyword -> error: No matching record found')
-            except Exception as e:
-                logger.error(f'views.py/extrack_keyword -> Error: {e}')
+                    try:
 
-            try:
+                        chatting_output = tasks.get(timeout=20)[1]
+                        
+                    except Exception as e:
+                        logger.error(f'views.py/chatting/chatting_model_predict -> error: {e}')
+                        chatting_output = "죄송합니다, 답변을 생성하는데 문제가 발생했습니다."
 
-                chatting_output = tasks.get()[1]
-            
-            except Exception as e:
-                logger.error(f'views.py/chatting/chatting_model_predict -> error: {e}')
+                    record = save_data.objects.create(
+                        email=email,
+                        user_input=user_input,
+                        chatting_output=chatting_output,
+                        keyword=keyword_output.get('keyword', ''),
+                        code=keyword_output.get('code', ''),
+                        doc_url=keyword_output.get('doc_url', ''),
+                        classification_label=classification_output
+                    )
 
+                    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-            record = save_data.objects.create(
-                email=email,
-                user_input=user_input,
-                chatting_output=chatting_output,
-                keyword=keyword_output.get('keyword', ''),
-                code=keyword_output.get('code', ''),
-                doc_url=keyword_output.get('doc_url', ''),
-                classification_label = classification_output
-            )
+                    # chatting.html 렌더링
+                    chatting_html = {
+                        'chatting_output': chatting_output,
+                        'keyword': keyword_output.get('keyword', ''),
+                        'code': keyword_output.get('code', ''),
+                        'doc_url': keyword_output.get('doc_url', ''),
+                        'current_time': current_time
+                    }
+                    return JsonResponse(chatting_html)
 
-            current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                else:
+                    # 파이썬 관련 질문이 아닐 때
+                    random_num = random.randint(0, 9)
+                    record = Label_0_answer.objects.get(id=random_num)
+                    answer = record.answer
 
-            #################### chatting.html 렌더링 ####################
-            chatting_html = render_to_string('chatting.html', {
-                'chatting_output': chatting_output, 
-                'keyword': keyword_output.get('keyword', ''), 
-                'code': keyword_output.get('code', ''), 
-                'doc_url': keyword_output.get('doc_url', ''),
-                'current_time': current_time
-            })
+                    record = save_data.objects.create(
+                        email=email,
+                        user_input=user_input,
+                        chatting_output=answer,
+                        classification_label=classification_output
+                    )
 
+                    return JsonResponse({'chatting_output': answer})
 
-            return HttpResponse(chatting_html)
-
-
-        else:
-            ### 파이썬 관련 질문이 아닐 때 ###
-            ### (email, 질문, classification model result) Database에 저장 ###
-            random_num = random.randint(0, 9)
-            record = Label_0_answer.objects.get(id=random_num)
-            answer = record.answer
-
-            record = save_data.objects.create(
-                email = email,
-                user_input = user_input,
-                chatting_output = answer,
-                classification_label = classification_output
-            )
-
-            return render(request, 'chatting.html', {'chatting_output': answer})
-        
+        except json.JSONDecodeError as e:
+            logger.error(f"JSON decode error: {e}")
+            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
+        except Exception as e:
+            logger.error(f"Unexpected error: {e}")
+            return JsonResponse({'error': 'An unexpected error occurred'}, status=500)
 
     else:
         return render(request, 'chatting.html')
@@ -147,5 +149,15 @@ def history(request):
     ### created_at 기준 내림차순 정렬, email = email ###
     history_records = save_data.objects.filter(email=request.session.get('email')).exclude(chatting_output=0).order_by('-created_at')
 
-    # history.html에 history_records 전달
-    return render(request, 'history.html', {'history_records': history_records})
+    history_data = []
+    for record in history_records:
+        history_data.append({
+            'user_input': record.user_input,
+            'chatting_output': record.chatting_output,
+            'keyword': record.keyword,
+            'code': record.code,
+            'doc_url': record.doc_url,
+            'created_at': record.created_at.strftime('%Y-%m-%d %H:%M:%S')
+        })
+
+    return JsonResponse({'history_records': history_data})

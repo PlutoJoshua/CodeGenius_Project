@@ -360,7 +360,9 @@
       const userInput = document.getElementById('user-input').value;
       if (!userInput) return;
 
-      // 사용자 입력을 대화 영역에 추가
+      // 사용자 입력을 대화 영역에 추가  
+      console.log("User input: ", userInput);
+
       const chatArea = document.getElementById('chat-area');
       const userMessage = document.createElement('div');
       userMessage.className = 'message user-message';
@@ -391,8 +393,14 @@
         },
         body: JSON.stringify({ user_input: userInput })
       })
-      .then(response => response.json())
+
+      // ########################## 변경부분입니다 ##########################
+      .then(response => {
+        console.log("Response status: ", response.status);
+        return response.json();
+      })
       .then(data => {
+        console.log("Server response data: ", data);
         botContent.innerHTML = '';
         typeWriter(data.chatting_output, botContent, 50);
         document.getElementById('code-example').innerText = data.code;
@@ -400,10 +408,11 @@
         chatArea.scrollTop = chatArea.scrollHeight;
       })
       .catch(error => {
+        console.error("Fetch error: ", error);
         botContent.innerHTML = `<div class="message-content">오류: ${error.message}</div>`;
       });
     }
-
+    // ########################## 변경부분입니다 ##########################
     document.getElementById('user-input').addEventListener('keypress', function(event) {
       if (event.key === 'Enter') {
         sendMessage();
@@ -428,4 +437,3 @@
   </script>
 </body>
 </html>
- 
