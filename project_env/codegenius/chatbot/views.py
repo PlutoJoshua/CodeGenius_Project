@@ -2,6 +2,7 @@ import random
 from django.shortcuts import render, redirect
 from django.http import HttpResponse, JsonResponse
 import json
+from django.core.exceptions import ObjectDoesNotExist
 from django.core.cache import cache
 from django.template.loader import render_to_string
 from .models import save_data, Label_0_answer
@@ -43,95 +44,84 @@ def chatting(request):
 
     ### User input ###
     if request.method == 'POST':
-        try:
-            data = json.loads(request.body.decode('utf-8'))
-            user_input = data.get('user_input')
-            if not user_input:
-                logger.warning(f'USER-INPUT | user input is {user_input}!!!!!')
-                logger.warning(f"CHATTING // session email: {email}")
-                classification_output = "no"
-            else:
-                logger.info(f'USER-INPUT | user input: {user_input}')
-                logger.info(f"CHATTING // session email: {email}")
+        data = json.loads(request.body.decode('utf-8'))
+        user_input = data.get('user_input')
 
-                # gpt2 + fasttext
-                tasks = group(
-                    classification_model_predict.s(
-                        user_input = user_input,
-                        api_key = api_key
-                    ),
-                    chatting_model_predict.s(
-                        user_input = user_input,
-                        model_path = gpt2_path
-                    )
-                ).apply_async()
+        if not user_input:
+            logger.warning(f'USER-INPUT | user input is {user_input}!!!!!')
+            logger.warning(f"CHATTING // session email: {email}")
+            classification_output = "no"
+        else:
+            logger.info(f'USER-INPUT | user input: {user_input}')
+            logger.info(f"CHATTING // session email: {email}")
 
-                classification_output = tasks.get(timeout = 20)[0]  # 타임아웃 설정
+            # gpt2 + fasttext
+            ######################################### 비동기 작업 #########################################
+            chatting_task = chatting_model_predict.apply_async(args=(user_input, gpt2_path))
+
+            classification_task = classification_model_predict.apply_async(args=(user_input, api_key))
+            ##############################################################################################
+
+            classification_output = classification_task.get(timeout=5)
 
                 # 분류에 따라 query 작업
-                if classification_output == "yes":
-                    try:
+            if classification_output == "yes":
 
-                        keyword_output = extrack_keyword(user_input)
+                try:    
 
-                    except ObjectDoesNotExist:
-                        logger.error(f'views.py/extrack_keyword -> error: No matching record found')
-                        keyword_output = {'keyword': '', 'code': '', 'doc_url': ''}
-                    except Exception as e:
-                        logger.error(f'views.py/extrack_keyword -> Error: {e}')
-                        keyword_output = {'keyword': '', 'code': '', 'doc_url': ''}
-
-                    try:
-
-                        chatting_output = tasks.get(timeout=30)[1]
+                    chatting_output = chatting_task.get(timeout=5)
                         
-                    except Exception as e:
-                        logger.error(f'views.py/chatting/chatting_model_predict -> error: {e}')
-                        chatting_output = "죄송합니다, 답변을 생성하는데 문제가 발생했습니다."
+                except Exception as e:
+                    logger.error(f'views.py/chatting/chatting_model_predict -> error: {e}')
+                    chatting_output = "죄송합니다, 답변을 생성하는데 문제가 발생했습니다."
+                
+                try:
 
-                    record = save_data.objects.create(
-                        email=email,
-                        user_input=user_input,
-                        chatting_output=chatting_output,
-                        keyword=keyword_output.get('keyword', ''),
-                        code=keyword_output.get('code', ''),
-                        doc_url=keyword_output.get('doc_url', ''),
-                        classification_label=classification_output
-                    )
+                    keyword_output = extrack_keyword(user_input)
 
-                    current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                except ObjectDoesNotExist:
+                    logger.error(f'views.py/extrack_keyword -> error: No matching record found')
+                    keyword_output = {'keyword': '', 'code': '', 'doc_url': ''}
+                except Exception as e:
+                    logger.error(f'views.py/extrack_keyword -> Error: {e}')
+                    keyword_output = {'keyword': '', 'code': '', 'doc_url': ''}
 
-                    # chatting.html 렌더링
-                    chatting_html = {
-                        'chatting_output': chatting_output,
-                        'keyword': keyword_output.get('keyword', ''),
-                        'code': keyword_output.get('code', ''),
-                        'doc_url': keyword_output.get('doc_url', ''),
-                        'current_time': current_time
-                    }
-                    return JsonResponse(chatting_html)
+                record = save_data.objects.create(
+                    email=email,
+                    user_input=user_input,
+                    chatting_output=chatting_output,
+                    keyword=keyword_output.get('keyword', ''),
+                    code=keyword_output.get('code', ''),
+                    doc_url=keyword_output.get('doc_url', ''),
+                    classification_label=classification_output
+                )
 
-                else:
-                    # 파이썬 관련 질문이 아닐 때
-                    random_num = random.randint(0, 9)
-                    record = Label_0_answer.objects.get(id=random_num)
-                    answer = record.answer
+                current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-                    record = save_data.objects.create(
-                        email=email,
-                        user_input=user_input,
-                        chatting_output=answer,
-                        classification_label=classification_output
-                    )
+                # chatting.html 렌더링
+                chatting_html = {
+                    'chatting_output': chatting_output,
+                    'keyword': keyword_output.get('keyword', ''),
+                    'code': keyword_output.get('code', ''),
+                    'doc_url': keyword_output.get('doc_url', ''),
+                    'current_time': current_time
+                }
+                return JsonResponse(chatting_html)
 
-                    return JsonResponse({'chatting_output': answer})
+            else:
+                # 파이썬 관련 질문이 아닐 때
+                random_num = random.randint(0, 9)
+                record = Label_0_answer.objects.get(id=random_num)
+                answer = record.answer
 
-        except json.JSONDecodeError as e:
-            logger.error(f"JSON decode error: {e}")
-            return JsonResponse({'error': 'Invalid JSON data'}, status=400)
-        except Exception as e:
-            logger.error(f"Unexpected error: {e}")
-            return JsonResponse({'error': 'An unexpected error occurred'}, status=500)
+                record = save_data.objects.create(
+                    email=email,
+                    user_input=user_input,
+                    chatting_output=answer,
+                    classification_label=classification_output
+                )
+
+                return JsonResponse({'chatting_output': answer})
 
     else:
         return render(request, 'chatting.html')
