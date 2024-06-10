@@ -1,10 +1,10 @@
 import random
 from django.shortcuts import render, redirect
-from django.http import HttpResponse, JsonResponse
+from django.http import JsonResponse
 import json
 from django.core.exceptions import ObjectDoesNotExist
 from django.core.cache import cache
-from django.template.loader import render_to_string
+from itertools import groupby
 from .models import save_data, Label_0_answer
 import logging
 from datetime import datetime
@@ -48,7 +48,7 @@ def chatting(request):
         user_input = data.get('user_input')
 
         if not user_input:
-            logger.warning(f'USER-INPUT | user input is {user_input}!!!!!')
+            logger.warning(f'USER-INPUT | user input is {user_input}')
             logger.warning(f"CHATTING // session email: {email}")
             classification_output = "no"
         else:
@@ -182,5 +182,4 @@ def history(request):
             'records': temp_data
         })
 
-    # 그룹화된 데이터를 'history.html' 템플릿에 전달하여 렌더링합니다.
     return render(request, 'history.html', {'history_records': history_data})
