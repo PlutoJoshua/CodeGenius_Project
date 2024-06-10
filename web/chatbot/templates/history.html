@@ -425,6 +425,37 @@
         </div>
 <!------------------------------------------------------------------------------>
 
+<!--채팅히스토리창 생성-->
+<div class="container" id="container">
+    <div class="chat-container" id="chatContainer">
+        <div class="chat-area">
+            <h2>Chat</h2>
+            <div class="chat-content" id="chat-area">
+                <div class="message bot-message">
+                    <div class="message-content"></div>
+                </div>
+            </div>
+        </div>
+        <div class="code-area-container">
+            <div class="code-example">
+                <h2>Examples</h2>
+                <pre><code>{{ code }}</code></pre>
+            </div>
+            <div class="doc-links">
+                <h2>Docs</h2>
+                <a href="{{ doc_url }}" target="_blank">{{ keyword }}</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div>
+{% for data in history_data %}
+{% with data.records.chatting_output as chatting_output %}
+    <li>{{ chatting_output }}</li>
+{% endwith %}
+{% endfor %}
+</div>
 
 </body>
 </html>
