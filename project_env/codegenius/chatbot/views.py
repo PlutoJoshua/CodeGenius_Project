@@ -86,7 +86,7 @@ def chatting(request):
                         'code': '', 
                         'code_copy': '', 
                         'code_result': '', 
-                        'url': ''
+                        'doc_url': ''
                         }
                 except Exception as e:
                     logger.error(f'views.py/extrack_keyword -> Error: {e}')
@@ -95,7 +95,7 @@ def chatting(request):
                         'code': '', 
                         'code_copy': '', 
                         'code_result': '', 
-                        'url': ''
+                        'doc_url': ''
                         }
 
                 record = save_data.objects.create(
@@ -106,19 +106,20 @@ def chatting(request):
                     concept_code=keyword_output.get('code', ''),
                     example_code=keyword_output.get('code_copy', ''),
                     code_output=keyword_output.get('code_result', ''),
-                    doc_url=keyword_output.get('url', ''),
+                    doc_url=keyword_output.get('doc_url', ''),
                     classification_label=classification_output
                 )
-=
+
                 # chatting.html 렌더링
                 chatting_html_data = {
                     'chatting_output': chatting_output,
                     'concept_code': keyword_output.get('code', ''),
                     'example_code': keyword_output.get('code_copy', ''),
                     'code_output': keyword_output.get('code_result', ''),
-                    'doc_url': keyword_output.get('url', '')
+                    'doc_url': keyword_output.get('doc_url', '')
                 }
-                return render(request, 'chatting.html', chatting_html_data)
+
+                return JsonResponse(chatting_html_data)
 
             else:
                 # 파이썬 관련 질문이 아닐 때
@@ -141,8 +142,8 @@ def chatting(request):
                     'doc_url': ''
                 }
 
-                return render(request, 'chatting.html', chatting_html_data)
-
+                return JsonResponse(chatting_html_data)
+                
     else:
         return render(request, 'chatting.html')
 

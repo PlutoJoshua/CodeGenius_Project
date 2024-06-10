@@ -36,7 +36,7 @@ def extrack_keyword(user_input):
             logger.info(f'extract_keyword.py/extrack_keyword -> query done!!, query result: {result}')
 
             if result:
-                keyword1, keyword2, keyword3, code, code_copy, code_result, url = result
+                keyword1, keyword2, keyword3, code, code_copy, code_result, doc_url = result
 
                 ing = [keyword1, keyword2, keyword3]
                 keyword = ''
@@ -49,7 +49,7 @@ def extrack_keyword(user_input):
                     'code': code,
                     'code_copy': code_copy,
                     'code_result': code_result,
-                    'url': url
+                    'doc_url': doc_url
                 }
 
             else:
