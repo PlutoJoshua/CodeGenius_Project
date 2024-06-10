@@ -17,7 +17,7 @@ CREATE TABLE IF NOT EXISTS keyword (
     code TEXT,
     code_copy TEXT,
     code_result TEXT,
-    url TEXT
+    doc_url TEXT
 );
 
 -- Data load
