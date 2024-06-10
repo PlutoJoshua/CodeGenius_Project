@@ -1,9 +1,14 @@
+import os
 import google.generativeai as genai
 from save import save_data
+from dotenv import load_dotenv
+
+# .env파일 로드
+load_dotenv()
 
 def main():
-    # 모델 인스턴스 생성
-    api_key = "AIzaSyCLmV2CGmQRyqRlfysRuW1XzOB-2c_Yd44"  # 여기에 자신의 API 키를 넣어주세요
+    api_key = os.getenv("API_KEY")  # .env파일에서 API 키 가져오기
+    
     genai.configure(api_key=api_key)
     model = genai.GenerativeModel('gemini-pro')
     
