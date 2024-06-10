@@ -8,7 +8,7 @@ def extrack_keyword(user_input):
         with connection.cursor() as cursor:
             # SQL 쿼리 작성
             _query = """
-                SELECT keyword1, keyword2, keyword3, code, code_copy, code_result, url
+                SELECT keyword1, keyword2, keyword3, code, code_copy, code_result, doc_url
                 FROM (
                     SELECT 
                         keyword1,
@@ -19,7 +19,7 @@ def extrack_keyword(user_input):
                         code,
                         code_copy,
                         code_result,
-                        url,
+                        doc_url,
                         (CASE WHEN %s LIKE CONCAT('%%', keyword1, '%%') THEN 1 ELSE 0 END +
                          CASE WHEN %s LIKE CONCAT('%%', keyword2, '%%') THEN 1 ELSE 0 END +
                          CASE WHEN %s LIKE CONCAT('%%', keyword3, '%%') THEN 1 ELSE 0 END +
