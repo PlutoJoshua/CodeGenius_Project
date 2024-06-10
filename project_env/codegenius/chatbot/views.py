@@ -91,22 +91,22 @@ def chatting(request):
                     user_input=user_input,
                     chatting_output=chatting_output,
                     keyword=keyword_output.get('keyword', ''),
-                    code=keyword_output.get('code', ''),
+                    concept_code=keyword_output.get('code', ''),
+                    example_code=keyword_output.get('code_copy', ''),
+                    code_output=keyword_output.get('code_result', ''),
                     doc_url=keyword_output.get('doc_url', ''),
                     classification_label=classification_output
                 )
-
-                current_time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
+=
                 # chatting.html 렌더링
-                chatting_html = {
+                chatting_html_data = {
                     'chatting_output': chatting_output,
-                    'keyword': keyword_output.get('keyword', ''),
-                    'code': keyword_output.get('code', ''),
-                    'doc_url': keyword_output.get('doc_url', ''),
-                    'current_time': current_time
+                    'concept_code': keyword_output.get('code', ''),
+                    'example_code': keyword_output.get('code_copy', ''),
+                    'code_output': keyword_output.get('code_result', ''),
+                    'doc_url': keyword_output.get('doc_url', '')
                 }
-                return JsonResponse(chatting_html)
+                return render(request, 'chatting.html', chatting_html_data)
 
             else:
                 # 파이썬 관련 질문이 아닐 때
@@ -121,7 +121,7 @@ def chatting(request):
                     classification_label=classification_output
                 )
 
-                return JsonResponse({'chatting_output': answer})
+                return render(request, 'chatting.html', {'chatting_output': answer})
 
     else:
         return render(request, 'chatting.html')
@@ -129,25 +129,37 @@ def chatting(request):
 def history(request):
     email = request.session.get('email')
     if email is None:
-    ### chatting page로 바로 접속하여 서비스 이용시 에러 log ### 
+        ### chatting page로 바로 접속하여 서비스 이용시 에러 log ### 
         logger.warning("views.py/history -> This is login_view warning - user email is NONE")
         return redirect('homepage')  
 
     logger.info(f"HISTORY // session email: {request.session.get('email')}")
     
-    #################### history.html 렌더링 ####################
-    ### created_at 기준 내림차순 정렬, email = email ###
-    history_records = save_data.objects.filter(email=request.session.get('email')).exclude(chatting_output=0).order_by('-created_at')
+    ### created_at 기준 내림차순 정렬, email = email, classification_label = "yes" ###
+    history_records = save_data.objects.filter(email=request.session.get('email')).filter(classification_label='yes').order_by('-created_at')
+    
+    ##########################################################################################################################
 
     history_data = []
-    for record in history_records:
+
+    for created_at, group in groupby(history_records, key=lambda x: x.created_at.strftime('%Y-%m-%d')):
+        temp_data = []
+
+        for record in group:
+            temp_data.append({
+                'user_input': record.user_input,
+                'chatting_output': record.chatting_output,
+                'keyword': record.keyword,
+                'concept_code': record.concept_code,
+                'example_code': record.example_code,
+                'code_output': record.code_output,
+                'doc_url': record.doc_url
+            })
+
         history_data.append({
-            'user_input': record.user_input,
-            'chatting_output': record.chatting_output,
-            'keyword': record.keyword,
-            'code': record.code,
-            'doc_url': record.doc_url,
-            'created_at': record.created_at.strftime('%Y-%m-%d %H:%M:%S')
+            'created_at': created_at,
+            'records': temp_data
         })
 
-    return JsonResponse({'history_records': history_data})
+    # 그룹화된 데이터를 'history.html' 템플릿에 전달하여 렌더링합니다.
+    return render(request, 'history.html', {'history_records': history_data})
