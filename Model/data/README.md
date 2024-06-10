@@ -1,3 +1,5 @@
+# 모델 초기 학습용 데이터를 생성합니다.
+
 ## 반복과정
 main.py 실행 >> created_data에 생성된 csv파일에 번호지정 >> prompts.py에서 프롬프트 엔지니어링 >> main.py 실행
 
