@@ -375,8 +375,6 @@
 
     </style>
 
-
-    <!--히스토리바 생성-->
     <div class="history-header">
         <div>
             <button class="toggle-button" id="toggleButton">▲</button>
@@ -403,30 +401,25 @@
         </div>
     </div>
 
-    <!--div class="container" id="container">
-        <div class="chat-container" id="chatContainer">
-            <div class="chat-area">
-                <h2>Chat</h2>
-                <div class="chat-content" id="chat-area">
-                    <div class="message bot-message">
-                        <div class="message-content">{{ chatting_output }}</div>
-                    </div>
-                </div>
-            </div>
-            <div class="code-area-container">
-                <div class="code-example">
-                    <h2>Examples</h2>
-                    <pre><code>{{ code }}</code></pre>
-                </div>
-                <div class="doc-links">
-                    <h2>Docs</h2>
-                    <a href="{{ doc_url }}" target="_blank">{{ keyword }}</a>
-                </div>
-            </div>
-        </div>
-    </div-->
+    <div id="chat-history-container"></div>
+
+    <script>
+        function loadChatHistory() {
+            fetch("{% url 'history_render' %}")
+                .then(response => response.json())
+                .then(data => {
+                    // 서버에서 받은 렌더링된 HTML을 페이지에 삽입
+                    const renderedHtml = data.rendered_html;
+                    document.getElementById('chat-history-container').innerHTML = renderedHtml;
+                })
+                .catch(error => console.error('Error:', error));
+        }
+
+        // 페이지가 로드될 때 채팅 기록을 로드
+        document.addEventListener('DOMContentLoaded', loadChatHistory);
+    </script>
 
 
-    
+
 </body>
 </html>

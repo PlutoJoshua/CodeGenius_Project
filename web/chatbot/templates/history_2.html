@@ -1,3 +1,85 @@
+    <!--메뉴바 생성-->
+    <div class="navbar">
+        <div class="logo">
+            <a href="{% url 'homepage' %}" style="text-decoration: none; color: inherit;">CodeGenius</a>
+        </div>
+        <div class="menu-container">
+            <div class="menu-item">
+                <a href="{% url 'chatting' %}">Chatting</a>
+            </div>
+            <div class="menu-item">
+                <a href="{% url 'history' %}">History</a>
+            </div>
+        </div>
+    </div>
+
+<!--히스토리바 생성-->
+    <!--div class="history-header">
+        <div>
+            <button class="toggle-button" id="toggleButton">▲</button>
+        </div>
+        <div class="history-title">
+            {% if user_email %}
+                {{user_email}}'s History
+            {% else %}
+                User
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="history-bar" id="historyBar">
+        <div class="list-box">
+            {% for record in history_records %}
+            <div class="date">
+                <button class="date-button">{{ record.created_at|date:"Y-m-d" }}</button>
+                {% for record in history_records %}
+                <button class="keyword-button">{{ record.keyword }}</button>
+                {% endfor %}
+            </div>
+            {% endfor %}
+        </div>
+    </div-->
+
+    
+    <!--
+    fetch("{% url 'history' %}")
+        .then(response => response.json())
+        .then(data => {
+            // JSON 데이터 처리
+            const historyData = data.history_records;
+            const renderedHtml = data.rendered_html;
+        
+            // 예: 'history-container' ID를 가진 요소에 HTML 삽입
+            document.getElementById('history-container').innerHTML = renderedHtml;
+        
+            // 추가적인 JSON 데이터 사용
+            console.log(historyData);
+        })
+        .catch(error => console.error('Error:', error));
+
+
+        div class="container" id="container">
+        <div class="chat-container" id="chatContainer">
+            <div class="chat-area">
+                <h2>Chat</h2>
+                <div class="chat-content" id="chat-area">
+                    <div class="message bot-message">
+                        <div class="message-content">{{ chatting_output }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="code-area-container">
+                <div class="code-example">
+                    <h2>Examples</h2>
+                    <pre><code>{{ code }}</code></pre>
+                </div>
+                <div class="doc-links">
+                    <h2>Docs</h2>
+                    <a href="{{ doc_url }}" target="_blank">{{ keyword }}</a>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <script>
         document.getElementById('toggleButton').addEventListener('click', function() {
@@ -20,7 +102,7 @@
                 this.textContent = '▼';
             }
         });
-
+    </script-->
         
         document.querySelectorAll('.keyword-button').forEach(button => {
             button.addEventListener('click', function() {
@@ -31,7 +113,7 @@
 
         function fetchConversation(keyword) {
             
-            fetch("{% url 'fetch_conversation' %}", {
+            fetch("{% url 'history' %}", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
