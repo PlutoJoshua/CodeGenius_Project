@@ -9,13 +9,15 @@ CREATE DATABASE django_datamart;
 -- 테이블 생성
 CREATE TABLE IF NOT EXISTS keyword (
     id SERIAL PRIMARY KEY,
-    question TEXT,
-    label VARCHAR(3),
-    keyword1 VARCHAR(20),
-    keyword2 VARCHAR(20),
-    keyword3 VARCHAR(20),
-    keyword4 VARCHAR(20),
-    keyword5 VARCHAR(20)
+    keyword1 VARCHAR(50),
+    keyword2 VARCHAR(50),
+    keyword3 VARCHAR(50),
+    keyword4 VARCHAR(50),
+    keyword5 VARCHAR(50),
+    code TEXT,
+    code_copy TEXT,
+    code_result TEXT,
+    url TEXT
 );
 
 -- Data load
