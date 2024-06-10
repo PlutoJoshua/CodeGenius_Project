@@ -46,7 +46,7 @@ def preprocess_and_train(**kwargs):
     vectorizer = TfidfVectorizer(stop_words='english')
     tfidf_matrix = vectorizer.fit_transform(df['processed'])
     
-    lda = LatentDirichletAllocation(n_components = 4, random_state = 777)
+    lda = LatentDirichletAllocation(n_components = len(df), random_state = 777)
     lda.fit(tfidf_matrix)
     
     df['lda_topic'] = lda.transform(tfidf_matrix).argmax(axis=1)

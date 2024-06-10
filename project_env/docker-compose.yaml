@@ -254,9 +254,9 @@ services:
     restart: always
   
   # django celery message broker redis port:6380 # 
-  redis-django:
+  redis-django-1:
     image: redis:7.2-bookworm
-    container_name: redis-django
+    container_name: redis-django-1
     ports:
       - "6380:6379"
     healthcheck:
@@ -266,9 +266,22 @@ services:
       retries: 50
       start_period: 30s
     restart: always
+
+  redis-django-2:
+    image: redis:7.2-bookworm
+    container_name: redis-django-2
+    ports:
+      - "6381:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 10s
+      timeout: 30s
+      retries: 50
+      start_period: 30s
+    restart: always
   
   # django celery#
-  celery:
+  celery-1:
     build: 
       context: .
       dockerfile: Dockerfile.celery
@@ -280,12 +293,33 @@ services:
       DATABASE_PASSWORD: ${DATABASE_PASSWORD}
       DATABASE_HOST: postgres
       DATABASE_PORT: 5432
-      REDIS_HOST: redis-django
+      REDIS_HOST: redis-django-1
     command: celery -A chatbot worker --loglevel=INFO
     depends_on:
       postgres:
         condition: service_healthy
-      redis-django:
+      redis-django-1:
+        condition: service_healthy
+    restart: always
+
+  celery-2:
+    build: 
+      context: .
+      dockerfile: Dockerfile.celery
+    volumes:
+      - ./codegenius:/app
+    environment:
+      DATABASE_NAME: ${DJANGO_NAME}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+      DATABASE_HOST: postgres
+      DATABASE_PORT: 5432
+      REDIS_HOST: redis-django-2
+    command: celery -A chatbot worker --loglevel=INFO
+    depends_on:
+      postgres:
+        condition: service_healthy
+      redis-django-2:
         condition: service_healthy
     restart: always
 

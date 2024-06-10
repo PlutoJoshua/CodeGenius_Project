@@ -8,15 +8,18 @@ def extrack_keyword(user_input):
         with connection.cursor() as cursor:
             # SQL 쿼리 작성
             _query = """
-                SELECT keyword1, keyword2, keyword3, keyword4, question, label
+                SELECT keyword1, keyword2, keyword3, code, code_copy, code_result, url
                 FROM (
                     SELECT 
                         keyword1,
                         keyword2,
                         keyword3,
                         keyword4,
-                        question,
-                        label,
+                        keyword5,
+                        code,
+                        code_copy,
+                        code_result,
+                        url,
                         (CASE WHEN %s LIKE CONCAT('%%', keyword1, '%%') THEN 1 ELSE 0 END +
                          CASE WHEN %s LIKE CONCAT('%%', keyword2, '%%') THEN 1 ELSE 0 END +
                          CASE WHEN %s LIKE CONCAT('%%', keyword3, '%%') THEN 1 ELSE 0 END +
@@ -33,9 +36,9 @@ def extrack_keyword(user_input):
             logger.info(f'extract_keyword.py/extrack_keyword -> query done!!, query result: {result}')
 
             if result:
-                keyword1, keyword2, keyword3, keyword4, code, doc_url = result
+                keyword1, keyword2, keyword3, code, code_copy, code_result, url = result
 
-                ing = [keyword1, keyword2, keyword3, keyword4]
+                ing = [keyword1, keyword2, keyword3]
                 keyword = ''
                 for word in ing:
                     if word != "픂뽉쌭":
@@ -44,7 +47,9 @@ def extrack_keyword(user_input):
                 return {
                     'keyword': keyword,
                     'code': code,
-                    'doc_url': doc_url
+                    'code_copy': code_copy,
+                    'code_result': code_result,
+                    'url': url
                 }
 
             else:
