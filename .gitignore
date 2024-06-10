@@ -3,3 +3,10 @@ logs/
 __pycache__/
 service_model/
 0001_initial.py
+*.bin
+*.png
+*.txt
+*.csv
+*.xlsx
+*.env
+!requirements.txt
