@@ -1,10 +1,48 @@
-{% for record in history_records %}
-<div class="record">
-    <p>입력: {{ record.user_input }}</p>
-    <p>응답: {{ record.chatting_output }}</p>
-    <p>키워드: {{ record.keyword }}</p>
-    <p>코드: {{ record.code }}</p>
-    <p>문서 링크: {{ record.doc_url }}</p>
-    <p>생성일: {{ record.created_at }}</p>
+
+
+<div class="history-bar" id="historyBar">
+    <div id="list-box">
+    </div>
 </div>
-{% endfor %}
+<!------------------------------------------------------------------------------>
+
+<script>
+function loadChatHistory() {
+    fetch("{% url 'history_render' %}")
+        .then(response => response.json())
+        .then(data => {
+            // 서버에서 받은 렌더링된 HTML을 페이지에 삽입
+            const renderedHtml = data.rendered_html;
+            document.getElementById('chat-history-container').innerHTML = renderedHtml;
+
+            // historyJson을 HTML로 표시
+            const historyJson = data.history_json;
+            const list_boxs = document.getElementById('list-box');
+
+            // 각 기록에 대해 반복하며 HTML 요소 생성
+            historyJson.forEach(record => {
+                // 생성 날짜 버튼 생성 및 설정
+                const createdAtButton = document.createElement('button');  // 새로운 button 요소 생성
+                createdAtButton.classList.add('date-button');  // 'date-button' 클래스 추가
+                createdAtButton.textContent = new Date(record.created_at).toISOString().split('T')[0];  // 날짜 형식을 "Y-m-d"로 변환하여 설정
+
+                // 키워드 버튼 생성 및 설정
+                const keywordButton = document.createElement('button');  // 새로운 button 요소 생성
+                keywordButton.classList.add('keyword-button');  // 'keyword-button' 클래스 추가
+                keywordButton.textContent = record.keyword;  // 버튼 텍스트로 키워드 설정
+
+                // 생성된 버튼들을 recordElement에 추가
+                recordElement.appendChild(createdAtButton);  // createdAtButton 추가
+                recordElement.appendChild(keywordButton);  // keywordButton 추가
+
+                // jsonHistoryContainer에 recordElement 추가
+                list_boxs.appendChild(recordElement);
+            });
+
+        })
+        .catch(error => console.error('Error:', error));
+}
+
+// 페이지가 로드될 때 채팅 기록을 로드
+document.addEventListener('DOMContentLoaded', loadChatHistory);
+</script>
