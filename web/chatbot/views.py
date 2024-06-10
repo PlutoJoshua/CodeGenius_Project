@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
+import json
 from django.core.cache import cache
 from django.template.loader import render_to_string
 from .models import save_data
@@ -23,15 +24,41 @@ def homepage(request):
 
     
 
-def history(request):
+def history_render(request):
     email = request.session.get('email', '이메일이 설정되지 않았습니다.')
     print(email)
     #################### history.html 렌더링 ####################
     ### created_at 기준 내림차순 정렬, email = email ###
-    history_records = save_data.objects.filter(email=request.session.get('email'))
+    user_records = save_data.objects.filter(email=request.session.get('email'))
+
+    # history.html 템플릿을 렌더링
+    rendered_html = render_to_string('history.html', {'history_records': user_records})
+    
+    history_data = []
+    for record in user_records:
+        history_data.append({
+            'user_input': record.user_input,
+            'chatting_output': record.chatting_output,
+            'keyword': record.keyword,
+            'code': record.code,
+            'doc_url': record.doc_url,
+            'created_at': record.created_at.strftime('%Y-%m-%d %H:%M:%S')
+        })
+    
+
+    history_return = {
+        'history_records': history_data,
+        'rendered_html' : rendered_html,
+    }
 
     # history.html에 history_records 전달
-    return render(request, 'history.html', {'history_records': history_records, 'user_email': email})
+    # return render(request, 'history.html', {'history_records': history_records, 'user_email': email})
+
+    return JsonResponse(history_return)
+
+
+def history(request):
+    return render(request, 'history.html')
 
 
 

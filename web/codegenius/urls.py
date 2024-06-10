@@ -23,6 +23,7 @@ urlpatterns = [
     path('', chatbot.views.homepage, name='homepage'),
     path('chatting/', chatbot.views.chatting, name='chatting'),
     path('history/', chatbot.views.history, name='history'),
+    path('history_render/', chatbot.views.history_render, name='history_render'),
 ]
 
 

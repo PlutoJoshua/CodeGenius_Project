@@ -1,0 +1,10 @@
+{% for record in history_records %}
+<div class="record">
+    <p>입력: {{ record.user_input }}</p>
+    <p>응답: {{ record.chatting_output }}</p>
+    <p>키워드: {{ record.keyword }}</p>
+    <p>코드: {{ record.code }}</p>
+    <p>문서 링크: {{ record.doc_url }}</p>
+    <p>생성일: {{ record.created_at }}</p>
+</div>
+{% endfor %}
