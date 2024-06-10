@@ -1,18 +1,19 @@
 import pandas as pd
 import fasttext
 import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
 
 class FastTextModel:
-    def __init__(self, model_path, save_model_path, train_path, valid_path, epoch=20, lr=0.5, wordNgrams=2, minCount=1, patience=3):
+    def __init__(self, model_path, save_model_path, data_path, epoch=20, lr=0.5, wordNgrams=2, minCount=1, patience=3, output_file=None):
         self.model_path = model_path
         self.save_model_path = save_model_path
-        self.train_path = train_path
-        self.valid_path = valid_path
+        self.data_path = data_path
         self.epoch = epoch
         self.lr = lr
         self.wordNgrams = wordNgrams
         self.minCount = minCount
         self.patience = patience
+        self.output_file= output_file
         self.train_accuracies = []
         self.valid_accuracies = []
         self.train_losses = []
@@ -20,11 +21,12 @@ class FastTextModel:
 
     # 데이터 불러오기 및 전처리
     def load_and_preprocess_data(self):
-        train_df = pd.read_excel(self.train_path)
-        valid_df = pd.read_excel(self.valid_path)
+        df = pd.read_csv(self.data_path)
         # 라벨 변경
-        train_df['label'] = train_df['label'].map({'yes': 1, 'no': 0})
-        valid_df['label'] = valid_df['label'].map({'yes': 1, 'no': 0})
+        df['label'] = df['label'].map({'yes': 1, 'no': 0})
+        
+        # 데이터 분할
+        train_df, valid_df = train_test_split(df, test_size=0.2, random_state=42)
         self.train_df = train_df
         self.valid_df = valid_df
 
@@ -87,7 +89,7 @@ class FastTextModel:
         return self.train_accuracies, self.valid_accuracies, self.train_losses, self.valid_losses
 
     # 결과 시각화
-    def plot_metrics(self, output_file):
+    def plot_metrics(self):
         epochs = range(1, len(self.train_accuracies) + 1)
         plt.figure(figsize=(12, 5))
 
@@ -108,8 +110,8 @@ class FastTextModel:
         plt.legend()
 
         plt.tight_layout()
-        plt.savefig(output_file)
-        plt.close
+        plt.savefig(self.output_file)
+        plt.close()
 
     # class 내 모든 함수 실행
     def run(self):
