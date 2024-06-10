@@ -81,10 +81,22 @@ def chatting(request):
 
                 except ObjectDoesNotExist:
                     logger.error(f'views.py/extrack_keyword -> error: No matching record found')
-                    keyword_output = {'keyword': '', 'code': '', 'doc_url': ''}
+                    keyword_output = {
+                        'keyword': '', 
+                        'code': '', 
+                        'code_copy': '', 
+                        'code_result': '', 
+                        'url': ''
+                        }
                 except Exception as e:
                     logger.error(f'views.py/extrack_keyword -> Error: {e}')
-                    keyword_output = {'keyword': '', 'code': '', 'doc_url': ''}
+                    keyword_output = {
+                        'keyword': '', 
+                        'code': '', 
+                        'code_copy': '', 
+                        'code_result': '', 
+                        'url': ''
+                        }
 
                 record = save_data.objects.create(
                     email=email,
@@ -94,7 +106,7 @@ def chatting(request):
                     concept_code=keyword_output.get('code', ''),
                     example_code=keyword_output.get('code_copy', ''),
                     code_output=keyword_output.get('code_result', ''),
-                    doc_url=keyword_output.get('doc_url', ''),
+                    doc_url=keyword_output.get('url', ''),
                     classification_label=classification_output
                 )
 =
@@ -104,15 +116,15 @@ def chatting(request):
                     'concept_code': keyword_output.get('code', ''),
                     'example_code': keyword_output.get('code_copy', ''),
                     'code_output': keyword_output.get('code_result', ''),
-                    'doc_url': keyword_output.get('doc_url', '')
+                    'doc_url': keyword_output.get('url', '')
                 }
                 return render(request, 'chatting.html', chatting_html_data)
 
             else:
                 # 파이썬 관련 질문이 아닐 때
                 random_num = random.randint(0, 9)
-                record = Label_0_answer.objects.get(id=random_num)
-                answer = record.answer
+                temp_record = Label_0_answer.objects.get(id=random_num)
+                answer = temp_record.answer
 
                 record = save_data.objects.create(
                     email=email,
@@ -121,7 +133,15 @@ def chatting(request):
                     classification_label=classification_output
                 )
 
-                return render(request, 'chatting.html', {'chatting_output': answer})
+                chatting_html_data = {
+                    'chatting_output': answer,
+                    'concept_code': '',
+                    'example_code': '',
+                    'code_output': '',
+                    'doc_url': ''
+                }
+
+                return render(request, 'chatting.html', chatting_html_data)
 
     else:
         return render(request, 'chatting.html')
