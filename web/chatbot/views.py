@@ -32,7 +32,7 @@ def history(request):
 
     history_data = []
 
-    for created_at, group in groupby(user_records, key=lambda x: x.created_at.strftime('%Y-%m-%d %H:%M:%S')):
+    for created_at, group in groupby(user_records, key=lambda x: x.created_at.strftime('%Y-%m-%d')):
         temp_data = []
 
         for record in group:
@@ -41,7 +41,6 @@ def history(request):
                 'chatting_output': record.chatting_output,
                 'keyword': record.keyword,
                 'doc_url': record.doc_url,
-                'created_at': created_at,
             })
 
         history_data.append({
