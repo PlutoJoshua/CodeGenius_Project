@@ -7,10 +7,9 @@
     <link rel="stylesheet" href= "{% static 'css/history.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <title>history</title>
-    
-  </head>
+</head>
 
-  <body>
+<body>
 
     <!--전체 css-->
     <style>
@@ -492,25 +491,25 @@
        if (selectedRecords.length > 0) {
            selectedRecords.forEach(function(record) {
                // 각 레코드의 정보를 HTML 형식으로 변환하여 infoDiv에 추가
-                var infoHTML = "<p>Keyword: " + escapeHTML(record.keyword) + "</p>" +
-                var infoHTML = "<p>Keyword: " + escapeHTML(record.keyword) + "</p>" 
-                var infoHTML = "<p>Keyword: " + escapeHTML(record.keyword) + "</p>" 
-                var infoHTML = "<p>Keyword: " + escapeHTML(record.keyword) + "</p>" 
-                var infoHTML = "<p>Doc URL: <a href='" + escapeHTML(record.doc_url) + "'>" + escapeHTML(record.doc_url) + "</a></p>";
+                var infoHTML = "<p>Keyword: " + escapeHTML(record.chatting_output) + "</p>" +
+                var infoHTML2 = "<p>Keyword: " + escapeHTML(record.concept_code) + "</p>" 
+                var infoHTML3 = "<p>Keyword: " + escapeHTML(record.example_code) + "</p>" 
+                var infoHTML4 = "<p>Keyword: " + escapeHTML(record.code_output) + "</p>" 
+                var infoHTML5 = "<p>Doc URL: <a href='" + escapeHTML(record.doc_url) + "'>" + escapeHTML(record.doc_url) + "</a></p>";
                               
                 infoDiv.innerHTML += infoHTML;
-                infoDiv.innerHTML += infoHTML;
-                infoDiv.innerHTML += infoHTML;
-                infoDiv.innerHTML += infoHTML;
-                infoDiv.innerHTML += infoHTML;
+                infoDiv2.innerHTML2 += infoHTML2;
+                infoDiv3.innerHTML3 += infoHTML3;
+                infoDiv4.innerHTML4 += infoHTML4;
+                infoDiv5.innerHTML5 += infoHTML5;
            });
        } else {
            // 선택한 keyword에 해당하는 레코드가 없을 경우
            infoDiv.innerHTML = "<p>No records found</p>";
-           infoDiv.innerHTML = "<p>No records found</p>";
-           infoDiv.innerHTML = "<p>No records found</p>";
-           infoDiv.innerHTML = "<p>No records found</p>";
-           infoDiv.innerHTML = "<p>No records found</p>";
+           infoDiv2.innerHTML2 = "<p>No records found</p>";
+           infoDiv3.innerHTML3 = "<p>No records found</p>";
+           infoDiv4.innerHTML4 = "<p>No records found</p>";
+           infoDiv5.innerHTML5 = "<p>No records found</p>";
        }
    }
 
