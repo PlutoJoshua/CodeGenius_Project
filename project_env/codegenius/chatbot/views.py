@@ -182,4 +182,4 @@ def history(request):
             'records': temp_data
         })
 
-    return render(request, 'history.html', {'history_records': history_data})
+    return render(request, 'history.html', {'history_data': history_data})

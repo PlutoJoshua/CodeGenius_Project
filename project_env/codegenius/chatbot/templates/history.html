@@ -461,17 +461,17 @@
    function showInfo(search_word) {
        console.log(search_word)  // 디버깅
 
-       var infoDiv = document.getElementById("info");
-       var infoDiv = document.getElementById("info");
-       var infoDiv = document.getElementById("info");
-       var infoDiv = document.getElementById("info");
-       var infoDiv = document.getElementById("info");
+       var infoDiv = document.getElementById("chat-area");
+       var infoDiv2 = document.getElementById("code-concept");
+       var infoDiv3 = document.getElementById("code-example");
+       var infoDiv4 = document.getElementById("code-output");
+       var infoDiv5 = document.getElementById("doc-links");
 
        infoDiv.innerHTML = ""; // 이전에 표시된 정보 지우기
-       infoDiv.innerHTML = ""; // 이전에 표시된 정보 지우기
-       infoDiv.innerHTML = ""; // 이전에 표시된 정보 지우기
-       infoDiv.innerHTML = ""; // 이전에 표시된 정보 지우기
-       infoDiv.innerHTML = ""; // 이전에 표시된 정보 지우기
+       infoDiv2.innerHTML = ""; // 이전에 표시된 정보 지우기
+       infoDiv3.innerHTML = ""; // 이전에 표시된 정보 지우기
+       infoDiv4.innerHTML = ""; // 이전에 표시된 정보 지우기
+       infoDiv5.innerHTML = ""; // 이전에 표시된 정보 지우기
 
        // 서버에서 전달된 history_data를 JSON으로 파싱 (Django 템플릿 변수 사용)
        var history_data = {{ history_data|safe }};
