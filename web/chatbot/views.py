@@ -40,7 +40,7 @@ def history(request):
                 'user_input': record.user_input,
                 'chatting_output': record.chatting_output,
                 'keyword': record.keyword,
-                'doc_url': record.doc_url
+                'doc_url': record.doc_url,
             })
 
         history_data.append({

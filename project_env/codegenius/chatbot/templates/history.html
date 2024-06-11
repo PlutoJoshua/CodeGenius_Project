@@ -418,7 +418,7 @@
             <button class="date-button">{{ records_group.created_at }}</button>
                 {% for i in records_group.records %}
                 <div class="date">
-                    <button class="keyword-button" onclick="showInfo('{{ i.keyword }}')">{{ i.keyword }}</button>
+                    <button class="keyword-button" onclick="showInfo('{{ i.user_input }}')">{{ i.keyword }}</button>
                 </div>
                 {% endfor %}
             {% endfor %}
@@ -479,7 +479,7 @@
        // 각 그룹의 records를 검사하여 선택된 keyword에 해당하는 레코드 찾기
        history_data.forEach(function(group) {
            group.records.forEach(function(record) {
-               if (record.keyword === search_word) {   // 조건 여러개로
+               if (record.user_input === search_word) {   // 조건 여러개로
                    selectedRecords.push(record); // 조건에 맞는 레코드를 배열에 추가
                }
            });
@@ -489,7 +489,7 @@
        if (selectedRecords.length > 0) {
            selectedRecords.forEach(function(record) {
                // 각 레코드의 정보를 HTML 형식으로 변환하여 infoDiv에 추가
-                var infoHTML = "<p> 질문 : " + record.user_input + "</p>" +"<br>" + "<p> 답변 : " + record.chatting_output + "</p>";
+                var infoHTML = "<p> 질문 : " + record.user_input + "</p>" +"<br>" + "<p> 답변 : " + record.chatting_output + "</p>" + "<br>";
                 var infoHTML2 = "<p>" + record.concept_code + "</p>";
                 var infoHTML3 = "<p>" + record.example_code + "</p>";
                 var infoHTML4 = "<p>" + record.code_output + "</p>";

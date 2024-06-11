@@ -478,7 +478,7 @@
        // 각 그룹의 records를 검사하여 선택된 keyword에 해당하는 레코드 찾기
        history_data.forEach(function(group) {
            group.records.forEach(function(record) {
-               if (record.keyword === search_word) {   // 조건 여러개로
+               if (record.user_input === search_word) {   // 조건 여러개로
                    selectedRecords.push(record); // 조건에 맞는 레코드를 배열에 추가
                }
            });
