@@ -30,6 +30,11 @@ def history(request):
     ### created_at 기준 내림차순 정렬, email = email ###
     user_records = save_data.objects.filter(email=request.session.get('email')).order_by('-created_at')
 
+
+    # history.html 템플릿을 렌더링
+    # rendered_html = render_to_string('history_render.html', {'history_records': user_records, 'user_email': email})
+
+    
     history_data = []
 
     for created_at, group in groupby(user_records, key=lambda x: x.created_at.strftime('%Y-%m-%d')):
@@ -41,15 +46,13 @@ def history(request):
                 'chatting_output': record.chatting_output,
                 'keyword': record.keyword,
                 'doc_url': record.doc_url,
+                'created_at': record.created_at.strftime('%Y-%m-%d %H:%M:%S')
             })
 
         history_data.append({
             'created_at': created_at,
             'records': temp_data
         })
-
-    # history.html 템플릿을 렌더링
-    # rendered_html = render_to_string('history.html', {'history_records': user_records, 'user_email': email, 'history_data' : history_data})
 
     return render(request, 'history.html', {'history_records': user_records, 'user_email': email, 'history_data' : history_data})
     

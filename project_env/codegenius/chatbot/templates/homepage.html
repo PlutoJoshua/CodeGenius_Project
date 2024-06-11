@@ -53,6 +53,7 @@
     <style>
         .email-form {  /* 이메일 입력 폼 스타일 */
             text-align: center; /* 이메일 입력 폼을 가운데 정렬 */
+            z-index: 1;
       }
         .email-input {
             padding: 10px;
@@ -60,6 +61,7 @@
             width: 360px;
             border: 2px solid rgba(255, 255, 255, 0.5); /* 흰색 반투명 테두리 */
             opacity: 0.9; /* 반투명하게 설정 */
+            z-index: 2;
       }
         .button_container {
             width: 100%;
@@ -97,7 +99,7 @@
         </div>
     
         <!-- 이메일 입력 폼과 start 버튼 -->
-        <form method="post" class="email-form" onSubmit='return animateAndRedirect(event)'>
+        <form method="post" class="email-form" id="emailForm">
             <!-- 이메일 입력 필드 -->
             <div class="button_container">
                 {% csrf_token %}
@@ -108,15 +110,14 @@
     </div>
 
     <script>
-        function animateAndRedirect(event) {
+        document.getElementById('emailForm').addEventListener('submit', function(event) {
             event.preventDefault(); // 기본 폼 제출을 막음
             const image = document.querySelector('.rocket img');
             image.classList.add('move-up');
             setTimeout(() => {
-                event.target.submit(); // 폼을 1초 후에 제출
+                this.submit(); // 폼을 1초 후에 제출
             }, 1000);
-            return false; // 기본 폼 제출을 막음
-        }
+        });
     </script>
 
 
