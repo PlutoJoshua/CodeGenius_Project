@@ -7,10 +7,9 @@
     <link rel="stylesheet" href= "{% static 'css/history.css' %}">
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
     <title>history</title>
-    
-  </head>
+</head>
 
-  <body>
+<body>
 
     <!--전체 css-->
     <style>
@@ -461,17 +460,17 @@
    function showInfo(search_word) {
        console.log(search_word)  // 디버깅
 
-       var infoDiv = document.getElementById("info");
-       var infoDiv = document.getElementById("info");
-       var infoDiv = document.getElementById("info");
-       var infoDiv = document.getElementById("info");
-       var infoDiv = document.getElementById("info");
+       var infoDiv = document.getElementById("chat-area");
+       var infoDiv2 = document.getElementById("code-concept");
+       var infoDiv3 = document.getElementById("code-example");
+       var infoDiv4 = document.getElementById("code-output");
+       var infoDiv5 = document.getElementById("doc-links");
 
        infoDiv.innerHTML = ""; // 이전에 표시된 정보 지우기
-       infoDiv.innerHTML = ""; // 이전에 표시된 정보 지우기
-       infoDiv.innerHTML = ""; // 이전에 표시된 정보 지우기
-       infoDiv.innerHTML = ""; // 이전에 표시된 정보 지우기
-       infoDiv.innerHTML = ""; // 이전에 표시된 정보 지우기
+       infoDiv2.innerHTML = ""; // 이전에 표시된 정보 지우기
+       infoDiv3.innerHTML = ""; // 이전에 표시된 정보 지우기
+       infoDiv4.innerHTML = ""; // 이전에 표시된 정보 지우기
+       infoDiv5.innerHTML = ""; // 이전에 표시된 정보 지우기
 
        // 서버에서 전달된 history_data를 JSON으로 파싱 (Django 템플릿 변수 사용)
        var history_data = {{ history_data|safe }};
@@ -492,37 +491,29 @@
        if (selectedRecords.length > 0) {
            selectedRecords.forEach(function(record) {
                // 각 레코드의 정보를 HTML 형식으로 변환하여 infoDiv에 추가
-                var infoHTML = "<p>Keyword: " + escapeHTML(record.keyword) + "</p>" +
-                var infoHTML = "<p>Keyword: " + escapeHTML(record.keyword) + "</p>" 
-                var infoHTML = "<p>Keyword: " + escapeHTML(record.keyword) + "</p>" 
-                var infoHTML = "<p>Keyword: " + escapeHTML(record.keyword) + "</p>" 
-                var infoHTML = "<p>Doc URL: <a href='" + escapeHTML(record.doc_url) + "'>" + escapeHTML(record.doc_url) + "</a></p>";
+                var infoHTML = "<p>Keyword: " + record.chatting_output + "</p>";
+                var infoHTML2 = "<p>Keyword: " + record.concept_code + "</p>";
+                var infoHTML3 = "<p>Keyword: " + record.example_code + "</p>";
+                var infoHTML4 = "<p>Keyword: " + record.code_output + "</p>";
+                var infoHTML5 = "<p>Doc URL: <a href='" + record.doc_url + "'>" + record.doc_url + "</a></p>";
                               
                 infoDiv.innerHTML += infoHTML;
-                infoDiv.innerHTML += infoHTML;
-                infoDiv.innerHTML += infoHTML;
-                infoDiv.innerHTML += infoHTML;
-                infoDiv.innerHTML += infoHTML;
+                infoDiv2.innerHTML += infoHTML2;
+                infoDiv3.innerHTML += infoHTML3;
+                infoDiv4.innerHTML += infoHTML4;
+                infoDiv5.innerHTML += infoHTML5;
            });
        } else {
            // 선택한 keyword에 해당하는 레코드가 없을 경우
            infoDiv.innerHTML = "<p>No records found</p>";
-           infoDiv.innerHTML = "<p>No records found</p>";
-           infoDiv.innerHTML = "<p>No records found</p>";
-           infoDiv.innerHTML = "<p>No records found</p>";
-           infoDiv.innerHTML = "<p>No records found</p>";
+           infoDiv2.innerHTML = "<p>No records found</p>";
+           infoDiv3.innerHTML = "<p>No records found</p>";
+           infoDiv4.innerHTML = "<p>No records found</p>";
+           infoDiv5.innerHTML = "<p>No records found</p>";
        }
    }
-
-   // HTML 이스케이프 함수 (XSS 방지)
-   function escapeHTML(str) {
-       return str.replace(/&/g, '&amp;')
-                 .replace(/</g, '&lt;')
-                 .replace(/>/g, '&gt;')
-                 .replace(/"/g, '&quot;')
-                 .replace(/'/g, '&#039;');
-   }
 </script>
+
 
 
 </body>

@@ -491,37 +491,29 @@
        if (selectedRecords.length > 0) {
            selectedRecords.forEach(function(record) {
                // 각 레코드의 정보를 HTML 형식으로 변환하여 infoDiv에 추가
-                var infoHTML = "<p>Keyword: " + escapeHTML(record.chatting_output) + "</p>" +
-                var infoHTML2 = "<p>Keyword: " + escapeHTML(record.concept_code) + "</p>" 
-                var infoHTML3 = "<p>Keyword: " + escapeHTML(record.example_code) + "</p>" 
-                var infoHTML4 = "<p>Keyword: " + escapeHTML(record.code_output) + "</p>" 
-                var infoHTML5 = "<p>Doc URL: <a href='" + escapeHTML(record.doc_url) + "'>" + escapeHTML(record.doc_url) + "</a></p>";
+                var infoHTML = "<p>Keyword: " + record.chatting_output + "</p>";
+                var infoHTML2 = "<p>Keyword: " + record.concept_code + "</p>";
+                var infoHTML3 = "<p>Keyword: " + record.example_code + "</p>";
+                var infoHTML4 = "<p>Keyword: " + record.code_output + "</p>";
+                var infoHTML5 = "<p>Doc URL: <a href='" + record.doc_url + "'>" + record.doc_url + "</a></p>";
                               
                 infoDiv.innerHTML += infoHTML;
-                infoDiv2.innerHTML2 += infoHTML2;
-                infoDiv3.innerHTML3 += infoHTML3;
-                infoDiv4.innerHTML4 += infoHTML4;
-                infoDiv5.innerHTML5 += infoHTML5;
+                infoDiv2.innerHTML += infoHTML2;
+                infoDiv3.innerHTML += infoHTML3;
+                infoDiv4.innerHTML += infoHTML4;
+                infoDiv5.innerHTML += infoHTML5;
            });
        } else {
            // 선택한 keyword에 해당하는 레코드가 없을 경우
            infoDiv.innerHTML = "<p>No records found</p>";
-           infoDiv2.innerHTML2 = "<p>No records found</p>";
-           infoDiv3.innerHTML3 = "<p>No records found</p>";
-           infoDiv4.innerHTML4 = "<p>No records found</p>";
-           infoDiv5.innerHTML5 = "<p>No records found</p>";
+           infoDiv2.innerHTML = "<p>No records found</p>";
+           infoDiv3.innerHTML = "<p>No records found</p>";
+           infoDiv4.innerHTML = "<p>No records found</p>";
+           infoDiv5.innerHTML = "<p>No records found</p>";
        }
    }
-
-   // HTML 이스케이프 함수 (XSS 방지)
-   function escapeHTML(str) {
-       return str.replace(/&/g, '&amp;')
-                 .replace(/</g, '&lt;')
-                 .replace(/>/g, '&gt;')
-                 .replace(/"/g, '&quot;')
-                 .replace(/'/g, '&#039;');
-   }
 </script>
+
 
 
 </body>
