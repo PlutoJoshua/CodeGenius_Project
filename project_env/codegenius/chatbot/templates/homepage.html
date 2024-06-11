@@ -97,22 +97,25 @@
         </div>
     
         <!-- 이메일 입력 폼과 start 버튼 -->
-        <form method="post" class="email-form">
+        <form method="post" class="email-form" onSubmit='return animateAndRedirect(event)'>
             <!-- 이메일 입력 필드 -->
             <div class="button_container">
                 {% csrf_token %}
-                <input type="email" name="email" class="email-input" placeholder="Enter your email" required  oninput="animateAndRedirect()">
+                <input type="email" name="email" class="email-input" placeholder="Enter your email" required>
                 <button type="submit" class="button">start</button>
             </div>
         </form>
     </div>
 
     <script>
-        function animateAndRedirect() {
+        function animateAndRedirect(event) {
+            event.preventDefault(); // 기본 폼 제출을 막음
             const image = document.querySelector('.rocket img');
+            image.classList.add('move-up');
             setTimeout(() => {
-                image.classList.add('move-up');
-            }, 1000); // 1초간 로켓 이동 후 채팅페이지로 이동
+                event.target.submit(); // 폼을 1초 후에 제출
+            }, 1000);
+            return false; // 기본 폼 제출을 막음
         }
     </script>
 
