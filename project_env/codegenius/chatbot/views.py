@@ -11,6 +11,7 @@ from datetime import datetime
 
 from celery import Celery, group
 
+from .chatting_model import load_model
 from .extrack_keyword import extrack_keyword
 from .tasks import (chatting_model_predict, 
                     classification_model_predict)
@@ -39,8 +40,6 @@ def chatting(request):
 
     ### gemini classification model setting ###
     api_key = "AIzaSyAOBGlVPR_uefBsR01G6HJZ7oQ69-nDGSo"
-    ### gpt2 model setting ###
-    gpt2_path = "/app/chatbot/service_model/kogpt2_chatbot_model.pth"
 
     ### User input ###
     if request.method == 'POST':
@@ -57,7 +56,7 @@ def chatting(request):
 
             # gpt2 + fasttext
             ######################################### 비동기 작업 #########################################
-            chatting_task = chatting_model_predict.apply_async(args=(user_input, gpt2_path))
+            chatting_task = chatting_model_predict.apply_async(args=(user_input,))
 
             classification_task = classification_model_predict.apply_async(args=(user_input, api_key))
             ##############################################################################################

@@ -1,5 +1,5 @@
-,keyword1,keyword2,keyword3,keyword4,keyword5,code,code_copy,code_result,doc_url
-0,변수,타입,type,,,type(변수),"text = ""안녕하세요""
+,keyword1,keyword2,keyword3,keyword4,keyword5,code,code_copy,code_result,url
+0,변수,타입,type,픂뽉쌭,픂뽉쌭,type(변수),"text = ""안녕하세요""
 type(text)",str,https://docs.python.org/ko/3/library/functions.html#type
 1,리스트,특정요소,삭제,remove,특정 요소,리스트.remove(요소),"fruits = [""apple"", ""banana"", ""cherry""]
 fruits.remove(""banana"")
@@ -13,7 +13,7 @@ print(up_text)",APPLE,https://docs.python.org/ko/3/library/stdtypes.html#str.upp
 4,딕셔너리,값,검색,키워드,사전,딕셔너리[키],"dic = {""fruit"": ""apple"", ""food"": ""pie""}
 fruit_value = dic[""fruit""]
 print(fruit_value)",apple,https://docs.python.org/ko/3/tutorial/datastructures.html#dictionaries
-5,숫자,문자열,변환,str,,str(숫자),"number = 99
+5,숫자,문자열,변환,str,픂뽉쌭,str(숫자),"number = 99
 str_number = str(number)
 print(str_number)",99,https://docs.python.org/ko/3/library/stdtypes.html#str
 6,for,모든요소,리스트,작업,모든 요소,for 요소 in 리스트:,"fruits = [""apple"", ""banana"", ""cherry""]
@@ -21,7 +21,7 @@ for fruit in fruits:
     print(fruit)","apple
 banana
 cherry",https://docs.python.org/ko/3/tutorial/controlflow.html#for-statements
-7,조건,if,else,elif,,"if 조건:
+7,조건,if,else,elif,픂뽉쌭,"if 조건:
    # 코드
 elif 조건:
    # 코드
@@ -33,7 +33,7 @@ elif score >= 80:
     print(""B"")
 else:
     print(""C"")",B,https://docs.python.org/ko/3/tutorial/controlflow.html#if-statements
-8,함수,정의,def,,,"def 함수_이름(인수):
+8,함수,정의,def,픂뽉쌭,픂뽉쌭,"def 함수_이름(인수):
    # 함수 정의","# 함수 정의
 def add_number(a, b):
     result = a+b
@@ -42,7 +42,7 @@ def add_number(a, b):
 # 함수 호출
 sum_result = add_number(5, 3)
 print(sum_result)",8,https://docs.python.org/ko/3/tutorial/controlflow.html#defining-functions
-9,리스트,요소,추가,append,,리스트.append(요소),"fruits = [""apple"", ""banana"", ""cherry""]
+9,리스트,요소,추가,append,픂뽉쌭,리스트.append(요소),"fruits = [""apple"", ""banana"", ""cherry""]
 fruits.append(""orange"")
 print(fruits)","[""apple"", ""banana"", ""cherry"", ""orange""]",https://docs.python.org/ko/3/tutorial/datastructures.html
 10,클래스,정의,class,메서드,지정,"class Myclass:
@@ -67,8 +67,8 @@ with open(""example.txt"", ""r"") as file:
     content = file.read()
 
 # 파일 내용 출력
-print(content)",,https://docs.python.org/ko/3/tutorial/inputoutput.html#reading-and-writing-files
-12,모듈,import,지정,이름,가져,import pandas,import pandas as pd,,https://docs.python.org/ko/3/tutorial/modules.html
+print(content)",픂뽉쌭,https://docs.python.org/ko/3/tutorial/inputoutput.html#reading-and-writing-files
+12,모듈,import,지정,이름,가져,import pandas,import pandas as pd,픂뽉쌭,https://docs.python.org/ko/3/tutorial/modules.html
 13,예외처리,try,except,예외 처리,발생,"try:
     # 예외가 발생할 수 있는 코드
 except Exception as e:
@@ -98,25 +98,25 @@ for index, fruit in enumerate(fruits):
     print(index, fruit)","0 apple
 1 banana
 2 cherry",https://docs.python.org/ko/3/library/functions.html#enumerate
-17,튜플,길이,len,함수,,len(튜플),"fruits = (""apple"", ""banana"", ""cherry"")
+17,튜플,길이,len,함수,픂뽉쌭,len(튜플),"fruits = (""apple"", ""banana"", ""cherry"")
 len(fruits)",3,https://docs.python.org/ko/3/library/stdtypes.html#common-sequence-operations
-18,리스트,길이,len,함수,,len(리스트),"fruits = [""apple"", ""banana"", ""cherry""]
+18,리스트,길이,len,함수,픂뽉쌭,len(리스트),"fruits = [""apple"", ""banana"", ""cherry""]
 len(fruits)",3,https://docs.python.org/ko/3/library/stdtypes.html#common-sequence-operations
 19,셋,길이,len,함수,해쉬,len(셋),"fruits = {""apple"", ""banana"", ""cherry""}
 len(fruits)",3,https://docs.python.org/ko/3/library/stdtypes.html#common-sequence-operations
 20,문자열,위치,find,첫,문자,문자열.find(문자),"text = ""Hello I'm CodeGenius""
 text.find(""m"")",8,https://docs.python.org/ko/3/library/stdtypes.html#str.find
-21,리스트,정렬,sort,메서드,,리스트.sort(),"fruits = [""banana"", ""cherry"", ""apple""]
+21,리스트,정렬,sort,메서드,픂뽉쌭,리스트.sort(),"fruits = [""banana"", ""cherry"", ""apple""]
 fruits.sort()
 print(fruits)","['apple', 'banana', 'cherry']",https://docs.python.org/ko/3/library/stdtypes.html#list.sort
-22,집합,set,생성,,,"set([값1, 값2, ...])","fruits = [""banana"", ""cherry"", ""apple""]
+22,집합,set,생성,픂뽉쌭,픂뽉쌭,"set([값1, 값2, ...])","fruits = [""banana"", ""cherry"", ""apple""]
 set(fruits)","{'apple', 'banana', 'cherry'}",https://docs.python.org/ko/3/tutorial/datastructures.html#sets
-23,리스트,sum,합계,원소,,"sum([1, 2, 3])","numbers = [1, 2, 3, 4, 5]
+23,리스트,sum,합계,원소,픂뽉쌭,"sum([1, 2, 3])","numbers = [1, 2, 3, 4, 5]
 sum(numbers)",15,https://docs.python.org/ko/3/library/functions.html#sum
 24,딕셔너리,키 목록,반환,keys,키목록,딕셔너리.keys(),"dic = {""fruit"": ""apple"", ""food"": ""pie""}
 dic.keys()","dict_keys(['fruit', 'food'])",https://docs.python.org/ko/3/library/stdtypes.html#dict.keys
-25,input,사용자입력,함수,사용자 입력,입력,input(),"input(""입력하세요: "")",,https://docs.python.org/ko/3/library/functions.html#input
-26,break,코드,조기종료,조기 종료,,"for i in range(10):
+25,input,사용자입력,함수,사용자 입력,입력,input(),"input(""입력하세요: "")",픂뽉쌭,https://docs.python.org/ko/3/library/functions.html#input
+26,break,코드,조기종료,조기 종료,픂뽉쌭,"for i in range(10):
     if i == 5:
         break","for num in range(10):
     print(num)
@@ -132,7 +132,7 @@ dic.keys()","dict_keys(['fruit', 'food'])",https://docs.python.org/ko/3/library/
 y = [1,2,3]
 if x == y:
     print(""x와 y는 같음"")",x와 y는 같음,https://docs.python.org/ko/3/library/stdtypes.html#comparisons
-28,정수,변환,int,문자열,,int(숫자로 이루어진 문자열),"number = ""99""
+28,정수,변환,int,문자열,픂뽉쌭,int(숫자로 이루어진 문자열),"number = ""99""
 int(number)",99,https://docs.python.org/ko/3/library/functions.html#int
 29,range,범위,순회,정수,함수,"range(시작, 종료, 간격)","for i in range(1, 10, 2):
     print(i)","1
@@ -177,7 +177,7 @@ add1 = lambda x: x + 1
 add1(5)",6,https://docs.python.org/ko/3/tutorial/controlflow.html#lambda-expressions
 35,딕셔너리,생성,{},콜론,사전,"{'이름': '홍길동', '나이': 20}","dic = {'이름': '홍길동', '나이': 20}
 print(dic)","{'이름': '홍길동', '나이': 20}",https://docs.python.org/ko/3/library/stdtypes.html#dict
-36,문자열,구분,split,메서드,,문자열.split(),"text = ""안녕하세요, 저는 파이썬 교육 챗봇입니다.""
+36,문자열,구분,split,메서드,픂뽉쌭,문자열.split(),"text = ""안녕하세요, 저는 파이썬 교육 챗봇입니다.""
 text.split()","['안녕하세요,', '저는', '파이썬', '교육', '챗봇입니다.']",https://docs.python.org/ko/3/library/stdtypes.html#str.split
 37,리스트,요소,함수적용,map,함수 적용,"map(함수, 리스트)","# 리스트 정의
 fruits = [""apple"", ""banana"", ""cherry""]
@@ -204,7 +204,7 @@ tuple(fruits)","('apple', 'banana', 'cherry')",https://docs.python.org/ko/3/libr
 my_dict = {'name': 'Alice', 'age': 25}
 
 sorted(my_dict.keys())","['age', 'name']",https://docs.python.org/ko/3/library/functions.html#sorted
-41,숫자,반올림,round,함수,,"round(숫자, 소수점 자리 수)","round(3.141592, 3)",3.142,https://docs.python.org/ko/3/library/functions.html#round
+41,숫자,반올림,round,함수,픂뽉쌭,"round(숫자, 소수점 자리 수)","round(3.141592, 3)",3.142,https://docs.python.org/ko/3/library/functions.html#round
 42,리스트,역순,정렬,reverse,sort,리스트.sort(reverse=True),"# 리스트 정의
 fruits = [""apple"", ""banana"", ""cherry""]
 
@@ -241,7 +241,7 @@ print(lower_text)",apple,https://docs.python.org/ko/3/library/stdtypes.html#str.
 51,합,+,연산자,두숫자,두 숫자,숫자1 + 숫자2,print(10 + 3),13,https://docs.python.org/ko/3/library/stdtypes.html#numeric-types-int-float-complex
 52,차,-,연산자,두숫자,두 숫자,숫자1 - 숫자2,print(10 - 3),7,https://docs.python.org/ko/3/library/stdtypes.html#numeric-types-int-float-complex
 53,곱,*,연산자,두숫자,두 숫자,숫자1 * 숫자2,print(10 * 3),30,https://docs.python.org/ko/3/library/stdtypes.html#numeric-types-int-float-complex
-54,abs,절대값,숫자,크기,,abs(숫자),abs(-11),11,https://docs.python.org/ko/3/library/stdtypes.html#numeric-types-int-float-complex
+54,abs,절대값,숫자,크기,픂뽉쌭,abs(숫자),abs(-11),11,https://docs.python.org/ko/3/library/stdtypes.html#numeric-types-int-float-complex
 55,join,문자열,결합,리스트,함수,""""".join([문자1, 문자2])","text_list = [""안녕하세요"", ""코드지니어스입니다""]
 joined_text = """".join(text_list)
 print(joined_text)",안녕하세요코드지니어스입니다,https://docs.python.org/ko/3/library/stdtypes.html#str.join
@@ -268,7 +268,7 @@ def global_count():
 global_count()
 global_count()","1
 2",https://docs.python.org/ko/3/reference/simple_stmts.html#the-global-statement
-59,도움말,내장함수,help,내장 함수,,help(함수명),help(sum),"Help on built-in function sum in module builtins:
+59,도움말,내장함수,help,내장 함수,픂뽉쌭,help(함수명),help(sum),"Help on built-in function sum in module builtins:
 
 sum(iterable, /, start=0)
     Return the sum of a 'start' value (default: 0) plus an iterable of numbers
@@ -290,8 +290,8 @@ re.search(pattern, text)","<re.Match object; span=(9, 11), match='코드'>",http
 directory_path = ""new_directory""
 
 # 디렉토리 생성: 이미 존재하는 경우 에러 발생
-os.mkdir(directory_path)",,https://docs.python.org/ko/3/library/os.html#os.mkdir
-62,thread,생성,threading,모듈,,threading.Thread(target=함수 이름),"import threading
+os.mkdir(directory_path)",픂뽉쌭,https://docs.python.org/ko/3/library/os.html#os.mkdir
+62,thread,생성,threading,모듈,픂뽉쌭,threading.Thread(target=함수 이름),"import threading
 import time
 
 # 스레드에서 실행할 간단한 함수 정의
@@ -346,7 +346,7 @@ pattern = ""코드""
 text = ""안녕하세요 저는 코드지니어스입니다.""
 
 # 문자열의 시작이 패턴과 일치하는지 확인
-re.match(pattern, text)",,https://docs.python.org/ko/3/library/re.html#re.match
+re.match(pattern, text)",픂뽉쌭,https://docs.python.org/ko/3/library/re.html#re.match
 64,교집합,&,세트,집합,연산자,집합1 & 집합2,"# 두 집합 정의
 fruits1 = {""apple"", ""banana"", ""cherry""}
 fruits2 = {""orange"", ""melon"", ""banana""}
@@ -367,7 +367,7 @@ fruits = [""apple"", ""banana"", ""cherry""]
 
 fruits.clear()
 print(fruits)",[],https://docs.python.org/ko/3/tutorial/datastructures.html#data-structures
-68,변수,삭제,del,키워드,,del 변수명,"fruits = [""apple"", ""banana"", ""cherry""]
+68,변수,삭제,del,키워드,픂뽉쌭,del 변수명,"fruits = [""apple"", ""banana"", ""cherry""]
 del fruits[0]
 print(fruits)","['banana', 'cherry']",https://docs.python.org/ko/3/tutorial/datastructures.html#the-del-statement
 69,리스트,인덱스,요소,index,함수,리스트.index(요소),"fruits = [""apple"", ""banana"", ""cherry""]
@@ -475,7 +475,7 @@ dic = {""fruit"": ""apple"", ""food"": ""pie""}
 for key, val in dic.items():
     print(key, val)","fruit apple
 food pie",https://docs.python.org/ko/3/tutorial/datastructures.html
-85,딕셔너리,병합,update,메서드,,딕셔너리1.update(딕셔너리2),"# 딕셔너리 정의
+85,딕셔너리,병합,update,메서드,픂뽉쌭,딕셔너리1.update(딕셔너리2),"# 딕셔너리 정의
 dic1 = {""fruit"": ""apple"", ""food"": ""pie""}
 dic2 = {""fruit"": ""banana"", ""idx"": 1}
 
@@ -582,7 +582,7 @@ fruits2 = {""orange"", ""melon"", ""banana""}
 
 # 부분집합 여부 확인
 print(fruits1.issubset(fruits2))",False,https://docs.python.org/ko/3/library/stdtypes.html#frozenset.issubset
-100,두,집단,평균,가설검정,,"ttest_ind(집단1, 집단2)","import numpy as np
+100,두,집단,평균,가설검정,픂뽉쌭,"ttest_ind(집단1, 집단2)","import numpy as np
 from scipy.stats import ttest_ind
 
 # 집단 1과 집단 2의 데이터를 생성합니다.
@@ -622,7 +622,7 @@ else:
     print(""귀무가설 채택: 두 집단 간의 평균 차이가 통계적으로 유의미하지 않습니다."")
 ","귀무가설 기각: 두 집단 간의 평균 차이가 통계적으로 유의미합니다.
 ",https://docs.python.org/ko/3/library/statistics.html#hypothesis-testing
-102,가설검정,정규분포,수행,함수,,"stats.ttest_1samp(데이터, 평균)","import numpy as np
+102,가설검정,정규분포,수행,함수,픂뽉쌭,"stats.ttest_1samp(데이터, 평균)","import numpy as np
 from scipy import stats
 
 # 데이터 생성
@@ -676,7 +676,7 @@ else:
 P-value: 0.0001
 귀무가설 기각: 두 샘플 간의 분포에 유의미한 차이가 있습니다.
 ",https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.mannwhitneyu.html
-104,일변량,다변량,가설검정,차이점,,threshold = 평균벡터 + z_value * np.sqrt(np.diag(공분산행렬)),"import numpy as np
+104,일변량,다변량,가설검정,차이점,픂뽉쌭,threshold = 평균벡터 + z_value * np.sqrt(np.diag(공분산행렬)),"import numpy as np
 from scipy.stats import multivariate_normal, norm
 
 # 다변량 정규 분포의 평균 벡터와 공분산 행렬 생성
@@ -695,7 +695,7 @@ print(f""다변량 정규 분포의 {confidence_level * 100}% 신뢰구간 경�
 ","다변량 정규 분포의 95.0% 신뢰구간 경계값 (양측 검정):
 [1.95996398 2.77180765]
 ",https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.multivariate_normal.html
-105,파이썬,단측,가설검정,수행,,"stats.ttest_rel(샘플1, 샘플2, 대안='less')","import numpy as np
+105,파이썬,단측,가설검정,수행,픂뽉쌭,"stats.ttest_rel(샘플1, 샘플2, 대안='less')","import numpy as np
 from scipy import stats
 
 # 샘플 데이터 생성
@@ -715,7 +715,7 @@ else:
 p-value: 0.9980587314765198
 귀무가설 채택: 샘플1의 평균이 샘플2의 평균보다 작다는 근거가 부족하다.
 ",https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.ttest_rel.html
-106,카이제곱,검정,사용,,,scipy.stats.chi2_contingency(데이터),"import numpy as np
+106,카이제곱,검정,사용,픂뽉쌭,픂뽉쌭,scipy.stats.chi2_contingency(데이터),"import numpy as np
 from scipy.stats import chi2_contingency
 
 # 예시 데이터 (2x2 contingency table)
@@ -735,7 +735,7 @@ chi2_stat, p_val, dof, expected = chi2_contingency(observed)
 
 print(f""Chi-square statistic: {chi2_stat}"")","Chi-square statistic: 0.011666666666666653
 ",https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.chi2_contingency.html
-107,회귀분석,가설검정,사용,,,"statsmodels.api.OLS(종속변수, 독립변수).fit().summary2().tables[0]","import statsmodels.api as sm
+107,회귀분석,가설검정,사용,픂뽉쌭,픂뽉쌭,"statsmodels.api.OLS(종속변수, 독립변수).fit().summary2().tables[0]","import statsmodels.api as sm
 import numpy as np
 import pandas as pd
 
@@ -780,7 +780,7 @@ alternative = 'two-sided'  # 양측 검정
 p_value = binomtest(successes, n=n_trials, p=p_success, alternative=alternative)
 print(f""P-value: {p_value}"")","P-value: BinomTestResult(k=52, n=100, alternative='two-sided', statistic=0.52, pvalue=0.7643534344026669)
 ",https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.binomial_test.html
-109,정규분포,중심극한정리,표본,크기,,"scipy.stats.mannwhitneyu(데이터1, 데이터2)","from scipy.stats import mannwhitneyu
+109,정규분포,중심극한정리,표본,크기,픂뽉쌭,"scipy.stats.mannwhitneyu(데이터1, 데이터2)","from scipy.stats import mannwhitneyu
 
 # 예시 데이터
 data1 = [18, 20, 21, 22, 25, 26, 28, 30, 31, 33]
@@ -931,7 +931,7 @@ with open('model.pkl', 'wb') as f:
     pickle.dump(model, f)
 
 print(""모델이 저장되었습니다."")",모델이 저장되었습니다.,https://docs.python.org/ko/3/library/pickle.html
-118,파이썬,scikit-learn,라이브러리,회귀분석,,"from sklearn.linear_model import LinearRegression
+118,파이썬,scikit-learn,라이브러리,회귀분석,픂뽉쌭,"from sklearn.linear_model import LinearRegression
 reg = LinearRegression()
 reg.fit(데이터, 타깃)","from sklearn.linear_model import LinearRegression
 
@@ -1029,7 +1029,7 @@ joblib.dump(reg, ""model.pkl"")
 # 모델 로드
 new_reg = joblib.load(""model.pkl"")","모델이 저장되었습니다.
 모델이 로드되었습니다.",https://scikit-learn.org/stable/model_persistence.html#
-122,특성,회귀 모델,중요도,파악,,"from sklearn.feature_selection import f_regression
+122,특성,회귀 모델,중요도,파악,픂뽉쌭,"from sklearn.feature_selection import f_regression
 importance = f_regression(데이터, 타깃)","from sklearn.feature_selection import f_regression
 import numpy as np
 
@@ -1045,7 +1045,7 @@ print(""특성 중요도:"", importance)
 print(""p-values:"", p_values)","특성 중요도: [26.9138756 26.9138756]
 p-values: [0.01390798 0.01390798]
 ",https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.f_regression.html#f-regression
-123,scikit-learn,predict,신뢰구간,반환,,"model.predict(예측 값, 표준변차반환여ㅜ=True)","import numpy as np
+123,scikit-learn,predict,신뢰구간,반환,픂뽉쌭,"model.predict(예측 값, 표준변차반환여ㅜ=True)","import numpy as np
 from sklearn.gaussian_process import GaussianProcessRegressor
 from sklearn.gaussian_process.kernels import RBF, ConstantKernel as C
 
@@ -1340,7 +1340,7 @@ print(""각 데이터 포인트의 클러스터 레이블:"")
 print(cluster_labels)","각 데이터 포인트의 클러스터 레이블:
 [0 2 0 0 2 2 0 1 0 0]
 ",https://scikit-learn.org/stable/modules/generated/sklearn.cluster.AgglomerativeClustering.html
-134,상관계수,함수,계산,pearsonr,,"scipy.stats.pearsonr(X, Y)","from scipy.stats import pearsonr
+134,상관계수,함수,계산,pearsonr,픂뽉쌭,"scipy.stats.pearsonr(X, Y)","from scipy.stats import pearsonr
 import numpy as np
 
 # 예제 데이터 생성
@@ -1354,7 +1354,7 @@ corr, p_value = pearsonr(X, Y)
 print(f""피어슨 상관 계수: {corr}"")
 print(f""상관 관계의 유의성을 나타내는 p-value: {p_value}"")","피어슨 상관 계수: 0.6991720710419991
 상관 관계의 유의성을 나타내는 p-value: 5.962448746607755e-16",https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.pearsonr.html
-135,상관계수,시각화,seaborn,,,"seaborn.heatmap(데이터프레임,  데이터 값을 표시할지 여부=True, 색상 맵설정=""coolwarm"", 셀 간격 설정=.5)","import seaborn as sns
+135,상관계수,시각화,seaborn,픂뽉쌭,픂뽉쌭,"seaborn.heatmap(데이터프레임,  데이터 값을 표시할지 여부=True, 색상 맵설정=""coolwarm"", 셀 간격 설정=.5)","import seaborn as sns
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -1369,7 +1369,7 @@ sns.heatmap(data, annot=True, cmap=""coolwarm"", linewidths=.5)
 plt.title('Heatmap of a DataFrame')
 plt.show()
 ",-,https://seaborn.pydata.org/generated/seaborn.heatmap.html
-136,HCA,위계적 군집 분석,,상관 관계,식별,scipy.cluster.hierarchy.linkage(데이터),"import numpy as np
+136,HCA,위계적 군집 분석,픂뽉쌭,상관 관계,식별,scipy.cluster.hierarchy.linkage(데이터),"import numpy as np
 from scipy.cluster.hierarchy import linkage, dendrogram
 import matplotlib.pyplot as plt
 
@@ -1415,7 +1415,7 @@ print(vif)","  Features       VIF
 2       X3  1.077394
 3       X4  1.008288
 ",https://www.statsmodels.org/stable/generated/statsmodels.stats.outliers_influence.variance_inflation_factor.html
-138,시계열 데이터,추세,이동 평균,제거,,"df[""차이분석""].rolling(window=5).mean()","import pandas as pd
+138,시계열 데이터,추세,이동 평균,제거,픂뽉쌭,"df[""차이분석""].rolling(window=5).mean()","import pandas as pd
 import numpy as np
 
 # 예시 데이터 생성
@@ -1583,7 +1583,7 @@ ADF 검정 통계량 (ADF Statistic): -1.4763584158714853
 P-값 (p-value): 0.5451723991122808
 => 유의수준 5%에서 귀무가설을 기각할 수 없습니다. => 시계열 데이터는 안정적입니다.
 ",https://www.statsmodels.org/dev/generated/statsmodels.tsa.stattools.adfuller.html
-143,계절성 분해,시계열 데이터,계절성,식별,,"from statsmodels.tsa.seasonal import seasonal_decompose
+143,계절성 분해,시계열 데이터,계절성,식별,픂뽉쌭,"from statsmodels.tsa.seasonal import seasonal_decompose
 seasonal_decompose(df[""차이분석""], model=""additive"")","import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -1672,7 +1672,7 @@ print(quantiles)
 0.75    14.50
 Name: 컬럼명, dtype: float64
 ",https://pandas.pydata.org/docs/reference/api/pandas.Series.quantile.html
-146,상관관계,산점도,피어슨,상관계수,,"plt.scatter(데이터1, 데이터2), scipy.stats.pearsonr(데이터1, 데이터2)","import numpy as np
+146,상관관계,산점도,피어슨,상관계수,픂뽉쌭,"plt.scatter(데이터1, 데이터2), scipy.stats.pearsonr(데이터1, 데이터2)","import numpy as np
 import matplotlib.pyplot as plt
 from scipy.stats import pearsonr
 
@@ -1694,7 +1694,7 @@ plt.show()
 # 피어슨 상관계수 계산
 correlation, p_value = pearsonr(데이터1, 데이터2)
 print(f""피어슨 상관계수: {correlation:.4f}, p-value: {p_value:.4f}"")
-",,https://matplotlib.org/3.3.2/api/_as_gen/matplotlib.pyplot.scatter.html
+",픂뽉쌭,https://matplotlib.org/3.3.2/api/_as_gen/matplotlib.pyplot.scatter.html
 147,원핫 인코딩,범주형 데이터,이진 형식,원핫,인코딩,sklearn.preprocessing.OneHotEncoder().fit_transform(데이터),"import numpy as np
 from sklearn.preprocessing import OneHotEncoder
 
@@ -1827,7 +1827,7 @@ score = accuracy_score(y_true, y_pred)
 print(f""Accuracy Score: {score}"")
 ","Accuracy Score: 0.6666666666666666
 ",https://scikit-learn.org/stable/modules/generated/sklearn.metrics.accuracy_score.html
-152,데이터 임퓨팅,추정,임퓨팅,임퓨팅,,SimpleImputer(strategy='mean').fit_transform(x),"import numpy as np
+152,데이터 임퓨팅,추정,임퓨팅,임퓨팅,픂뽉쌭,SimpleImputer(strategy='mean').fit_transform(x),"import numpy as np
 from sklearn.impute import SimpleImputer
 
 # 예시 데이터
@@ -1869,7 +1869,7 @@ fpr, tpr, thresholds = metrics.roc_curve(y, scores, pos_label=2)
 print(""False Positive Rate (FPR):"", fpr)
 print(""True Positive Rate (TPR):"", tpr)
 print(""Thresholds:"", thresholds)
-",,https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_curve.html
+",픂뽉쌭,https://scikit-learn.org/stable/modules/generated/sklearn.metrics.roc_curve.html
 154,K-Means,클러스터,비지도 학습,K-Means 알고리즘,비지도 학습 알고리즘,"데이터포인트배열 = np.array([[1, 2], [1, 4], [1, 0],
               [10, 2], [10, 4], [10, 0]])
 kmeans = KMeans(클러스터수=2, 랜덤시드=0, 초기중심값설정=""auto"").fit(X)","from sklearn.cluster import KMeans
@@ -1894,11 +1894,11 @@ Cluster centers:
  [[ 1.  2.]
   [10.  2.]]
 ",https://scikit-learn.org/stable/modules/generated/sklearn.cluster.KMeans.html
-155,람다 함수,익명 함수,단일 표현식,,,lambda 파라미터: 표현식,"square = lambda x: x ** 2
+155,람다 함수,익명 함수,단일 표현식,픂뽉쌭,픂뽉쌭,lambda 파라미터: 표현식,"square = lambda x: x ** 2
 print(square(5))
 ","25
 ",https://docs.python.org/3/reference/expressions.html#lambda
-156,normaltest,Shapiro-Wilk,정규성,,,stats.normaltest(데이터),"import numpy as np
+156,normaltest,Shapiro-Wilk,정규성,픂뽉쌭,픂뽉쌭,stats.normaltest(데이터),"import numpy as np
 from scipy import stats
 
 # 데이터 생성 (정규 분포를 따르지 않는 예시 데이터)
@@ -1913,7 +1913,7 @@ print(f""Normaltest statistic: {statistic}"")
 print(f""P-value: {p_value}"")","Normaltest statistic: 452.7741994209466
 P-value: 4.801001278930967e-99
 ",https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.normaltest.html
-157,샘플 데이터,NumPy,라이브러리,샘플,,"np.random.randn(행수, 열수)","import numpy as np
+157,샘플 데이터,NumPy,라이브러리,샘플,픂뽉쌭,"np.random.randn(행수, 열수)","import numpy as np
 
 # 난수 생성
 rows = 2
@@ -2005,7 +2005,7 @@ for pair in pairs:
     print(f""변수 {var1}과(와) 변수 {var2}: 상관 계수 = {correlation_coefficient:.2f}"")","임계값 0.8을 넘는 높은 상관 관계를 가진 변수 쌍
 변수 0과(와) 변수 1: 상관 계수 = -0.82
 ",https://numpy.org/doc/stable/reference/generated/numpy.corrcoef.html
-161,Granger,시계열,인과 관계,grangercausalitytests,,"grangercausalitytests(시계열 데이터 1, 시계열 데이터 2)","import numpy as np
+161,Granger,시계열,인과 관계,grangercausalitytests,픂뽉쌭,"grangercausalitytests(시계열 데이터 1, 시계열 데이터 2)","import numpy as np
 import pandas as pd
 from statsmodels.tsa.stattools import grangercausalitytests
 
@@ -2066,7 +2066,7 @@ likelihood ratio test: chi2=1.7429  , p=0.4183  , df=2
 parameter F test:         F=0.8344  , p=0.4374  , df_denom=93, df_num=2
 시계열 데이터 2가 데이터 1을 1일 이전에 인과적으로 설명하는지 테스트 (p-value): 0.2683
 시계열 데이터 2가 데이터 1을 2일 이전에 인과적으로 설명하는지 테스트 (p-value): 0.415",https://www.statsmodels.org/stable/generated/statsmodels.tsa.stattools.grangercausalitytests.html
-162,빈도표,value_counts,pandas,생성,,"빈도표 = 데이터프레임['컬럼'].value_counts()
+162,빈도표,value_counts,pandas,생성,픂뽉쌭,"빈도표 = 데이터프레임['컬럼'].value_counts()
 print(빈도표)","import pandas as pd
 
 # 데이터프레임 예시 데이터 생성
@@ -2131,7 +2131,7 @@ print(트리_텍스트)","|--- petal length (cm) <= 2.45
 |   |   |   |--- class: 2
 
 ",https://scikit-learn.org/stable/modules/generated/sklearn.tree.DecisionTreeClassifier.html
-164,부트스트랩,bootstrap,SciPy,,,"from scipy.stats import bootstrap
+164,부트스트랩,bootstrap,SciPy,픂뽉쌭,픂뽉쌭,"from scipy.stats import bootstrap
 bootstrap_mean(데이터, 부트스트랩 샘플 수=1000, 신뢰구간=0.05)","import numpy as np
 import scipy.stats
 
@@ -2208,7 +2208,7 @@ print(""Final model score on train data: {:.2f}"".format(score))
 Best cross-validation score: 0.87
 Final model score on train data: 0.88
 ",https://scikit-learn.org/stable/modules/grid_search.html
-167,Pandas,중복된,제거,duplicates,,"데이터프레임.drop_duplicates(subset=""열 이름"")","import pandas as pd
+167,Pandas,중복된,제거,duplicates,픂뽉쌭,"데이터프레임.drop_duplicates(subset=""열 이름"")","import pandas as pd
 
 # 예제 데이터 생성
 data = {
@@ -2233,7 +2233,7 @@ print(df_unique)
 3  김유신  25  대전
 4  홍길동  30  서울
 ",https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.drop_duplicates.html
-168,계절적,차분,계수,seasonal_decompose,,"from statsmodels.tsa.seasonal import seasonal_decompose
+168,계절적,차분,계수,seasonal_decompose,픂뽉쌭,"from statsmodels.tsa.seasonal import seasonal_decompose
 result = seasonal_decompose(시계열_데이터, model=""additive"")
 print(result.seasonal)","# 예제 시계열 데이터 생성
 np.random.seed(0)
@@ -2269,7 +2269,7 @@ plt.show()","date
 2020-01-10    0.053718
 Name: seasonal, dtype: float64
 ",https://www.statsmodels.org/stable/generated/statsmodels.tsa.seasonal.seasonal_decompose.html
-169,정밀도,재현율,양성 클래스,예측,,"from sklearn.metrics import precision_score, recall_score
+169,정밀도,재현율,양성 클래스,예측,픂뽉쌭,"from sklearn.metrics import precision_score, recall_score
 precision = precision_score(y_true, y_pred)
 recall = recall_score(y_true, y_pred)","from sklearn.metrics import precision_score, recall_score
 
@@ -2291,7 +2291,7 @@ print(f""재현율 (Recall): {recall}"")
 ","정밀도 (Precision): 0.75
 재현율 (Recall): 0.75
 ",https://scikit-learn.org/stable/modules/generated/sklearn.metrics.precision_score.html
-170,결측값,평균값,중앙값,대체,,"# 결측값 제거
+170,결측값,평균값,중앙값,대체,픂뽉쌭,"# 결측값 제거
 데이터프레임.dropna()
 
 # 평균값으로 대체
@@ -2381,7 +2381,7 @@ print(""과샘플링 후 클래스 레이블 분포:"", np.bincount(y_resampled_
 print(""과소샘플링 후 클래스 레이블 분포:"", np.bincount(y_resampled_under))","과샘플링 후 클래스 레이블 분포: [1000 1000]
 과소샘플링 후 클래스 레이블 분포: [100 100]
 ",https://imbalanced-learn.org/stable/user_guide.html#user-guide
-172,이상치 감지,Z-점수,IQR,사분위 범위,,"# Z-점수
+172,이상치 감지,Z-점수,IQR,사분위 범위,픂뽉쌭,"# Z-점수
 from scipy.stats import zscore
 z_scores = np.abs(zscore(X))
 outliers = np.where(z_scores > 3)
@@ -2479,8 +2479,8 @@ y_train = [0, 1]
 svm = SVC(kernel='rbf', C=1.0, gamma=0.1)
 
 # 모델 훈련
-svm.fit(X_train, y_train)",,https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html
-175,텍스트 토큰화,문자열,토큰,기계 학습 모델,,tokenizer = Tokenizer(num_words=1000),"from keras.preprocessing.text import Tokenizer
+svm.fit(X_train, y_train)",픂뽉쌭,https://scikit-learn.org/stable/modules/generated/sklearn.svm.SVC.html
+175,텍스트 토큰화,문자열,토큰,기계 학습 모델,픂뽉쌭,tokenizer = Tokenizer(num_words=1000),"from keras.preprocessing.text import Tokenizer
 
 # 가상의 텍스트 데이터 생성
 texts = [
@@ -2504,7 +2504,7 @@ print(sequences)
 ","텍스트 시퀀스:
 [[1, 2, 3, 4, 5, 6], [7, 2, 3, 4, 8], [9, 10, 11, 12]]
 ",https://keras.io/api/preprocessing/text/
-176,random,randrange,난수,,,"random.randrange(시작값, 끝값)","import random
+176,random,randrange,난수,픂뽉쌭,픂뽉쌭,"random.randrange(시작값, 끝값)","import random
 
 # 시작값과 끝값을 설정
 start = 1
@@ -2516,7 +2516,7 @@ random_number = random.randrange(start, end)
 # 결과 출력
 print(""임의의 정수:"", random_number)
 ",임의의 정수: 5,https://docs.python.org/3/library/random.html#random.randrange
-177,통계적 유의성,연구 가설,지지,무작위성,,statsmodels.stats.contingency_tables.chi2_contingency(교차표),"import numpy as np
+177,통계적 유의성,연구 가설,지지,무작위성,픂뽉쌭,statsmodels.stats.contingency_tables.chi2_contingency(교차표),"import numpy as np
 from scipy.stats import chi2_contingency
 
 # 가상의 교차표 생성
@@ -2554,7 +2554,7 @@ print(""p-value:"", p_value)
 ","Mann-Whitney U 통계량: 11.0
 p-value: 0.4139944027047587
 ",https://docs.scipy.org/doc/scipy/reference/generated/scipy.stats.mannwhitneyu.html
-179,귀무 가설,대립 가설,검증,상반,,"귀무 가설: mean1 = mean2
+179,귀무 가설,대립 가설,검증,상반,픂뽉쌭,"귀무 가설: mean1 = mean2
 대립 가설: mean1 != mean2","group1 = [12, 15, 17, 20, 22]
 group2 = [9, 11, 14, 18, 21]
 
@@ -2598,8 +2598,8 @@ cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=42)
 scores = cross_val_score(pipeline, X_train, y_train, cv=cv, scoring='accuracy', fit_params={'callbacks': [early_stopping]})
 
 # 결과 출력
-print(""교차 검증 정확도:"", scores.mean())",,https://scikit-learn.org/stable/auto_examples/ensemble/plot_gradient_boosting_early_stopping.html
-181,모델.예측(),독립변수, 회귀 모델,예측,,예측값 = model.predict(독립변수의 값),"iris = load_iris()
+print(""교차 검증 정확도:"", scores.mean())",픂뽉쌭,https://scikit-learn.org/stable/auto_examples/ensemble/plot_gradient_boosting_early_stopping.html
+181,모델.예측(),독립변수, 회귀 모델,예측,픂뽉쌭,예측값 = model.predict(독립변수의 값),"iris = load_iris()
 X, y = iris.data, iris.target
 
 # 데이터 분할
@@ -2623,7 +2623,7 @@ print(""예측값:"", y_pred)
 # 정확도 계산
 accuracy = accuracy_score(y_test, y_pred)
 print(""정확도:"", accuracy)
-",,https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression.predict
+",픂뽉쌭,https://scikit-learn.org/stable/modules/generated/sklearn.linear_model.LogisticRegression.html#sklearn.linear_model.LogisticRegression.predict
 182,다중 공선성,모델의 계수,불안정,예측 성능,저하,sklearn.preprocessing.VarianceThreshold(threshold=0.5),"# 데이터 로드
 iris = load_iris()
 X, y = iris.data, iris.target
@@ -2644,7 +2644,7 @@ X_train_selected = selector.fit_transform(X_train_scaled)
 selected_features = np.array(iris.feature_names)[selector.get_support()]
 print(""선택된 특성:"", selected_features)","선택된 특성: ['sepal length (cm)' 'sepal width (cm)']
 ",https://scikit-learn.org/stable/modules/generated/sklearn.feature_selection.VarianceThreshold.html#sklearn.feature_selection.VarianceThreshold
-183,차이분석,음수,정규성화,정수,,"model = Seasonal(시계열, order=(1,1,1,12))","np.random.seed(0)
+183,차이분석,음수,정규성화,정수,픂뽉쌭,"model = Seasonal(시계열, order=(1,1,1,12))","np.random.seed(0)
 n = 100
 time = np.arange(n)
 seasonal_component = np.sin(2 * np.pi * time / 12)
@@ -2688,7 +2688,7 @@ Prob(H) (two-sided):                  0.67   Kurtosis:                         2
 Warnings:
 [1] Covariance matrix calculated using the outer product of gradients (complex-step).
 ",https://www.statsmodels.org/stable/generated/statsmodels.tsa.statespace.sarimax.SARIMAX.html
-184,pivot,변환,행을 열로 변환,,,"df.pivot(index='컬럼명1', columns='컬럼명2')","import pandas as pd
+184,pivot,변환,행을 열로 변환,픂뽉쌭,픂뽉쌭,"df.pivot(index='컬럼명1', columns='컬럼명2')","import pandas as pd
 
 # 예시 데이터프레임 생성
 data = {
@@ -2711,7 +2711,7 @@ bar  5.0  4.0
 baz  NaN  6.0
 foo  1.0  3.0
 ",https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.pivot.html
-185,groupby,연산 함수,그룹화,동시에 수행,,"df.groupby('컬럼명').agg({'컬럼명1': 'mean', '컬럼명2': 'max'}) # 컬럼명 열을 기준으로 평균과 최댓값","import pandas as pd
+185,groupby,연산 함수,그룹화,동시에 수행,픂뽉쌭,"df.groupby('컬럼명').agg({'컬럼명1': 'mean', '컬럼명2': 'max'}) # 컬럼명 열을 기준으로 평균과 최댓값","import pandas as pd
 
 # 예시 데이터프레임 생성
 data = {
@@ -2789,7 +2789,7 @@ kde.fit(X)
 
 # 결과 출력
 print(""KernelDensity 모델 피팅 완료."")
-",,https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KernelDensity.html
+",픂뽉쌭,https://scikit-learn.org/stable/modules/generated/sklearn.neighbors.KernelDensity.html
 189,대규모 데이터,빅데이터,프레임워크,분산 처리,병렬 처리,"from pyspark import SparkContext
 sc = SparkContext.getOrCreate()","from pyspark import SparkContext
 
@@ -2798,8 +2798,8 @@ sc = SparkContext.getOrCreate()
 
 # 결과 출력
 print(""SparkContext가 성공적으로 생성되었습니다."")
-",,https://spark.apache.org/docs/latest/index.html
-190,특징 중요도,기여하는 정도,랜덤 포레스트,,,"from sklearn.ensemble import RandomForestClassifier
+",픂뽉쌭,https://spark.apache.org/docs/latest/index.html
+190,특징 중요도,기여하는 정도,랜덤 포레스트,픂뽉쌭,픂뽉쌭,"from sklearn.ensemble import RandomForestClassifier
 model = RandomForestClassifier(); model.fit(X, y)
 feature_importances = model.feature_importances_","# 예시 데이터 생성
 np.random.seed(0)
@@ -2836,8 +2836,8 @@ labels = kmeans.labels_
 
 # 클러스터 중심
 centers = kmeans.cluster_centers_
-",,https://scikit-learn.org/stable/modules/clustering.html
-192,go.Scatter3d, 3차원 산포 플롯,3차원 데이터,시각화,,"go.Scatter3d(x=x, y=y, z=z)","import plotly.graph_objects as go
+",픂뽉쌭,https://scikit-learn.org/stable/modules/clustering.html
+192,go.Scatter3d, 3차원 산포 플롯,3차원 데이터,시각화,픂뽉쌭,"go.Scatter3d(x=x, y=y, z=z)","import plotly.graph_objects as go
 
 # 예시 데이터 생성
 import numpy as np
@@ -2849,8 +2849,8 @@ z = np.random.rand(100)
 # 3D 산점도 그리기
 fig = go.Figure(data=[go.Scatter3d(x=x, y=y, z=z, mode='markers')])
 fig.show()
-",,https://plotly.com/python-api-reference/
-193,회귀 모델,과적합,L1,L2,,1,"from sklearn.svm import SVC
+",픂뽉쌭,https://plotly.com/python-api-reference/
+193,회귀 모델,과적합,L1,L2,픂뽉쌭,1,"from sklearn.svm import SVC
 import numpy as np
 
 # 예시 데이터 생성
@@ -2896,7 +2896,7 @@ print(""평균 절대 오차(MAE):"", mae)
 결정 계수(R^2): 0.9486081370449679
 평균 절대 오차(MAE): 0.5
 ",https://scikit-learn.org/stable/modules/model_evaluation.html
-195,matplotlib,회귀 모델,시각화,,,"import matplotlib.pyplot as plt
+195,matplotlib,회귀 모델,시각화,픂뽉쌭,픂뽉쌭,"import matplotlib.pyplot as plt
 plt.scatter(데이터, 타깃)
 plt.plot(데이터, reg.predict(데이터))
 plt.show()","import matplotlib.pyplot as plt
@@ -2916,7 +2916,7 @@ plt.ylabel('타깃')
 plt.title('선형 회귀 예측 결과')
 plt.legend()
 plt.show()
-",,https://matplotlib.org/stable/api/
+",픂뽉쌭,https://matplotlib.org/stable/api/
 196,교차 검증,객관적,성능,과대적합,방지,"model = LinearRegression()
 scores = cross_val_score(model, x, y, cv=5)","# 예시 데이터 생성
 np.random.seed(0)
@@ -2973,8 +2973,8 @@ ridge.fit(X, y)
 # Lasso 회귀 모델 생성 및 훈련
 lasso = Lasso(alpha=1, selection='cyclic')
 lasso.fit(X, y)
-",,https://scikit-learn.org/stable/auto_examples/linear_model/plot_lasso_and_elasticnet.html#lasso
-199,시계열 데이터,회귀 분석,시간적 의존성,,,from statsmodels.tsa.api import SimpleExpSmoothing,"from statsmodels.tsa.api import SimpleExpSmoothing
+",픂뽉쌭,https://scikit-learn.org/stable/auto_examples/linear_model/plot_lasso_and_elasticnet.html#lasso
+199,시계열 데이터,회귀 분석,시간적 의존성,픂뽉쌭,픂뽉쌭,from statsmodels.tsa.api import SimpleExpSmoothing,"from statsmodels.tsa.api import SimpleExpSmoothing
 import numpy as np
 
 # 예시 데이터 생성
@@ -2992,7 +2992,7 @@ predictions = fit_model.forecast(steps=10)  # 예측할 스텝 수
 print(""예측값:"", predictions)
 ","예측값: [0.54753817 0.51288165 0.51288165 0.51288165 0.51288165 0.51288165 0.51288165 0.51288165 0.51288165 0.51288165]
 ",https://www.statsmodels.org/stable/generated/statsmodels.tsa.holtwinters.SimpleExpSmoothing.html#statsmodels.tsa.holtwinters.SimpleExpSmoothing
-200,NumPy ,배열,슬라이싱,,,"arr[1:5:2]
+200,NumPy ,배열,슬라이싱,픂뽉쌭,픂뽉쌭,"arr[1:5:2]
 ","arr = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 # 슬라이싱: 인덱스 1부터 5 전까지 2 간격으로 요소 선택
@@ -3055,7 +3055,7 @@ result = np.add(배열1, 배열2)
 print(""array1과 array2의 요소별 합:\n"", result)
 ","[[ 8 10 12]
   [14 16 18]]",https://numpy.org/doc/stable/reference/generated/numpy.add.html
-205,NumPy ,랜덤 배열,numpy.random.rand(),numpy.random.randn() ,,"np.random.randn(행의 수, 열의 수)","import numpy as np
+205,NumPy ,랜덤 배열,numpy.random.rand(),numpy.random.randn() ,픂뽉쌭,"np.random.randn(행의 수, 열의 수)","import numpy as np
 
 # 3행 4열의 표준 정규 분포를 따르는 난수 생성
 random_array = np.random.randn(3, 4)
@@ -3079,7 +3079,7 @@ new_array = np.reshape(array, (2, 6))
 
 print(""새로운 형태의 배열:\n"", new_array)
 ",새로운 형태의 배열: [[ 1 2 3 4 5 6] [ 7 8 9 10 11 12]],https://numpy.org/doc/stable/reference/generated/numpy.reshape.html
-207,NumPy ,배열,함수,적용,,"np.apply_along_axis(함수, axis, 배열)","import numpy as np
+207,NumPy ,배열,함수,적용,픂뽉쌭,"np.apply_along_axis(함수, axis, 배열)","import numpy as np
 
 # 1차원 배열의 합을 계산하는 함수 정의
 def sum_row(row):
@@ -3095,14 +3095,14 @@ result = np.apply_along_axis(sum_row, axis=1, arr=arr)
 # 결과 출력
 print(result) 
 ",[ 6 15],https://numpy.org/doc/stable/reference/generated/numpy.apply_along_axis.html
-208,배열,생성,numpy.array() ,,,"np.array([1, 2, 3])","import numpy as np
+208,배열,생성,numpy.array() ,픂뽉쌭,픂뽉쌭,"np.array([1, 2, 3])","import numpy as np
 
 # 리스트를 이용한 배열 생성
 arr = np.array([1, 2, 3, 4, 5])
 
 # 결과 출력
 print(arr) ",[1 2 3 4 5],https://numpy.org/doc/stable/reference/generated/numpy.array.html
-209,배열,인덱스,엑세스,,,arr[0],"import numpy as np
+209,배열,인덱스,엑세스,픂뽉쌭,픂뽉쌭,arr[0],"import numpy as np
 
 # 배열 생성
 arr = np.array([1, 2, 3, 4, 5])
@@ -3113,7 +3113,7 @@ first_element = arr[0]
 # 결과 출력
 print(""첫 번째 요소:"", first_element) 
 ",1,https://numpy.org/doc/stable/user/basics.indexing.html
-210,특정 값,채우다,배열,numpy.full(),,"np.full((3, 3), 5)","import numpy as np
+210,특정 값,채우다,배열,numpy.full(),픂뽉쌭,"np.full((3, 3), 5)","import numpy as np
 
 # 3x3 크기의 배열을 생성하고 값을 모두 5로 채움
 arr = np.full((3, 3), 5)
@@ -3124,7 +3124,7 @@ print(arr)
  [5 5 5]
  [5 5 5]]
 ",https://numpy.org/doc/stable/reference/generated/numpy.full.html
-211,numpy.arange() ,배열,범위,생성,,"np.arange(1, 10)","import numpy as np
+211,numpy.arange() ,배열,범위,생성,픂뽉쌭,"np.arange(1, 10)","import numpy as np
 
 # 1부터 10까지의 숫자로 이루어진 배열 생성
 arr = np.arange(1, 10)
@@ -3133,7 +3133,7 @@ arr = np.arange(1, 10)
 print(arr)
 ","[1 2 3 4 5 6 7 8 9]
 ",https://numpy.org/doc/stable/reference/generated/numpy.arange.html
-212,Numpy,배열,복사,,,배열.copy(),"import numpy as np
+212,Numpy,배열,복사,픂뽉쌭,픂뽉쌭,배열.copy(),"import numpy as np
 
 # 원래 배열 생성
 original_arr = np.array([1, 2, 3])
@@ -3149,7 +3149,7 @@ print(""원본 배열:"", original_arr)
 print(""복사된 배열:"", copied_arr)
 ","원본 배열 :  [100   2   3]
 복사된 배열 : [1 2 3]",https://numpy.org/doc/stable/reference/generated/numpy.ndarray.copy.html
-213,NumPy ,배열,나누기,,,"np.split(arr, 2)","import numpy as np
+213,NumPy ,배열,나누기,픂뽉쌭,픂뽉쌭,"np.split(arr, 2)","import numpy as np
 
 # 배열 생성
 arr = np.array([1, 2, 3, 4, 5, 6])
@@ -3161,7 +3161,7 @@ subarrays = np.split(arr, 2)
 print(subarrays)
 ","[array([1, 2, 3]), array([4, 5, 6])]
 ",https://numpy.org/doc/stable/reference/generated/numpy.split.html
-214,numpy.sum() ,배열,요소,더하기,,np.sum(배열),"import numpy as np
+214,numpy.sum() ,배열,요소,더하기,픂뽉쌭,np.sum(배열),"import numpy as np
 
 # 배열 생성
 arr = np.array([1, 2, 3, 4, 5])
@@ -3171,7 +3171,7 @@ total_sum = np.sum(arr)
 
 # 결과 출력
 print(total_sum) ",15,https://numpy.org/doc/stable/reference/generated/numpy.sum.html
-215,numpy.multiply(),배열,연산,,,"np.multiply(arr, 2)","import numpy as np
+215,numpy.multiply(),배열,연산,픂뽉쌭,픂뽉쌭,"np.multiply(arr, 2)","import numpy as np
 
 # 배열 생성
 arr = np.array([1, 2, 3, 4, 5])
@@ -3182,7 +3182,7 @@ result = np.multiply(arr, 2)
 # 결과 출력
 print(result) 
 ",[ 2  4  6  8 10],https://numpy.org/doc/stable/reference/generated/numpy.multiply.html
-216,numpy.astype(),타입 변환,,타입변환,,arr.astype(np.int32),"import numpy as np
+216,numpy.astype(),타입 변환,픂뽉쌭,타입변환,픂뽉쌭,arr.astype(np.int32),"import numpy as np
 
 # 배열 생성
 arr = np.array([1.1, 2.2, 3.3, 4.4, 5.5])
@@ -3201,7 +3201,7 @@ arr = np.array([1, 2, 3])
 # 결과 출력
 print(arr) 
 ",[1 2 3],https://numpy.org/doc/stable/reference/generated/numpy.array.html
-218,NumPy ,연산자,베열,더하다,,"np.add(arr1, arr2)","import numpy as np
+218,NumPy ,연산자,베열,더하다,픂뽉쌭,"np.add(arr1, arr2)","import numpy as np
 
 # 두 배열 생성
 arr1 = np.array([1, 2, 3])
@@ -3224,7 +3224,7 @@ dimension = np.ndim(arr)
 # 결과 출력
 print(""배열의 차원 수:"", dimension)
 ",2,https://numpy.org/doc/stable/reference/generated/numpy.ndarray.ndim.html
-220,슬라이싱,배열,요소,선택,,arr[시작:끝:스텝],"import numpy as np
+220,슬라이싱,배열,요소,선택,픂뽉쌭,arr[시작:끝:스텝],"import numpy as np
 
 # 배열 생성
 arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
@@ -3235,15 +3235,15 @@ selected_elements = arr[2:7:2]  # 인덱스 2부터 7까지(7은 포함하지 �
 # 결과 출력
 print(selected_elements) 
 ",[3 5 7],https://numpy.org/doc/stable/user/basics.indexing.html
-221,numpy.save() ,배열,파일,저장,,"np.save('파일명', 배열)","import numpy as np
+221,numpy.save() ,배열,파일,저장,픂뽉쌭,"np.save('파일명', 배열)","import numpy as np
 
 # 배열 생성
 arr = np.array([1, 2, 3, 4, 5])
 
 # 배열을 파일로 저장
 np.save('my_array.npy', arr)
-",,https://numpy.org/doc/stable/reference/generated/numpy.save.html
-222,numpy.where() ,배열,특정 값,찾다,,np.where(arr == 값),"import numpy as np
+",픂뽉쌭,https://numpy.org/doc/stable/reference/generated/numpy.save.html
+222,numpy.where() ,배열,특정 값,찾다,픂뽉쌭,np.where(arr == 값),"import numpy as np
 
 # 배열 생성
 arr = np.array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
@@ -3254,7 +3254,7 @@ indices = np.where(arr == 5)
 # 결과 출력
 print(indices)
 ","(array([4]),)",https://numpy.org/doc/stable/reference/generated/numpy.where.html
-223,numpy.max(),배열,최댓값,,,np.max(arr),"import numpy as np
+223,numpy.max(),배열,최댓값,픂뽉쌭,픂뽉쌭,np.max(arr),"import numpy as np
 
 # 배열 생성
 arr = np.array([1, 5, 3, 9, 7])
@@ -3265,7 +3265,7 @@ max_value = np.max(arr)
 # 결과 출력
 print(max_value) 
 ",9,https://numpy.org/doc/stable/reference/generated/numpy.max.html
-224,데이터프레임,유일한 값,추출,,,"df[""열 이름""].unique()","import pandas as pd
+224,데이터프레임,유일한 값,추출,픂뽉쌭,픂뽉쌭,"df[""열 이름""].unique()","import pandas as pd
 
 # DataFrame 생성
 data = {'A': [1, 2, 2, 3, 4],
@@ -3278,7 +3278,7 @@ unique_values = df[""A""].unique()
 # 결과 출력
 print(unique_values)
 ",[1 2 3 4],https://pandas.pydata.org/docs/reference/api/pandas.Series.unique.html
-225,NumPy ,배열,연결,결합,,"np.concatenate((arr1, arr2))","import numpy as np
+225,NumPy ,배열,연결,결합,픂뽉쌭,"np.concatenate((arr1, arr2))","import numpy as np
 
 # 두 개의 배열 생성
 arr1 = np.array([1, 2, 3])
@@ -3351,7 +3351,7 @@ print(df)
 0  1  a
 2  3  c
 ",https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.drop.html
-230,DataFrame,필터링,query() ,filter() ,,"df.query(""조건식"")","import pandas as pd
+230,DataFrame,필터링,query() ,filter() ,픂뽉쌭,"df.query(""조건식"")","import pandas as pd
 
 # DataFrame 생성
 data = {'A': [1, 2, 3],
@@ -3376,7 +3376,7 @@ df = pd.DataFrame(data)
 
 # 막대 그래프로 시각화
 df.plot(kind=""bar"")
-",,https://pandas.pydata.org/docs/getting_started/intro_tutorials/09_timeseries.html
+",픂뽉쌭,https://pandas.pydata.org/docs/getting_started/intro_tutorials/09_timeseries.html
 232,DataFrame,형식,변환,to_csv(),to_excel(),"df.to_csv(""파일명.csv"")","import pandas as pd
 
 # DataFrame 생성
@@ -3386,7 +3386,7 @@ df = pd.DataFrame(data)
 
 # DataFrame을 CSV 파일로 저장
 df.to_csv(""my_data.csv"", index=False)
-",,https://pandas.pydata.org/docs/getting_started/intro_tutorials/02_read_write.html
+",픂뽉쌭,https://pandas.pydata.org/docs/getting_started/intro_tutorials/02_read_write.html
 233,DataFrame,통계적,분석,describe(),mean(),df.describe(),"import pandas as pd
 
 # DataFrame 생성
@@ -3406,7 +3406,7 @@ min    1.000000  1.000000
 75%    4.000000  4.000000
 max    5.000000  5.000000
 ",https://pandas.pydata.org/docs/getting_started/intro_tutorials/06_calculate_statistics.html
-234,DataFrame,그룹화,집계,판다스,,groupby(),"import pandas as pd
+234,DataFrame,그룹화,집계,판다스,픂뽉쌭,groupby(),"import pandas as pd
 
 # DataFrame 생성
 data = {'Team': ['A', 'B', 'A', 'B', 'A'],
@@ -3423,7 +3423,7 @@ Team
 A         55
 B         45
 ",https://pandas.pydata.org/docs/getting_started/intro_tutorials/06_calculate_statistics.html
-235,DataFrame,행,추가,append() ,,df.append(새로운행),"import pandas as pd
+235,DataFrame,행,추가,append() ,픂뽉쌭,df.append(새로운행),"import pandas as pd
 
 # 기존 DataFrame 생성
 data = {'A': [1, 2, 3],
@@ -3462,7 +3462,7 @@ print(df)
 2  3  c
 3  4  d
 ",https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.loc.html
-237,pandas,특정 열,필터링,DataFrame.query(),,df.query('열이름 == 값'),"import pandas as pd
+237,pandas,특정 열,필터링,DataFrame.query(),픂뽉쌭,df.query('열이름 == 값'),"import pandas as pd
 
 # DataFrame 생성
 data = {'A': [1, 2, 3],
@@ -3477,7 +3477,7 @@ print(filtered_df)
 ","   A  B
 1  2  b
 ",https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.query.html
-238,pandas,값,계산,DataFrame.apply(),,"df.apply(함수, 축=인덱스)","import pandas as pd
+238,pandas,값,계산,DataFrame.apply(),픂뽉쌭,"df.apply(함수, 축=인덱스)","import pandas as pd
 
 # DataFrame 생성
 data = {'A': [1, 2, 3],
@@ -3498,7 +3498,7 @@ print(result)
 1  4  10
 2  6  12
 ",https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.apply.html
-239,pandas,범주형,추가,Series.astype() ,,df['새로운속성'].astype('범주'),"import pandas as pd
+239,pandas,범주형,추가,Series.astype() ,픂뽉쌭,df['새로운속성'].astype('범주'),"import pandas as pd
 
 # DataFrame 생성
 data = {'A': [1, 2, 3],
@@ -3514,7 +3514,7 @@ print(df.dtypes)
 B    category
 dtype: object
 ",https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.astype.html
-240,pandas,중복값,확인,DataFrame.duplicated() ,,df.duplicated(),"import pandas as pd
+240,pandas,중복값,확인,DataFrame.duplicated() ,픂뽉쌭,df.duplicated(),"import pandas as pd
 
 # DataFrame 생성
 data = {'A': [1, 2, 2, 3, 4],
@@ -3533,7 +3533,7 @@ print(duplicated_rows)
 4    False
 dtype: bool
 ",https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.duplicated.html
-241,pandas,행,샘플링,DataFrame.sample() ,,df.sample(n=샘플크기),"import pandas as pd
+241,pandas,행,샘플링,DataFrame.sample() ,픂뽉쌭,df.sample(n=샘플크기),"import pandas as pd
 
 # DataFrame 생성
 data = {'A': [1, 2, 3, 4, 5],
@@ -3550,7 +3550,7 @@ print(sampled_df)
 3  4  d
 2  3  c
 ",https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sample.html
-242,데이터프레임,만들다,pandas.DataFrame() ,생성,,df = pd.DataFrame(데이터),"import pandas as pd
+242,데이터프레임,만들다,pandas.DataFrame() ,생성,픂뽉쌭,df = pd.DataFrame(데이터),"import pandas as pd
 
 # 데이터 생성
 data = {'A': [1, 2, 3],
@@ -3587,7 +3587,7 @@ print(df)
 2  3  c
 3  4  d
 ",https://pandas.pydata.org/pandas-docs/version/1.3/reference/api/pandas.DataFrame.append.html
-244,열,선택,DataFrame.loc[] ,DataFrame.iloc[],,df[['열_이름']],"import pandas as pd
+244,열,선택,DataFrame.loc[] ,DataFrame.iloc[],픂뽉쌭,df[['열_이름']],"import pandas as pd
 
 # DataFrame 생성
 data = {'A': [1, 2, 3],
@@ -3602,7 +3602,7 @@ print(selected_row)
 ","A    2
 Name: 1, dtype: int64
 ",https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.loc.html
-245,데이터프레임,열,추가,,,df['새로운_열'] = 새로운_열_데이터,"import pandas as pd
+245,데이터프레임,열,추가,픂뽉쌭,픂뽉쌭,df['새로운_열'] = 새로운_열_데이터,"import pandas as pd
 
 # 기존 데이터프레임 생성
 data = {'A': [1, 2, 3],
@@ -3622,7 +3622,7 @@ print(df)
 1  2  b       5
 2  3  c       6
 ",https://numpy.org/doc/stable/user/basics.indexing.html
-246,데이터,처리,빠지다,NaN ,,df.fillna(0) # 0으로 채움,"import pandas as pd
+246,데이터,처리,빠지다,NaN ,픂뽉쌭,df.fillna(0) # 0으로 채움,"import pandas as pd
 import numpy as np
 
 # NaN 값을 포함한 DataFrame 생성
@@ -3657,7 +3657,7 @@ print(sorted_df)
 2  2  b
 0  3  c
 ",https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.sort_values.html
-248,데이터프레임,필터링,조건,,,"df.query(""조건"")","import pandas as pd
+248,데이터프레임,필터링,조건,픂뽉쌭,픂뽉쌭,"df.query(""조건"")","import pandas as pd
 
 # DataFrame 생성
 data = {'A': [1, 2, 3, 4, 5],
@@ -3694,7 +3694,7 @@ print(result)
 2    9
 dtype: int64
 ",https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.apply.html
-250,데이터터프레임,csv,저장,,,df.to_csv('파일_경로.csv'),"import pandas as pd
+250,데이터터프레임,csv,저장,픂뽉쌭,픂뽉쌭,df.to_csv('파일_경로.csv'),"import pandas as pd
 
 # DataFrame 생성
 data = {'A': [1, 2, 3],
@@ -3703,7 +3703,7 @@ df = pd.DataFrame(data)
 
 # DataFrame을 CSV 파일로 저장
 df.to_csv('my_data.csv', index=False)
-",,https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_csv.html
+",픂뽉쌭,https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.to_csv.html
 251,pandas,데이터프레임,loc,append(),추가,df.loc[df.index.max() + 1] = ['새로운 데이터'],"import pandas as pd
 
 # DataFrame 생성
@@ -3725,7 +3725,7 @@ print(df)
 2    3  c
 3  NaN  새로운 데이터
 ",https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.loc.html
-252,pandas,열,인덱서,선택,,df['열 이름'],"import pandas as pd
+252,pandas,열,인덱서,선택,픂뽉쌭,df['열 이름'],"import pandas as pd
 
 # DataFrame 생성
 data = {'A': [1, 2, 3],
@@ -3760,7 +3760,7 @@ print(deduplicated_df)
 3  3  c
 4  4  d
 ",https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.drop_duplicates.html
-254,pandas,특정 값,교체,replace() ,,"df['열 이름'].replace(기존 값, 새로운 값)","import pandas as pd
+254,pandas,특정 값,교체,replace() ,픂뽉쌭,"df['열 이름'].replace(기존 값, 새로운 값)","import pandas as pd
 
 # DataFrame 생성
 data = {'A': [1, 2, 3, 4, 5],
@@ -3779,7 +3779,7 @@ print(df)
 3  4  x
 4  5  b
 ",https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.replace.html
-255,판다스,데이터프레임,결합,,,"pd.concat([df1, df2], axis=1)","import pandas as pd
+255,판다스,데이터프레임,결합,픂뽉쌭,픂뽉쌭,"pd.concat([df1, df2], axis=1)","import pandas as pd
 
 # 첫 번째 DataFrame 생성
 data1 = {'A': [1, 2, 3],
@@ -3801,7 +3801,7 @@ print(result)
 1  2  b  5  y
 2  3  c  6  z
 ",https://pandas.pydata.org/docs/reference/api/pandas.concat.html
-256,판다스,열,이름,변경,,df1.rename(columns={'old_name': 'new_name'}),"import pandas as pd
+256,판다스,열,이름,변경,픂뽉쌭,df1.rename(columns={'old_name': 'new_name'}),"import pandas as pd
 
 # DataFrame 생성
 data = {'old_name': [1, 2, 3],
@@ -3818,7 +3818,7 @@ print(df1)
 1         2  b
 2         3  c
 ",https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.rename.html
-257,판다스,데이터프레임,인덱스,설정,,df1.set_index(['index_column']),"import pandas as pd
+257,판다스,데이터프레임,인덱스,설정,픂뽉쌭,df1.set_index(['index_column']),"import pandas as pd
 
 # DataFrame 생성
 data = {'A': [1, 2, 3],
@@ -3836,7 +3836,7 @@ A
 2  b
 3  c
 ",https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.set_index.html
-258,행렬,생성,matrix,연산,,"np.matrix([[1, 2], [3, 4]])","import numpy as np
+258,행렬,생성,matrix,연산,픂뽉쌭,"np.matrix([[1, 2], [3, 4]])","import numpy as np
 
 # 행렬 생성
 matrix = np.matrix([[1, 2], [3, 4]])
@@ -3846,7 +3846,7 @@ print(matrix)
 ","[[1 2]
  [3 4]]
 ",https://numpy.org/doc/stable/reference/generated/numpy.matrix.html
-259,배열,추가,빼기,연산자,,배열1 + 배열2,"import numpy as np
+259,배열,추가,빼기,연산자,픂뽉쌭,배열1 + 배열2,"import numpy as np
 
 # 배열 생성
 a = np.array([1, 2, 3])
@@ -3854,7 +3854,7 @@ b = np.array([4, 5, 6])
 
 # 배열 더하기
 c = a + b","[5, 7, 9]",https://numpy.org/doc/stable/user/quickstart.html#basic-operations
-260,배열,곱하기,연산자,numpy.dot(),,"a * b (요소별 곱셉), np.dot(a, b) (행렬 곱셉)","import numpy as np
+260,배열,곱하기,연산자,numpy.dot(),픂뽉쌭,"a * b (요소별 곱셉), np.dot(a, b) (행렬 곱셉)","import numpy as np
 
 # 배열 생성
 a = np.array([1, 2, 3])
@@ -3883,7 +3883,7 @@ shape = a.shape
 # 결과 출력
 print(""배열의 모양:"", shape)
 ","배열의 모양: (2, 3)",https://numpy.org/doc/stable/reference/generated/numpy.shape.html
-262,배열,통계,추출,,,"numpy.mean(), numpy.median(), numpy.std()","import numpy as np
+262,배열,통계,추출,픂뽉쌭,픂뽉쌭,"numpy.mean(), numpy.median(), numpy.std()","import numpy as np
 
 # 배열 생성
 arr = np.array([1, 2, 3, 4, 5])
@@ -3904,20 +3904,20 @@ print(""배열의 표준편차:"", std_value)
 ","배열의 평균: 3.0
 배열의 중앙값: 3.0
 배열의 표준편차: 1.4142135623730951",https://numpy.org/doc/stable/reference/generated/numpy.mean.html
-263,배열,파일,저장,,,"np.save('배열.npy', a)","import numpy as np
+263,배열,파일,저장,픂뽉쌭,픂뽉쌭,"np.save('배열.npy', a)","import numpy as np
 
 # 배열 생성
 a = np.array([[1, 2, 3], [4, 5, 6]])
 
 # 배열을 파일로 저장
 np.save('배열.npy', a)
-",,https://numpy.org/doc/stable/reference/generated/numpy.fromfile.html
-264,파일,배열,불러오기,로드,,a = np.load('배열.npy'),"import numpy as np
+",픂뽉쌭,https://numpy.org/doc/stable/reference/generated/numpy.fromfile.html
+264,파일,배열,불러오기,로드,픂뽉쌭,a = np.load('배열.npy'),"import numpy as np
 
 # 배열 파일 불러오기
 a = np.load('배열.npy')
-",,https://numpy.org/doc/stable/reference/generated/numpy.fromfile.html
-265,NumPy ,배열,값,곱하기,,np.prod(배열),"import numpy as np
+",픂뽉쌭,https://numpy.org/doc/stable/reference/generated/numpy.fromfile.html
+265,NumPy ,배열,값,곱하기,픂뽉쌭,np.prod(배열),"import numpy as np
 
 # 배열 생성
 arr = np.array([1, 2, 3, 4, 5])
@@ -3928,7 +3928,7 @@ result = np.prod(arr)
 # 결과 출력
 print(""배열의 모든 요소의 곱:"", result)
 ",배열의 모든 요소의 곱: 120,https://numpy.org/doc/stable/reference/generated/numpy.prod.html
-266,NumPy ,배열,반복,for,,for 값 in 배열,"import numpy as np
+266,NumPy ,배열,반복,for,픂뽉쌭,for 값 in 배열,"import numpy as np
 
 # 배열 생성
 arr = np.array([1, 2, 3, 4, 5])
@@ -3941,7 +3941,7 @@ for value in arr:
 3
 4
 5",https://numpy.org/doc/stable/reference/arrays.nditer.html
-267,NumPy,배열,정렬,요소,,np.sort(배열),"import numpy as np
+267,NumPy,배열,정렬,요소,픂뽉쌭,np.sort(배열),"import numpy as np
 
 # 배열 생성
 arr = np.array([3, 1, 2, 5, 4])
@@ -3966,7 +3966,7 @@ result = arr1 + arr2
 print(""배열1 + 배열2:"", result)
 ","배열1 + 배열2: [5 7 9]
 ",https://numpy.org/doc/stable/user/basics.indexing.html
-269,2차원,배열,행렬,생성,,"np.array([[1, 2], [3, 4]])","import numpy as np
+269,2차원,배열,행렬,생성,픂뽉쌭,"np.array([[1, 2], [3, 4]])","import numpy as np
 
 # 배열 생성
 arr = np.array([[1, 2], [3, 4]])
@@ -3976,7 +3976,7 @@ print(arr)
 ","[[1 2]
  [3 4]]
 ",https://numpy.org/doc/stable/user/basics.indexing.html
-270,배열,요소,역순,할당,,np.flip(배열),"import numpy as np
+270,배열,요소,역순,할당,픂뽉쌭,np.flip(배열),"import numpy as np
 
 # 배열 생성
 arr = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
@@ -3993,7 +3993,7 @@ print(flipped_arr)
  [6 5 4]
  [3 2 1]]
 ",https://numpy.org/doc/stable/reference/generated/numpy.flip.html
-271,배열,특정 요소,인덱싱,접근,,배열[행인덱스][열인덱스],"import numpy as np
+271,배열,특정 요소,인덱싱,접근,픂뽉쌭,배열[행인덱스][열인덱스],"import numpy as np
 
 # 배열 생성
 arr = np.array([[1, 2, 3], [4, 5, 6], [7, 8, 9]])
@@ -4004,7 +4004,7 @@ element = arr[1][2]
 # 결과 출력
 print(""특정 요소:"", element)
 ",특정 요소: 6,https://numpy.org/doc/stable/user/basics.indexing.html
-272,배열,값,삽입,,,"np.insert(배열, 인덱스, 값)","import numpy as np
+272,배열,값,삽입,픂뽉쌭,픂뽉쌭,"np.insert(배열, 인덱스, 값)","import numpy as np
 
 # 배열 생성
 arr = np.array([1, 2, 3, 4, 5])
@@ -4018,7 +4018,7 @@ print(""요소가 삽입된 배열:"", new_arr)
 ","배열: [1 2 3 4 5]
 요소가 삽입된 배열: [ 1  2 10  3  4  5]
 ",https://numpy.org/doc/stable/reference/generated/numpy.insert.html
-273,배열,모든 요소,특정 값,할당,,"np.full(배열, 값)","import numpy as np
+273,배열,모든 요소,특정 값,할당,픂뽉쌭,"np.full(배열, 값)","import numpy as np
 
 # 배열 생성
 arr = np.array([[1, 2, 3], [4, 5, 6]])
@@ -4031,7 +4031,7 @@ print(""배열:"", arr)
 ","배열: [[10 10 10]
  [10 10 10]]
 ",https://numpy.org/doc/stable/reference/generated/numpy.ndarray.fill.html
-274,numpy.array(),dtype,배열,생성,,"np.array(리스트, dtype=numpy.int)","import numpy as np
+274,numpy.array(),dtype,배열,생성,픂뽉쌭,"np.array(리스트, dtype=numpy.int)","import numpy as np
 
 # 리스트 생성
 my_list = [1.5, 2.7, 3.8]
@@ -4055,7 +4055,7 @@ print(rand_array)
 [[0.60294581 0.43258616 0.61835857]
  [0.51307135 0.51663288 0.77576293]]
 ",https://numpy.org/doc/stable/reference/random/generated/numpy.random.rand.html
-276,NumPy,배열,크기,변경,,"np.resize(배열, (새 행, 새 열))","import numpy as np
+276,NumPy,배열,크기,변경,픂뽉쌭,"np.resize(배열, (새 행, 새 열))","import numpy as np
 
 # 배열 생성
 arr = np.array([[1, 2], [3, 4]])
@@ -4071,7 +4071,7 @@ print(resized_arr)
  [4 1 2]
  [3 4 1]]
 ",https://numpy.org/doc/stable/reference/generated/numpy.resize.html
-277,행,열,삭제,추가,,"np.insert(배열, 인덱스, 값), np.delete(배열, 인덱스)","import numpy as np
+277,행,열,삭제,추가,픂뽉쌭,"np.insert(배열, 인덱스, 값), np.delete(배열, 인덱스)","import numpy as np
 
 # 배열 생성
 arr = np.array([1, 2, 3, 4, 5])
@@ -4105,13 +4105,13 @@ print(""np.put() 함수 사용 결과:"", arr)
 ","직접 값 할당 결과: [ 1  2 10  4  5]
 np.put() 함수 사용 결과: [ 1  2 10 20  5]
 ",https://numpy.org/doc/stable/reference/generated/numpy.put.html
-279,NumPy,배열,뷰,생성,,view,"
+279,NumPy,배열,뷰,생성,픂뽉쌭,view,"
 # 배열 생성
 arr = np.array([1, 2, 3, 4, 5])
 
 # view 생성
 arr_view = arr.view()",[ 1  2 10  4  5],https://numpy.org/doc/stable/reference/generated/numpy.ndarray.view.html
-280,NumPy,배열,새로운 차원,추가,,np.newaxis(배열),"import numpy as np
+280,NumPy,배열,새로운 차원,추가,픂뽉쌭,np.newaxis(배열),"import numpy as np
 
 # 1차원 배열 생성
 arr = np.array([1, 2, 3, 4, 5])
@@ -4146,8 +4146,8 @@ print(indices)
  [1 0]
  [1 2]]
 ",https://numpy.org/doc/stable/reference/generated/numpy.argwhere.html
-282,파이썬,NumPy,pip,명령어,설치,pip install numpy,!pip install numpy,,https://numpy.org/install/
-283,NumPy,배열,연산자,사칙 연산자,,arr1 + arr2,"import numpy as np
+282,파이썬,NumPy,pip,명령어,설치,pip install numpy,!pip install numpy,픂뽉쌭,https://numpy.org/install/
+283,NumPy,배열,연산자,사칙 연산자,픂뽉쌭,arr1 + arr2,"import numpy as np
 
 # 배열 생성
 arr1 = np.array([1, 2, 3])
@@ -4160,7 +4160,7 @@ result = arr1 + arr2
 print(""요소별 덧셈 결과:"", result)
 ","요소별 덧셈 결과: [5 7 9]
 ",https://numpy.org/doc/stable/user/quickstart.html#basic-operations
-284,특정 값,개수,세기,value_counts(),,"df[""열 이름""].value_counts()","import pandas as pd
+284,특정 값,개수,세기,value_counts(),픂뽉쌭,"df[""열 이름""].value_counts()","import pandas as pd
 
 # 데이터프레임 생성
 data = {'A': [1, 2, 2, 3, 3, 3],
@@ -4199,7 +4199,7 @@ print(df)
 2  Peter   40    London
 3  Linda   25    Berlin
 ",https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.html
-286,데이터프레임,로드,읽기 함수,,,pd.read_csv('파일명.csv'),"import pandas as pd
+286,데이터프레임,로드,읽기 함수,픂뽉쌭,픂뽉쌭,pd.read_csv('파일명.csv'),"import pandas as pd
 
 # CSV 파일 읽어들이기
 df = pd.read_csv('파일명.csv')
@@ -4207,8 +4207,8 @@ df = pd.read_csv('파일명.csv')
 # 결과 출력
 print(""CSV 파일을 읽어들인 DataFrame:"")
 print(df)
-",,https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html
-287,isnull() 함수,결측값,찾기,,,df[df.컬럼.isnull()],"import pandas as pd
+",픂뽉쌭,https://pandas.pydata.org/docs/reference/api/pandas.read_csv.html
+287,isnull() 함수,결측값,찾기,픂뽉쌭,픂뽉쌭,df[df.컬럼.isnull()],"import pandas as pd
 
 # 데이터 생성
 data = {'Name': ['John', 'Anna', None, 'Linda'],
@@ -4228,7 +4228,7 @@ print(result)
    Name   Age    City
 2  None  40.0  London
 ",https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.isnull.html
-288,데이터프레임,상위,행,head(),,df.head(n),"import pandas as pd
+288,데이터프레임,상위,행,head(),픂뽉쌭,df.head(n),"import pandas as pd
 
 # 데이터 생성
 data = {'Name': ['John', 'Anna', 'Peter', 'Linda'],
@@ -4249,7 +4249,7 @@ print(result)
 0  John   28  New York
 1  Anna   35     Paris
 ",https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.head.html
-289,데이터프레임,최하위,행,tail(),,df.tail(n),"import pandas as pd
+289,데이터프레임,최하위,행,tail(),픂뽉쌭,df.tail(n),"import pandas as pd
 
 # 데이터 생성
 data = {'Name': ['John', 'Anna', 'Peter', 'Linda'],
@@ -4295,7 +4295,7 @@ print(df['A'])
 4    5.0
 Name: A, dtype: float64
 ",https://numpy.org/doc/stable/user/basics.indexing.html
-292,DataFrame,결측값,처리,,,df.dropna(how='any'),"import pandas as pd
+292,DataFrame,결측값,처리,픂뽉쌭,픂뽉쌭,df.dropna(how='any'),"import pandas as pd
 
 # 예시 데이터프레임 생성
 data = {'A': [1, 2, 3, None, 5],
@@ -4315,7 +4315,7 @@ print(df_dropped)
 2  3.0  c
 4  5.0  None
 ",https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.dropna.html
-293,DataFrame,시각화,라이브러리,,,df.plot(),"import pandas as pd
+293,DataFrame,시각화,라이브러리,픂뽉쌭,픂뽉쌭,df.plot(),"import pandas as pd
 import matplotlib.pyplot as plt
 
 # 예시 데이터프레임 생성
@@ -4326,8 +4326,8 @@ df = pd.DataFrame(data)
 # 데이터프레임 시각화
 df.plot()
 
-",,https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.html
-294,DataFrame,병합,,,,"pd.merge(df1, df2, on=""일치하는 열"")","# 예시 데이터프레임 생성
+",픂뽉쌭,https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.plot.html
+294,DataFrame,병합,픂뽉쌭,픂뽉쌭,픂뽉쌭,"pd.merge(df1, df2, on=""일치하는 열"")","# 예시 데이터프레임 생성
 data1 = {'key': ['A', 'B', 'C', 'D'],
          'value': [1, 2, 3, 4]}
 df1 = pd.DataFrame(data1)
@@ -4347,7 +4347,7 @@ print(merged_df)
 0   B        2        5
 1   D        4        6
 ",https://pandas.pydata.org/docs/reference/api/pandas.merge.html
-295,DataFrame,그룹화,집계,집계 함수,,"df.groupby(""열"").mean()","import pandas as pd
+295,DataFrame,그룹화,집계,집계 함수,픂뽉쌭,"df.groupby(""열"").mean()","import pandas as pd
 
 # 예시 데이터프레임 생성
 data = {'Group': ['A', 'B', 'A', 'B', 'A'],
@@ -4378,7 +4378,7 @@ print(arr_2d)
 [[1 2 3]
  [4 5 6]]
 ",https://numpy.org/doc/stable/reference/generated/numpy.array.html
-297,배열,초기화,numpy.zeros(),0,,np.zeros(배열 크기),"import numpy as np
+297,배열,초기화,numpy.zeros(),0,픂뽉쌭,np.zeros(배열 크기),"import numpy as np
 
 # 3x3 크기의 0으로 채워진 배열 생성
 arr_zeros = np.zeros((3, 3))
@@ -4407,26 +4407,26 @@ print(""배열의 타입:"", type(arr))
 [1 2 3]
 배열의 타입: <class 'numpy.ndarray'>
 ",https://numpy.org/doc/stable/reference/generated/numpy.array.html
-299,NumPy,행렬,변환,np.matrix,,"a = np.array([[1, 2], [3, 4]])","np.matrix([[1, 2], [3, 4]])","matrix([[1, 2],
+299,NumPy,행렬,변환,np.matrix,픂뽉쌭,"a = np.array([[1, 2], [3, 4]])","np.matrix([[1, 2], [3, 4]])","matrix([[1, 2],
         [3, 4]])",https://numpy.org/doc/stable/reference/generated/numpy.matrix.html
-300,배열,복사,numpy.copy(),,,b = a.copy(),"x = np.array([[1,2,3],[4,5,6]], order='F')
+300,배열,복사,numpy.copy(),픂뽉쌭,픂뽉쌭,b = a.copy(),"x = np.array([[1,2,3],[4,5,6]], order='F')
 y = x.copy()
 y","array([[1, 2, 3],
        [4, 5, 6]])",https://numpy.org/doc/stable/reference/generated/numpy.ndarray.copy.html
-301,NumPy,배열,다차원 배열,,,"np.array(리스트).reshape(행, 열)","a = np.arange(6).reshape((3, 2))
+301,NumPy,배열,다차원 배열,픂뽉쌭,픂뽉쌭,"np.array(리스트).reshape(행, 열)","a = np.arange(6).reshape((3, 2))
 a","array([[0, 1],
        [2, 3],
        [4, 5]])",https://numpy.org/doc/stable/reference/generated/numpy.reshape.html
-302,배열의 크기,numpy.shape,,,,np.array(리스트).shape,"arr3 = np.array([[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]])
+302,배열의 크기,numpy.shape,픂뽉쌭,픂뽉쌭,픂뽉쌭,np.array(리스트).shape,"arr3 = np.array([[[1, 2, 3], [4, 5, 6]], [[7, 8, 9], [10, 11, 12]]])
 print(arr3.shape)
 
 ","(2, 2, 3)
 ",https://numpy.org/doc/stable/reference/generated/numpy.shape.html
-303,배열,균등,분할,numpy.array_split(),,"분할된_배열 = numpy.array_split(배열, 균등한_부분)","x = np.arange(9)
+303,배열,균등,분할,numpy.array_split(),픂뽉쌭,"분할된_배열 = numpy.array_split(배열, 균등한_부분)","x = np.arange(9)
 np.array_split(x, 4)","[array([0, 1, 2]), array([3, 4]), array([5, 6]), array([7, 8])]",https://numpy.org/doc/stable/reference/generated/numpy.array_split.html
-304,배열,최댓값,np.max(),,,최대값 = np.max(배열),"a = np.arange(4).reshape((2,2))
+304,배열,최댓값,np.max(),픂뽉쌭,픂뽉쌭,최대값 = np.max(배열),"a = np.arange(4).reshape((2,2))
 np.max(a) ",3,https://numpy.org/doc/stable/reference/generated/numpy.max.html
-305,배열,요소,삭제,numpy.delete() ,,"np.delete(np.array([1, 2, 3]), 1)","arr = np.array([[1,2,3,4], [5,6,7,8], [9,10,11,12]])
+305,배열,요소,삭제,numpy.delete() ,픂뽉쌭,"np.delete(np.array([1, 2, 3]), 1)","arr = np.array([[1,2,3,4], [5,6,7,8], [9,10,11,12]])
 np.delete(arr, 1, 0)","array([[ 1,  2,  3,  4],
        [ 9, 10, 11, 12]])",https://numpy.org/doc/stable/reference/generated/numpy.delete.html
 306,hstack(),행렬,추가,열,행,"np.hstack((arr1, arr2)) # arr1과 arr2를 가로로 결합","a = np.array([[1],[2],[3]])
