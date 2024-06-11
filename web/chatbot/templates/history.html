@@ -412,50 +412,118 @@
             });
         </script>
 
+
+        <!-- 버튼 생성 -->
         <div class="history-bar" id="historyBar">
             {% for records_group in history_data %}
             <button class="date-button">{{ records_group.created_at }}</button>
-            {% for record in records_group.records %}
+                {% for i in records_group.records %}
                 <div class="date">
-                    <button class="keyword-button">{{ record.keyword }}</button>
+                    <button class="keyword-button" onclick="showInfo('{{ i.keyword }}')">{{ i.keyword }}</button>
                 </div>
+                {% endfor %}
             {% endfor %}
-        {% endfor %}
             </div>
         </div>
 <!------------------------------------------------------------------------------>
 
 <!--채팅히스토리창 생성-->
-<div class="container" id="container">
-    <div class="chat-container" id="chatContainer">
-        <div class="chat-area">
-            <h2>Chat</h2>
-            <div class="chat-content" id="chat-area">
-                <div class="message bot-message">
-                    <div class="message-content"></div>
-                </div>
-            </div>
+<div class="container">
+    <div class="chat-container">
+      <div class="chat-area">
+        <h2>Chat</h2>
+        <div class="chat-content" id="chat-area">
+          <!-- JS로 채팅 내용을 채움 -->
         </div>
-        <div class="code-area-container">
-            <div class="code-example">
-                <h2>Examples</h2>
-                <pre><code>{{ code }}</code></pre>
-            </div>
-            <div class="doc-links">
-                <h2>Docs</h2>
-                <a href="{{ doc_url }}" target="_blank">{{ keyword }}</a>
-            </div>
+      </div>
+      <div class="code-area-container">
+        <div class="code-concept" id="code-concept">
+          <h2>Concept Code</h2>
+          <div></div> <!-- 개념 코드를 출력 -->
         </div>
+        <div class="code-example" id="code-example">
+          <h2>Example Code</h2>
+          <div></div> <!-- 예시 코드를 출력 -->
+        </div>
+        <div class="code-output" id="code-output">
+          <h2>Output</h2>
+          <div></div> <!-- 출력값을 출력 -->
+        </div>
+        <div class="doc-links" id="doc-links">
+          <h2>Documentation</h2>
+          <div></div> <!-- 문서 링크를 출력 -->
+        </div>
+      </div>
     </div>
-</div>
 
-<div>
-{% for data in history_data %}
-{% with data.records.chatting_output as chatting_output %}
-    <li>{{ chatting_output }}</li>
-{% endwith %}
-{% endfor %}
-</div>
+<script>
+   // 사용자가 버튼을 클릭했을 때 호출되는 함수
+   function showInfo(search_word) {
+       console.log(search_word)  // 디버깅
+
+       var infoDiv = document.getElementById("info");
+       var infoDiv = document.getElementById("info");
+       var infoDiv = document.getElementById("info");
+       var infoDiv = document.getElementById("info");
+       var infoDiv = document.getElementById("info");
+
+       infoDiv.innerHTML = ""; // 이전에 표시된 정보 지우기
+       infoDiv.innerHTML = ""; // 이전에 표시된 정보 지우기
+       infoDiv.innerHTML = ""; // 이전에 표시된 정보 지우기
+       infoDiv.innerHTML = ""; // 이전에 표시된 정보 지우기
+       infoDiv.innerHTML = ""; // 이전에 표시된 정보 지우기
+
+       // 서버에서 전달된 history_data를 JSON으로 파싱 (Django 템플릿 변수 사용)
+       var history_data = {{ history_data|safe }};
+
+       // 선택한 keyword에 해당하는 레코드를 저장할 배열
+       var selectedRecords = [];
+
+       // 각 그룹의 records를 검사하여 선택된 keyword에 해당하는 레코드 찾기
+       history_data.forEach(function(group) {
+           group.records.forEach(function(record) {
+               if (record.keyword === search_word) {   // 조건 여러개로
+                   selectedRecords.push(record); // 조건에 맞는 레코드를 배열에 추가
+               }
+           });
+       });
+
+       // 정보를 div에 추가
+       if (selectedRecords.length > 0) {
+           selectedRecords.forEach(function(record) {
+               // 각 레코드의 정보를 HTML 형식으로 변환하여 infoDiv에 추가
+                var infoHTML = "<p>Keyword: " + escapeHTML(record.keyword) + "</p>" +
+                var infoHTML = "<p>Keyword: " + escapeHTML(record.keyword) + "</p>" 
+                var infoHTML = "<p>Keyword: " + escapeHTML(record.keyword) + "</p>" 
+                var infoHTML = "<p>Keyword: " + escapeHTML(record.keyword) + "</p>" 
+                var infoHTML = "<p>Doc URL: <a href='" + escapeHTML(record.doc_url) + "'>" + escapeHTML(record.doc_url) + "</a></p>";
+                              
+                infoDiv.innerHTML += infoHTML;
+                infoDiv.innerHTML += infoHTML;
+                infoDiv.innerHTML += infoHTML;
+                infoDiv.innerHTML += infoHTML;
+                infoDiv.innerHTML += infoHTML;
+           });
+       } else {
+           // 선택한 keyword에 해당하는 레코드가 없을 경우
+           infoDiv.innerHTML = "<p>No records found</p>";
+           infoDiv.innerHTML = "<p>No records found</p>";
+           infoDiv.innerHTML = "<p>No records found</p>";
+           infoDiv.innerHTML = "<p>No records found</p>";
+           infoDiv.innerHTML = "<p>No records found</p>";
+       }
+   }
+
+   // HTML 이스케이프 함수 (XSS 방지)
+   function escapeHTML(str) {
+       return str.replace(/&/g, '&amp;')
+                 .replace(/</g, '&lt;')
+                 .replace(/>/g, '&gt;')
+                 .replace(/"/g, '&quot;')
+                 .replace(/'/g, '&#039;');
+   }
+</script>
+
 
 </body>
 </html>
