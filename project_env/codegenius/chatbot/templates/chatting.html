@@ -96,7 +96,7 @@
 
     /* 코드 예시 영역 스타일 */
     .code-example {
-        flex: 3;
+        flex: 4;
         overflow-y: auto; /* 스크롤 가능하도록 설정 */
         border-bottom: 1px solid #ccc; /* 구분선 추가 */
         padding: 10px;
@@ -107,7 +107,7 @@
 
     /* 출력값 영역 스타일 */
     .code-output {
-        flex: 3;
+        flex: 2;
         overflow-y: auto; /* 스크롤 가능하도록 설정 */
         border-bottom: 1px solid #ccc; /* 구분선 추가 */
         padding: 10px;
@@ -120,10 +120,10 @@
     .doc-links {
         flex: 1;
         overflow-y: auto; /* 스크롤 가능하도록 설정 */
+        overflow-x: auto; /* 좌우 스크롤 가능하도록 설정 */
         padding: 10px;
         background-color: black; /* 영역 배경색 검정색으로 설정 */
         color: white; /* 글씨 색 흰색으로 설정 */
-        overflow-x: hidden; /* 좌우 스크롤바 제거 */
     }
 
     /* 입력 영역 스타일 */
@@ -299,15 +299,15 @@
       <div class="code-area-container">
         <div class="code-concept" id="code-concept">
           <h2>Concept Code</h2>
-          <div></div> <!-- 개념 코드를 출력 -->
+          <pre><code></code></pre> <!-- 개념 코드를 출력 -->
         </div>
         <div class="code-example" id="code-example">
           <h2>Example Code</h2>
-          <div></div> <!-- 예시 코드를 출력 -->
+          <pre><code></code></pre> <!-- 예시 코드를 출력 -->
         </div>
         <div class="code-output" id="code-output">
           <h2>Output</h2>
-          <div></div> <!-- 출력값을 출력 -->
+          <pre><code></code></pre> <!-- 출력값을 출력 -->
         </div>
         <div class="doc-links" id="doc-links">
           <h2>Documentation</h2>
@@ -342,19 +342,20 @@
     }
 
     // 깜빡이는 로딩 메시지를 출력하는 함수
-    function blinkingLoader(text, element, delay = 100) {
-      let i = 0;
-      function blink() {
-        if (i < text.length) {
-          element.innerHTML += text.charAt(i);
-          i++;
+    function blinkingLoader(element, delay = 100) {
+      element.innerHTML = '답변을 생성중입니다';
+      let dots = 0;
+      const maxDots = 3;
+      const intervalId = setInterval(() => {
+        if (dots < maxDots) {
+          element.innerHTML += '.';
+          dots++;
         } else {
-          element.innerHTML = '';
-          i = 0;
+          element.innerHTML = '답변을 생성중입니다';
+          dots = 0;
         }
-        setTimeout(blink, delay);
-      }
-      blink();
+      }, delay);
+      return intervalId;
     }
 
     // 환영 인사를 출력하는 함수
@@ -414,7 +415,7 @@
       chatArea.appendChild(botMessage);
 
       // "답변을 생성중입니다.." 깜빡이는 효과 추가
-      blinkingLoader("답변을 생성중입니다..", botContent);
+      const loaderInterval = blinkingLoader(botContent);
       chatArea.scrollTop = chatArea.scrollHeight; // 대화창 스크롤을 맨 아래로
 
       fetch("{% url 'chatting' %}", {
@@ -427,20 +428,26 @@
       })
       .then(response => response.json())
       .then(data => {
-        botContent.innerHTML = '';
+        clearInterval(loaderInterval); // 로딩 메시지 깜빡임 효과 중지
+        botContent.innerHTML = ''; // 로딩 메시지 제거
+
+        // 챗봇의 답변 출력
         typeWriter(data.chatting_output, botContent, 50, () => {
           // 메시지가 완전히 표시된 후 처리 상태를 false로 리셋
           isProcessing = false;
           document.getElementById('user-input').disabled = false; // 입력 필드 활성화
           document.getElementById('send-button').disabled = false; // 전송 버튼 활성화
         });
-        document.getElementById('code-concept').innerText = data.concept_code; // 개념 코드 출력
-        document.getElementById('code-example').innerText = data.example_code; // 예시 코드 출력
-        document.getElementById('code-output').innerText = data.code_output; // 출력값 표시
-        document.getElementById('doc-links').innerText = data.doc_url; // 문서 링크를 출력
+
+        // 기존 제목을 유지하고 데이터를 추가하는 방식으로 수정
+        document.getElementById('code-concept').innerHTML = `<h2>Concept Code</h2><pre><code>${data.concept_code}</code></pre>`; // 개념 코드 출력
+        document.getElementById('code-example').innerHTML = `<h2>Example Code</h2><pre><code>${data.example_code}</code></pre>`;
+        document.getElementById('code-output').innerHTML = `<h2>Output</h2><pre><code>${data.code_output}</code></pre>`; // 출력값 출력
+        document.getElementById('doc-links').innerHTML = `<h2>Documentation</h2><div><a href="${data.doc_url}" target="_blank">${data.doc_url}</a></div>`; // 공식문서 출력
         chatArea.scrollTop = chatArea.scrollHeight;
       })
       .catch(error => {
+        clearInterval(loaderInterval); // 로딩 메시지 깜빡임 효과 중지
         botContent.innerHTML = `<div class="message-content">오류: ${error.message}</div>`;
         // 오류 발생 시 처리 상태를 false로 리셋
         isProcessing = false;
@@ -462,14 +469,15 @@
 
     // 페이지 로드 시 링크를 하이퍼링크로 변환하는 함수
     document.addEventListener('DOMContentLoaded', function() {
-        const textElement = document.getElementById('text-content');
-        const text = textElement.innerHTML;
-        const urlRegex = /(\bhttps?:\/\/[\-A-Z0-9+&@#\/%?=~_|!:,.;]*[\-A-Z0-9+&@#\/%=~_|])/ig;
-        const linkedText = text.replace(urlRegex, function(url) {
-            return '<a href="' + url + '">' + url + '</a>';
-        });
-        textElement.innerHTML = linkedText;
+      const textElement = document.getElementById('text-content');
+      const text = textElement.innerHTML;
+      const urlRegex = /(\bhttps?:\/\/[\-A-Z0-9+&@#\/%?=~_|!:,.;]*[\-A-Z0-9+&@#\/%=~_|])/ig;
+      const linkedText = text.replace(urlRegex, function(url) {
+        return '<a href="' + url + '">' + url + '</a>';
+      });
+      textElement.innerHTML = linkedText;
     });
   </script>
+
 </body>
 </html>

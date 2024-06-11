@@ -11,7 +11,6 @@ from datetime import datetime
 
 from celery import Celery, group
 
-from .chatting_model import load_model
 from .extrack_keyword import extrack_keyword
 from .tasks import (chatting_model_predict, 
                     classification_model_predict)
@@ -69,7 +68,7 @@ def chatting(request):
 
                 try:    
 
-                    chatting_output = chatting_task.get(timeout=20)
+                    chatting_output = chatting_task.get(timeout=5)
                         
                 except Exception as e:
                     logger.error(f'views.py/chatting/chatting_model_predict -> error: {e}')
@@ -98,6 +97,7 @@ def chatting(request):
                         'doc_url': ''
                         }
 
+
                 record = save_data.objects.create(
                     email=email,
                     user_input=user_input,
@@ -109,6 +109,7 @@ def chatting(request):
                     doc_url=keyword_output.get('doc_url', ''),
                     classification_label=classification_output
                 )
+
 
                 # chatting.html 렌더링
                 chatting_html_data = {

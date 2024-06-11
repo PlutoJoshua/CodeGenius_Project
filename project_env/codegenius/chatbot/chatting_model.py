@@ -25,20 +25,6 @@ mask_token=MASK
 
 gpt2_model = None
 
-def load_model(model_path):
-    global gpt2_model
-    device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
-    if gpt2_model is None:
-        logger.info('chatting_model.py/load_model -> Loading GPT-2 model')
-        gpt2_model = GPT2LMHeadModel.from_pretrained('skt/kogpt2-base-v2')
-        ### 모델 가중치 불러오기 ###
-        gpt2_model.load_state_dict(torch.load(model_path, map_location=device)['model_state_dict'])
-        ### 평가 모드로 설정 ###
-        gpt2_model.eval()
-        gpt2_model.to(device)
-    else:
-        logger.info('chatting_model.py/load_model -> Model is already loaded')
-
 def chatting_model(user_input, model_path):
     global gpt2_model
     device = torch.device("cuda" if torch.cuda.is_available() else "cpu")

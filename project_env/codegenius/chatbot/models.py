@@ -11,9 +11,9 @@ class save_data(models.Model):
     ### 채팅 아웃풋 ###
     chatting_output = models.CharField(max_length=255, blank=True, null=True)
     keyword = models.CharField(max_length=255, blank=True, null=True)
-    concept_code = models.CharField(max_length=255, blank=True, null=True)
-    example_code = models.CharField(max_length=255, blank=True, null=True)
-    code_output = models.CharField(max_length=255, blank=True, null=True)
+    concept_code = models.CharField(max_length=2200, blank=True, null=True)
+    example_code = models.CharField(max_length=2200, blank=True, null=True)
+    code_output = models.CharField(max_length=2200, blank=True, null=True)
     doc_url = models.CharField(max_length=255, blank=True, null=True)
     classification_label = models.CharField(max_length=10, blank=True, null=True)
     ### 시간 ###
