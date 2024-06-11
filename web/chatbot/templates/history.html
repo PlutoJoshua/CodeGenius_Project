@@ -418,7 +418,7 @@
             <button class="date-button">{{ records_group.created_at }}</button>
                 {% for i in records_group.records %}
                 <div class="date">
-                    <button class="keyword-button" onclick="showInfo('{{ i.keyword }}')">{{ i.keyword }}</button>
+                    <button class="keyword-button" onclick="showInfo('{{ i.created_at }}')">{{ i.keyword }}</button>
                 </div>
                 {% endfor %}
             {% endfor %}
@@ -455,7 +455,7 @@
 
 <script>
    // 사용자가 버튼을 클릭했을 때 호출되는 함수
-   function showInfo(search_word) {
+   function showInfo(created_at) {
        console.log(search_word)  // 디버깅
 
        var infoDiv = document.getElementById("chat-area");
@@ -479,7 +479,7 @@
        // 각 그룹의 records를 검사하여 선택된 keyword에 해당하는 레코드 찾기
        history_data.forEach(function(group) {
            group.records.forEach(function(record) {
-               if (record.keyword === search_word) {   // 조건 여러개로
+               if (record.created_at === created_at) {   // 조건 여러개로
                    selectedRecords.push(record); // 조건에 맞는 레코드를 배열에 추가
                }
            });
