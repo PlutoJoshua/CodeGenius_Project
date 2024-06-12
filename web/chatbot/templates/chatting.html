@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}">
   <link href="https://fonts.googleapis.com/css2?family=Söhne:wght@400;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
   <title>chatting</title>
   
   <!-- 전체 스타일 설정 -->
@@ -95,7 +96,7 @@
         background-color: black; /* 영역 배경색 검정색으로 설정 */
         color: white; /* 글씨 색 흰색으로 설정 */
         overflow-x: hidden; /* 좌우 스크롤바 제거 */
-        font-size: 1.2em; /* 글씨 크기를 1.2em으로 설정 */
+        font-size: 1.1em; /* 글씨 크기를 1.2em으로 설정 */
     }
 
     /* 코드 예시 영역 스타일 */
@@ -108,7 +109,7 @@
         background-color: black; /* 영역 배경색 검정색으로 설정 */
         color: white; /* 글씨 색 흰색으로 설정 */
         overflow-x: hidden; /* 좌우 스크롤바 제거 */
-        font-size: 1.2em; /* 글씨 크기를 1.2em으로 설정 */
+        font-size: 1.1em; /* 글씨 크기를 1.2em으로 설정 */
     }
 
     /* 출력값 영역 스타일 */
@@ -121,7 +122,7 @@
         background-color: black; /* 영역 배경색 검정색으로 설정 */
         color: white; /* 글씨 색 흰색으로 설정 */
         overflow-x: hidden; /* 좌우 스크롤바 제거 */
-        font-size: 1.2em; /* 글씨 크기를 1.2em으로 설정 */
+        font-size: 1.1em; /* 글씨 크기를 1.2em으로 설정 */
     }
 
     /* 문서 링크 영역 스타일 */
@@ -133,7 +134,7 @@
         padding-left: 0;
         background-color: black; /* 영역 배경색 검정색으로 설정 */
         color: white; /* 글씨 색 흰색으로 설정 */
-        font-size: 1.2em; /* 글씨 크기를 1.2em으로 설정 */
+        font-size: 0.8em; /* 글씨 크기를 0.8em으로 설정 */
     }
 
     /* 입력 영역 스타일 */
@@ -290,10 +291,10 @@
     </div>
     <div class="menu-container">
         <div class="menu-item">
-            <a href="{% url 'chatting' %}">Chatting</a>
+            <a href="{% url 'chatting' %}"><i class="fas fa-comments"></i> Chatting</a>
         </div>
         <div class="menu-item">
-            <a href="{% url 'history' %}">History</a>
+            <a href="{% url 'history' %}"><i class="fas fa-history"></i> History</a>
         </div>
     </div>
   </div>
@@ -328,7 +329,7 @@
 
     <div class="input-area">
       <input type="text" id="user-input" name="user_input" placeholder="질문을 입력하세요" required>
-      <button type="button" onclick="sendMessage()" id="send-button">Send</button>
+      <button type="button" onclick="sendMessage()" id="send-button"><i class="fas fa-paper-plane"></i></button>
     </div>
   </div>
 
