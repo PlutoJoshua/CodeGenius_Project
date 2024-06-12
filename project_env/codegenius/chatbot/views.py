@@ -1,4 +1,4 @@
-import random
+import random, re
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 import json
@@ -187,4 +187,8 @@ def history(request):
             'records': temp_data
         })
 
-    return render(request, 'history.html', {'history_data': history_data})
+    temp_email = re.match(r'^([^@]+)', email)
+    if temp_email:
+        user_email = temp_email.group(1)
+
+    return render(request, 'history.html', {'user_email': user_email, 'history_data': history_data})

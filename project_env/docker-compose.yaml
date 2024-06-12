@@ -119,6 +119,7 @@ services:
     environment:
       <<: *airflow-common-env
       DUMB_INIT_SETSID: "0"
+      _PIP_ADDITIONAL_REQUIREMENTS: ${_PIP_ADDITIONAL_REQUIREMENTS:- scikit-learn}
     restart: always
     depends_on:
       <<: *airflow-common-depends-on
