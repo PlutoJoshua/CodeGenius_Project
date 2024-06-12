@@ -43,20 +43,26 @@
         border-radius: 10px;
         overflow: hidden;
         margin-bottom: 10px; /* 입력 영역과의 간격 추가 */
-        background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 */
+        background-color: rgb(0, 0, 0); 
+        padding: 0; /* 패딩 제거 */
     }
 
     .chat-container h2 {
         font-size: 1.2rem;
         margin: 0;
-        padding: 5px;
-        padding-left: 0;
+        padding: 0px 10px;
         text-align: center;
         border-bottom: 1px solid #cccccc7a;
-        background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
-        /*background-color: #f5f5f5;*/
+        background-color: rgba(0, 0, 0, 0); 
         color: white;
-        width: 100%;
+        width: calc(100% + 20px);
+        line-height: 1.5; /* 높이를 줄여서 더 밀착되게 */
+        box-sizing: border-box; /* 패딩과 보더를 포함한 박스 모델 */
+    }
+
+    .chat-area, .code-concept, .code-example, .code-output, .doc-links {
+        margin: 0; /* 여백 제거 */
+        padding: 0 10px 10px 10px; /* 패딩 조정 */
     }
 
     /* 채팅 영역 스타일 */
@@ -66,7 +72,7 @@
         padding-left: 0;
         overflow-y: auto;  /* 스크롤 가능하도록 설정 */
         border-right: 1px solid #cccccc7a;
-        background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 */
+        background-color: rgb(0, 0, 0);
         color: white; /* 글씨 색 설정 */
         display: flex;
         flex-direction: column;
@@ -101,7 +107,7 @@
 
     /* 코드 예시 영역 스타일 */
     .code-example {
-        flex: 4;
+        flex: 3.5;
         overflow-y: auto; /* 스크롤 가능하도록 설정 */
         border-bottom: 1px solid #cccccc7a; /* 구분선 추가 */
         padding: 10px;
@@ -114,7 +120,7 @@
 
     /* 출력값 영역 스타일 */
     .code-output {
-        flex: 2;
+        flex: 2.5;
         overflow-y: auto; /* 스크롤 가능하도록 설정 */
         border-bottom: 1px solid #cccccc7a; /* 구분선 추가 */
         padding: 10px;
@@ -129,11 +135,11 @@
     .doc-links {
         flex: 1;
         overflow-y: auto; /* 스크롤 가능하도록 설정 */
-        overflow-x: auto; /* 좌우 스크롤 가능하도록 설정 */
+        overflow-x: hidden; 
         padding: 10px;
         padding-left: 0;
-        background-color: black; /* 영역 배경색 검정색으로 설정 */
-        color: white; /* 글씨 색 흰색으로 설정 */
+        background-color: rgb(116, 116, 116); /* 영역 배경색 회색으로 설정 */
+        color: rgb(0, 0, 0); /* 글씨 색 검정색으로 설정 */
         font-size: 0.8em; /* 글씨 크기를 0.8em으로 설정 */
     }
 
@@ -448,6 +454,9 @@
           isProcessing = false;
           document.getElementById('user-input').disabled = false; // 입력 필드 활성화
           document.getElementById('send-button').disabled = false; // 전송 버튼 활성화
+
+          // 공식 문서 링크 영역의 스크롤을 가능하게 설정
+          document.getElementById('doc-links').style.overflowX = 'auto';
         });
 
         // 기존 제목을 유지하고 데이터를 추가하는 방식으로 수정
