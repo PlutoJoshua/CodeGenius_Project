@@ -134,13 +134,12 @@
     /* 문서 링크 영역 스타일 */
     .doc-links {
         flex: 1;
-        overflow-y: auto; /* 스크롤 가능하도록 설정 */
-        overflow-x: hidden; 
+        overflow: hidden; 
         padding: 10px;
         padding-left: 0;
         background-color: rgb(0, 0, 0); /* 영역 배경색 설정 */
         color: white; /* 글씨 색 설정 */
-        font-size: 0.8em; /* 글씨 크기를 0.8em으로 설정 */
+        font-size: 1em; /* 글씨 크기를 1em으로 설정 */
     }
 
     .doc-links a {
@@ -468,8 +467,7 @@
           document.getElementById('user-input').disabled = false; // 입력 필드 활성화
           document.getElementById('send-button').disabled = false; // 전송 버튼 활성화
 
-          // 공식 문서 링크 영역의 스크롤을 가능하게 설정
-          document.getElementById('doc-links').style.overflowX = 'auto';
+          
         });
 
         // 기존 제목을 유지하고 데이터를 추가하는 방식으로 수정
