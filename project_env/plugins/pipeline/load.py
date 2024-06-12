@@ -14,7 +14,7 @@ def loader(df: pd.DataFrame, db_connector: DBconnector, table_name: str) -> bool
             df.to_sql(
                 name = table_name, 
                 con = sqlalchemy_conn, 
-                if_exists = "replace", 
+                if_exists = "append", 
                 index = False
                 )
             return True
