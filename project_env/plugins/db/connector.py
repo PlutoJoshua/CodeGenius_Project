@@ -12,7 +12,7 @@ class DBconnector:
 
         self.conn_params = dict(
                 host = host,
-                dbname = database,
+                database = database,
                 user = user,
                 password = password,
                 port = port

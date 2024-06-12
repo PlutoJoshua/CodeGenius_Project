@@ -29,20 +29,21 @@ dag = DAG(
 #####################
 
 def extract_data(**kwargs):
+    print(DB_SETTINGS["DJANGO_db"])
     db_obj = DBconnector(**DB_SETTINGS["DJANGO_db"])
+    print(db_obj)
     table_name = "codegenius_access_count"
     _date = datetime.now() - timedelta(days=1)
     batch_date = _date.date()
     with ElapseTime():
         print("extract_data 시작")
-        extracted_data = extractor(db_connector=db_obj, table_name=table_name, batch_date=batch_date)
-        kwargs['ti'].xcom_push(key='extracted_data', value=extracted_data)
+        return extractor(db_connector=db_obj, table_name=table_name, batch_date=batch_date)
 
 def load_to_pg(**kwargs):
     db_obj = DBconnector(**DB_SETTINGS["DJANGO_datamart"])
     table_name = "access_count"
-    ti = kwargs['ti']
-    processed_df = ti.xcom_pull(key='extracted_data', task_ids='Extract_Log')
+    ### XCom ###
+    processed_df = kwargs['ti'].xcom_pull(task_ids='Extract_Log')
     print(processed_df)
     with ElapseTime():
         print("load_to_pg 시작")

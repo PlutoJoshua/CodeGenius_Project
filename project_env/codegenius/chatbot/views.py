@@ -10,15 +10,18 @@ import logging
 from datetime import datetime
 
 from celery import Celery, group
-
 from .extrack_keyword import extrack_keyword
 from .tasks import (chatting_model_predict, 
-                    classification_model_predict)
+                    classification_model_predict,
+                    load_model_task)
 
 # 로거 생성
 logger = logging.getLogger(__name__)
 
 def homepage(request):
+    ### 비동기 모델 로딩 ###
+    load_model_task.delay()
+
     if request.method == 'POST':
         email = request.POST.get('email')
         ### 이메일을 session에 저장 ###

@@ -5,7 +5,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" type="text/css" href="{% static 'css/homepage.css' %}">
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Söhne:wght@400;700&display=swap" rel="stylesheet">
   <title>chatting</title>
   
   <!-- 전체 스타일 설정 -->
@@ -20,7 +20,7 @@
         height: 100vh;
         background: url("{% static 'img/back2.png' %}") no-repeat center center fixed;
         background-size: cover;
-        font-family: 'Montserrat', sans-serif; /* 전체 글씨체 설정 */
+        font-family: 'Söhne', sans-serif; /* 전체 글씨체 설정 */
     }
 
     .container {
@@ -38,7 +38,7 @@
         flex-direction: row;  /* 좌우로 나누기 위해 flex-direction을 row로 설정 */
         width: 80%;
         height: 70%;
-        border: 2px solid #ccc;
+        border: 2px solid #cccccc7a;
         border-radius: 10px;
         overflow: hidden;
         margin-bottom: 10px; /* 입력 영역과의 간격 추가 */
@@ -49,8 +49,9 @@
         font-size: 1.2rem;
         margin: 0;
         padding: 5px;
+        padding-left: 0;
         text-align: center;
-        border-bottom: 1px solid #b1b5b0;
+        border-bottom: 1px solid #cccccc7a;
         background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
         /*background-color: #f5f5f5;*/
         color: white;
@@ -61,8 +62,9 @@
     .chat-area {
         width: 50%;
         padding: 10px;
+        padding-left: 0;
         overflow-y: auto;  /* 스크롤 가능하도록 설정 */
-        border-right: 1px solid #b1b5b0;
+        border-right: 1px solid #cccccc7a;
         background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 */
         color: white; /* 글씨 색 설정 */
         display: flex;
@@ -87,33 +89,39 @@
     .code-concept {
         flex: 3;
         overflow-y: auto; /* 스크롤 가능하도록 설정 */
-        border-bottom: 1px solid #ccc; /* 구분선 추가 */
+        border-bottom: 1px solid #cccccc7a; /* 구분선 추가 */
         padding: 10px;
+        padding-left: 0;
         background-color: black; /* 영역 배경색 검정색으로 설정 */
         color: white; /* 글씨 색 흰색으로 설정 */
         overflow-x: hidden; /* 좌우 스크롤바 제거 */
+        font-size: 1.2em; /* 글씨 크기를 1.2em으로 설정 */
     }
 
     /* 코드 예시 영역 스타일 */
     .code-example {
         flex: 4;
         overflow-y: auto; /* 스크롤 가능하도록 설정 */
-        border-bottom: 1px solid #ccc; /* 구분선 추가 */
+        border-bottom: 1px solid #cccccc7a; /* 구분선 추가 */
         padding: 10px;
+        padding-left: 0;
         background-color: black; /* 영역 배경색 검정색으로 설정 */
         color: white; /* 글씨 색 흰색으로 설정 */
         overflow-x: hidden; /* 좌우 스크롤바 제거 */
+        font-size: 1.2em; /* 글씨 크기를 1.2em으로 설정 */
     }
 
     /* 출력값 영역 스타일 */
     .code-output {
         flex: 2;
         overflow-y: auto; /* 스크롤 가능하도록 설정 */
-        border-bottom: 1px solid #ccc; /* 구분선 추가 */
+        border-bottom: 1px solid #cccccc7a; /* 구분선 추가 */
         padding: 10px;
+        padding-left: 0;
         background-color: black; /* 영역 배경색 검정색으로 설정 */
         color: white; /* 글씨 색 흰색으로 설정 */
         overflow-x: hidden; /* 좌우 스크롤바 제거 */
+        font-size: 1.2em; /* 글씨 크기를 1.2em으로 설정 */
     }
 
     /* 문서 링크 영역 스타일 */
@@ -122,8 +130,10 @@
         overflow-y: auto; /* 스크롤 가능하도록 설정 */
         overflow-x: auto; /* 좌우 스크롤 가능하도록 설정 */
         padding: 10px;
+        padding-left: 0;
         background-color: black; /* 영역 배경색 검정색으로 설정 */
         color: white; /* 글씨 색 흰색으로 설정 */
+        font-size: 1.2em; /* 글씨 크기를 1.2em으로 설정 */
     }
 
     /* 입력 영역 스타일 */
@@ -152,7 +162,7 @@
         font-size: 16px;
         border-radius: 5px;
         border: 3px solid rgba(255, 255, 255, 0.5); /* 흰색 반투명 테두리 */
-        background-color: #5ba06b;
+        background-color: #3ba597;
         color: white;
         cursor: pointer;
         font-weight: bold;
@@ -160,13 +170,13 @@
 
     /* 버튼 호버 스타일 */
     .input-area button:hover {
-        background-color: #5ba06b;
+        background-color: #3ba597;
     }
 
     /* 로딩 아이콘 스타일 */
     .loader {
         border: 8px solid #f3f3f3;
-        border-top: 8px solid #5ba06b;
+        border-top: 8px solid #3ba597;
         border-radius: 50%;
         width: 30px;
         height: 30px;
@@ -205,7 +215,7 @@
 
     /* 사용자 메시지 말풍선 스타일 */
     .user-message .message-content {
-        background-color: #5ba06b;
+        background-color: #3ba597;
         color: white;
     }
 
@@ -229,7 +239,7 @@
         top: 0;
         border-bottom-right-radius: 13px; /* 오른쪽 아래 모서리 둥글게 */
         border-bottom-left-radius: 13px; /* 왼쪽 아래 모서리 둥글게 */
-        font-family: 'Montserrat', sans-serif; /* 글씨체를 Montserrat로 설정 */
+        font-family: 'Söhne', sans-serif; /* 글씨체를 Söhne로 설정 */
     }
     .navbar .logo {
         font-size: 1.75em;
@@ -238,7 +248,7 @@
         font-weight: 780;
     }
     .navbar .logo:hover {
-        color: #5ba06b;  /* 초록색 텍스트 (호버 시) */
+        color: #3ba597;  /* 민트색 텍스트 (호버 시) */
     }
     .navbar .menu-container {
         display: flex;
@@ -255,7 +265,7 @@
         position: relative; /* border-bottom을 위한 상대 위치 */
     }
     .navbar .menu-item:hover {
-        border-bottom: 4px solid #5ba06b; /* 초록색 밑줄 */
+        border-bottom: 4px solid #3ba597; /* 민트색 밑줄 */
     }
     .navbar .menu-item a {
         color: #000;  /* 메뉴글자 색깔 */
@@ -263,10 +273,10 @@
         font-size: 1.4em;
         font-weight: 800;
         transition: color 0.1s;
-        font-family: 'Montserrat', sans-serif; /* 글씨체를 Montserrat로 설정 */
+        font-family: 'Söhne', sans-serif; /* 글씨체를 Söhne로 설정 */
     }
     .navbar .menu-item a:hover {
-        color: #5ba06b;  /* 초록색 텍스트 (호버 시) */
+        color: #3ba597;  /* 민트색 텍스트 (호버 시) */
         text-decoration: none;
     }
   </style>
@@ -441,7 +451,7 @@
 
         // 기존 제목을 유지하고 데이터를 추가하는 방식으로 수정
         document.getElementById('code-concept').innerHTML = `<h2>Concept Code</h2><pre><code>${data.concept_code}</code></pre>`; // 개념 코드 출력
-        document.getElementById('code-example').innerHTML = `<h2>Example Code</h2><pre><code>${data.example_code}</code></pre>`;
+        document.getElementById('code-example').innerHTML = `<h2>Example Code</h2><pre><code>${data.example_code}</code></pre>`; // 예시 코드 출력
         document.getElementById('code-output').innerHTML = `<h2>Output</h2><pre><code>${data.code_output}</code></pre>`; // 출력값 출력
         document.getElementById('doc-links').innerHTML = `<h2>Documentation</h2><div><a href="${data.doc_url}" target="_blank">${data.doc_url}</a></div>`; // 공식문서 출력
         chatArea.scrollTop = chatArea.scrollHeight;
