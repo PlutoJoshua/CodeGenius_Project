@@ -5,8 +5,9 @@ import pytz
 
 from pipeline.extract import extractor
 from pipeline.load import loader
-from pipeline.transform import TextProcessor_1
+from pipeline.transform import Keyword_transformer
 
+from collections import Counter
 import pandas as pd
 from db.connector import DBconnector
 from db import queries
@@ -37,11 +38,22 @@ def extract_data(**kwargs):
 
 def transform_data(**kwargs):
     df = kwargs['ti'].xcom_pull(task_ids='fetch_data')
+    text = df['user_input']
+    
+    stop_words = ['알려주세요', '알려줘', '파이썬에서', '알고', '싶어', '목적은', '제공하나요', '사용하는', '알려줘요', '위한', '값을', '하나', '사용하여', '다른', '방법은', '방법을', '읽고', '해야', '읽을', '무엇입니까', '쓰는', '써야', '있나', '신경', '뭔가', '무엇인가요', '방법에는', '어떻게', '만드는', '있어', '것이', '하는', '뭐야', '대해', '을', '있나요', '뭔지', '어떤', '의', '방법이', '방법', '흔히']
 
-    text_processor = TextProcessor_1()
-    X_reduced, top_keywords = text_processor.process_text_data(df['user_input'])
+    ### 인스턴스 ###
+    extractor = Keyword_transformer(stop_words=stop_words)
+    extractor.transform_data(text)
+    
+    keywords = extractor.get_keywords(top_n=10)
+    processed_df = pd.DataFrame(keywords)
 
-    return df
+    _date = datetime.now() - timedelta(days=1)
+    batch_date = _date.date()
+    processed_df['date'] = batch_date
+    
+    return processed_df
 
 def load_to_pg(**kwargs):
     db_obj = DBconnector(**DB_SETTINGS["DJANGO_datamart"])
