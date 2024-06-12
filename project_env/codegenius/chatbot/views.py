@@ -178,7 +178,8 @@ def history(request):
                 'concept_code': record.concept_code,
                 'example_code': record.example_code,
                 'code_output': record.code_output,
-                'doc_url': record.doc_url
+                'doc_url': record.doc_url,
+                'created_at': record.created_at.strftime('%Y-%m-%d %H:%M:%S')
             })
 
         history_data.append({

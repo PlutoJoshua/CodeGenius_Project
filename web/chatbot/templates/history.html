@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href= "{% static 'css/history.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Söhne:wght@400;700&display=swap" rel="stylesheet">
     <title>history</title>
 </head>
 
@@ -20,7 +20,7 @@
         }
         body {
 
-            font-family: 'Montserrat', sans-serif;
+            font-family: 'Söhne', sans-serif;
             background: url("{% static 'img/back2.png' %}") no-repeat center center fixed;
             background-size: cover;
 
@@ -58,7 +58,7 @@
             top: 0;
             border-bottom-right-radius: 13px; /* 오른쪽 아래 모서리 둥글게 */
             border-bottom-left-radius: 13px; /* 왼쪽 아래 모서리 둥글게 */
-            font-family: 'Montserrat', sans-serif; /* 글씨체를 Montserrat로 설정 */
+            font-family: 'Söhne', sans-serif; /* 글씨체를 Söhne로 설정 */
         }
         .navbar .logo {
             font-size: 1.75em;
@@ -67,7 +67,7 @@
             font-weight: 780;
         }
         .navbar .logo:hover {
-            color: #5ba06b;  /* 민트색 텍스트 (호버 시) */
+            color: #3ba597;  /* 민트색 텍스트 (호버 시) */
         }
         .navbar .menu-container {
             display: flex;
@@ -84,7 +84,7 @@
             position: relative; /* border-bottom을 위한 상대 위치 */
         }
         .navbar .menu-item:hover {
-            border-bottom: 4px solid #5ba06b; /* 민트색 밑줄 */
+            border-bottom: 4px solid #3ba597; /* 민트색 밑줄 */
         }
         .navbar .menu-item a {
             color: #000;  /* 메뉴글자 색깔 */
@@ -94,7 +94,7 @@
             transition: color 0.1s;
         }
         .navbar .menu-item a:hover {
-            color: #5ba06b;  /* 민트색 텍스트 (호버 시) */
+            color: #3ba597;  /* 민트색 텍스트 (호버 시) */
             text-decoration: node;
         }
     </style>
@@ -148,7 +148,7 @@
         color: white; /* 글자색 흰색 */
     }
     .toggle-button:hover {
-        background-color: #5ba06b;
+        background-color: #3ba597;
     }   
     .history-title {
         text-align: center;
@@ -190,8 +190,7 @@
         margin-bottom: 5px;
         padding: 5px;
         text-align: center;
-        background-color: rgba(91, 160, 107, 0.5); /* 반투명 배경 */
-        /*background-color: #e6b5b5;*/
+        background-color: rgba(50, 143, 130, 0.5); /* 반투명 배경 */
         border: none;
         cursor: pointer;
         font-size: 14px;
@@ -212,7 +211,7 @@
     }
     .keyword-button:hover {
         background-image: none;
-        background-color: rgba(91, 160, 107, 0.5); /* 반투명 배경 */
+        background-color: rgba(50, 143, 130, 0.5); /* 반투명 배경 */
         /*background-color: #e6b5b5;*/
     }
 
@@ -233,7 +232,7 @@
         width: 100%;
         height: 70%;
         max-width: 2000px; /* 최대 너비 설정 */
-        border: 2px solid #ccc;
+        border: 2px solid #cccccc7a;
         border-radius: 10px;
         overflow: hidden;
         margin-bottom: 10px; /* 입력 영역과의 간격 추가 */
@@ -244,9 +243,10 @@
     .chat-container h2 {
         font-size: 1.2rem;
         margin: 0;
-        padding: 10px;
+        padding: 5px;
+        padding-left: 0;
         text-align: center;
-        border-bottom: 1px solid #b1b5b0;
+        border-bottom: 1px solid #cccccc7a;
         background-color: rgba(0, 0, 0, 0.5); /* 반투명 배경 */
         color: white; /* 글자색 흰색 */
         width: 100%;
@@ -255,17 +255,20 @@
     .chat-area {
         width: 50%; /* 좌우 5:5 비율 */
         padding: 10px;
+        padding-left: 0;
         overflow-y: auto;  /* 스크롤 가능하도록 설정 */
-        border-right: 1px solid #b1b5b0;
+        border-right: 1px solid #cccccc7a;
         background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 */
         color: white; /* 글자색 흰색 */
         display: flex;
         flex-direction: column;
+        overflow-x: hidden;
     }
 
     .chat-content {
         flex: 1;
         overflow-y: auto; /* 스크롤 가능하도록 설정 */
+        overflow-x: hidden;
     }
 
     .code-area-container {
@@ -274,21 +277,51 @@
         flex-direction: column;
     }
 
-    .code-example {
-        flex: 7; /* 상하 7:3 비율 */
-        overflow-y: auto; /* 스크롤 가능하도록 설정 */
-        border-bottom: 1px solid #ccc; /* 구분선 추가 */
+    .code-concept {
+        flex: 3;
+        overflow-y: auto;
+        border-bottom: 1px solid #cccccc7a;
         padding: 10px;
-        background-color: black; /* 영역 배경색 검정색으로 설정 */
-        color: white; /* 글자색 흰색 */
+        padding-left: 0;
+        background-color: black;
+        color: white;
+        overflow-x: hidden;
+        font-size: 1.2em;
+    }
+
+    .code-example {
+        flex: 4;
+        overflow-y: auto;
+        border-bottom: 1px solid #cccccc7a;
+        padding: 10px;
+        padding-left: 0;
+        background-color: black;
+        color: white;
+        overflow-x: hidden;
+        font-size: 1.2em;
+    }
+
+    .code-output {
+        flex: 2;
+        overflow-y: auto;
+        border-bottom: 1px solid #cccccc7a;
+        padding: 10px;
+        padding-left: 0;
+        background-color: black;
+        color: white;
+        overflow-x: hidden;
+        font-size: 1.2em;
     }
 
     .doc-links {
-        flex: 3; /* 상하 7:3 비율 */
-        overflow-y: auto; /* 스크롤 가능하도록 설정 */
+        flex: 1;
+        overflow-y: auto;
+        overflow-x: auto;
         padding: 10px;
-        background-color: black; /* 영역 배경색 검정색으로 설정 */
-        color: white; /* 글자색 흰색 */
+        padding-left: 0;
+        background-color: black;
+        color: white;
+        font-size: 1.2em;
     }
 
     .input-area {
@@ -313,18 +346,18 @@
         font-size: 16px;
         border-radius: 5px;
         border: none;
-        background-color: #5ba06b;
+        background-color: #3ba597;
         color: white;
         cursor: pointer;
     }
 
     .input-area button:hover {
-        background-color: #5ba06b;
+        background-color: #3ba597;
     }
 
     .loader {
         border: 16px solid #f3f3f3;
-        border-top: 16px solid #5ba06b;
+        border-top: 16px solid #3ba597;
         border-radius: 50%;
         width: 120px;
         height: 120px;
@@ -362,7 +395,7 @@
     }
 
     .user-message .message-content {
-        background-color: #5ba06b;
+        background-color: #3ba597;
         color: white;
     }
 
@@ -418,7 +451,7 @@
             <button class="date-button">{{ records_group.created_at }}</button>
                 {% for i in records_group.records %}
                 <div class="date">
-                    <button class="keyword-button" onclick="showInfo('{{ i.user_input }}')">{{ i.keyword }}</button>
+                    <button class="keyword-button" onclick="showInfo('{{ i.created_at }}')">{{ i.keyword }}</button>
                 </div>
                 {% endfor %}
             {% endfor %}
@@ -479,7 +512,7 @@
        // 각 그룹의 records를 검사하여 선택된 keyword에 해당하는 레코드 찾기
        history_data.forEach(function(group) {
            group.records.forEach(function(record) {
-               if (record.user_input === search_word) {   // 조건 여러개로
+               if (record.created_at === search_word) {   // 조건 여러개로
                    selectedRecords.push(record); // 조건에 맞는 레코드를 배열에 추가
                }
            });
