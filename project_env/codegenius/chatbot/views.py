@@ -1,4 +1,4 @@
-import random
+import random, re
 from django.shortcuts import render, redirect
 from django.http import JsonResponse
 import json
@@ -10,15 +10,18 @@ import logging
 from datetime import datetime
 
 from celery import Celery, group
-
 from .extrack_keyword import extrack_keyword
 from .tasks import (chatting_model_predict, 
-                    classification_model_predict)
+                    classification_model_predict,
+                    load_model_task)
 
 # 로거 생성
 logger = logging.getLogger(__name__)
 
 def homepage(request):
+    ### 비동기 모델 로딩 ###
+    load_model_task.delay()
+
     if request.method == 'POST':
         email = request.POST.get('email')
         ### 이메일을 session에 저장 ###
@@ -175,7 +178,8 @@ def history(request):
                 'concept_code': record.concept_code,
                 'example_code': record.example_code,
                 'code_output': record.code_output,
-                'doc_url': record.doc_url
+                'doc_url': record.doc_url,
+                'created_at': record.created_at.strftime('%Y-%m-%d %H:%M:%S')
             })
 
         history_data.append({
@@ -183,4 +187,8 @@ def history(request):
             'records': temp_data
         })
 
-    return render(request, 'history.html', {'history_data': history_data})
+    temp_email = re.match(r'^([^@]+)', email)
+    if temp_email:
+        user_email = temp_email.group(1)
+
+    return render(request, 'history.html', {'user_email': user_email, 'history_data': history_data})

@@ -13,7 +13,7 @@ from utils.execution_time_check import ElapseTime
 
 default_args = {
     'owner': 'airflow',
-    'start_date': datetime(2024, 6, 3, 8, 0, 0, tzinfo=pytz.timezone('Asia/Seoul')),
+    'start_date': datetime(2024, 6, 12, 0, 0, 0, tzinfo=pytz.timezone('Asia/Seoul')),
     'retries': 1,
     'retry_delay': timedelta(minutes=5)
 }
@@ -21,7 +21,8 @@ default_args = {
 dag = DAG(
     'codegenius_daily_keyword',
     default_args=default_args,
-    schedule_interval='@weekly'
+    schedule_interval='30 8 * * *',
+    catchup=False,
 )
 
 #####################

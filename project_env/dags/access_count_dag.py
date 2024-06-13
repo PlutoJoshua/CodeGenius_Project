@@ -13,15 +13,17 @@ from utils.execution_time_check import ElapseTime
 
 default_args = {
     'owner': 'airflow',
-    'start_date': datetime(2024, 6, 3, 8, 0, 0, tzinfo=pytz.timezone('Asia/Seoul')),
+    'start_date': datetime(2024, 6, 12, 0, 0, 0, tzinfo=pytz.timezone('Asia/Seoul')),
     'retries': 1,
-    'retry_delay': timedelta(minutes=5)
+    'retry_delay': timedelta(minutes=5),
 }
 
+# DAG 정의
 dag = DAG(
     'codegenius_access_count',
     default_args=default_args,
-    schedule_interval='@daily'
+    schedule_interval='30 8 * * *',
+    catchup=False,
 )
 
 #####################
@@ -29,20 +31,21 @@ dag = DAG(
 #####################
 
 def extract_data(**kwargs):
+    print(DB_SETTINGS["DJANGO_db"])
     db_obj = DBconnector(**DB_SETTINGS["DJANGO_db"])
+    print(db_obj)
     table_name = "codegenius_access_count"
     _date = datetime.now() - timedelta(days=1)
     batch_date = _date.date()
     with ElapseTime():
         print("extract_data 시작")
-        extracted_data = extractor(db_connector=db_obj, table_name=table_name, batch_date=batch_date)
-        kwargs['ti'].xcom_push(key='extracted_data', value=extracted_data)
+        return extractor(db_connector=db_obj, table_name=table_name, batch_date=batch_date)
 
 def load_to_pg(**kwargs):
     db_obj = DBconnector(**DB_SETTINGS["DJANGO_datamart"])
     table_name = "access_count"
-    ti = kwargs['ti']
-    processed_df = ti.xcom_pull(key='extracted_data', task_ids='Extract_Log')
+    ### XCom ###
+    processed_df = kwargs['ti'].xcom_pull(task_ids='Extract_Log')
     print(processed_df)
     with ElapseTime():
         print("load_to_pg 시작")

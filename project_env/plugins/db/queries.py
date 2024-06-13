@@ -4,9 +4,9 @@ queries = {
     WITH T1 AS (
         SELECT 
             inserttime,
-            substring(log_message FROM '^(.*?)//') AS log_message
+            substring(log_message FROM '.*(CHATTING|HISTORY|HOMEPAGE).*') AS log_message
         FROM django_log 
-        WHERE log_message LIKE '%//%' 
+        WHERE log_message ~ '.*(CHATTING|HISTORY|HOMEPAGE).*'
         AND inserttime::date = '{batch_date}'
     )
     SELECT 

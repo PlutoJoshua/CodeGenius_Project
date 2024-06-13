@@ -1,17 +1,22 @@
 from airflow import DAG
-from airflow.operators.python_operator import PythonOperator
+from airflow.operators.python import PythonOperator
 from datetime import datetime, timedelta
 import pytz
-import pandas as pd
-from sklearn.feature_extraction.text import TfidfVectorizer
-from sklearn.decomposition import LatentDirichletAllocation
-from konlpy.tag import Okt
 
-okt = Okt()
+from pipeline.extract import extractor
+from pipeline.load import loader
+from pipeline.transform import Keyword_transformer
+
+from collections import Counter
+import pandas as pd
+from db.connector import DBconnector
+from db import queries
+from utils.setting import DB_SETTINGS
+from utils.execution_time_check import ElapseTime
 
 default_args = {
     'owner': 'airflow',
-    'start_date': datetime(2024, 6, 3, 8, 0, 0, tzinfo=pytz.timezone('Asia/Seoul')),
+    'start_date': datetime(2024, 6, 12, 0, 0, 0, tzinfo=pytz.timezone('Asia/Seoul')),
     'retries': 1,
     'retry_delay': timedelta(minutes=5)
 }
@@ -19,7 +24,8 @@ default_args = {
 dag = DAG(
     'recommendation_pipeline',
     default_args=default_args,
-    schedule_interval='@daily'
+    schedule_interval='30 8 * * *',
+    catchup=False,
 )
 
 def extract_data(**kwargs):
@@ -29,33 +35,31 @@ def extract_data(**kwargs):
     batch_date = _date.date()
     with ElapseTime():
         print("extract_data 시작")
-        extracted_data = extractor(db_connector=db_obj, table_name=table_name, batch_date=batch_date)
-        kwargs['ti'].xcom_push(key='extracted_data', value=extracted_data)
+        return extractor(db_connector=db_obj, table_name=table_name, batch_date=batch_date)
 
-def preprocess_and_train(**kwargs):
-    ti = kwargs['ti']
-    df = ti.xcom_pull(key='extracted_data', task_ids='fetch_data')
+def transform_data(**kwargs):
+    df = kwargs['ti'].xcom_pull(task_ids='fetch_data')
+    text = df['user_input']
     
-    def preprocess_text(text):
-        tokens = okt.nouns(text)
-        return ' '.join(tokens)
-    
-    df['processed'] = df['user_input'].apply(preprocess_text)
+    stop_words = ['알려주세요', '알려줘', '파이썬에서', '알고', '설명', '방법도', '싶어', '목적은', '해주세요', '구하는', '해주세요', '제공하나요', '사용하는', '알려줘요', '위한', '값을', '하나', '사용하여', '다른', '방법은', '방법을', '읽고', '해야', '읽을', '무엇입니까', '쓰는', '써야', '있나', '신경', '뭔가', '무엇인가요', '방법에는', '어떻게', '만드는', '있어', '것이', '하는', '뭐야', '대해', '을', '있나요', '뭔지', '어떤', '의', '방법이', '방법', '흔히']
 
-    # TF-IDF 및 LDA 학습
-    vectorizer = TfidfVectorizer(stop_words='english')
-    tfidf_matrix = vectorizer.fit_transform(df['processed'])
+    ### 인스턴스 ###
+    extractor = Keyword_transformer(stop_words=stop_words)
+    extractor.transform_data(text)
     
-    lda = LatentDirichletAllocation(n_components = len(df), random_state = 777)
-    lda.fit(tfidf_matrix)
+    keywords = extractor.get_keywords(top_n=10)
+    processed_df = pd.DataFrame(keywords)
+
+    _date = datetime.now() - timedelta(days=1)
+    batch_date = _date.date()
+    processed_df['date'] = batch_date
     
-    df['lda_topic'] = lda.transform(tfidf_matrix).argmax(axis=1)
-    kwargs['ti'].xcom_push(key='processed_data', value=df)
+    return processed_df
 
 def load_to_pg(**kwargs):
     db_obj = DBconnector(**DB_SETTINGS["DJANGO_datamart"])
-    table_name = "lda_userInput"
-    processed_df = kwargs['ti'].xcom_pull(task_ids='preprocess_and_train', key='processed_data')
+    table_name = "keyword_check"
+    processed_df = kwargs['ti'].xcom_pull(task_ids='preprocessing')
     with ElapseTime():
         print("load_to_pg 시작")
         loader(df=processed_df, db_connector=db_obj, table_name=table_name)
@@ -67,9 +71,9 @@ with dag:
         provide_context=True,
         dag=dag,
     )
-    preprocess_and_train_task = PythonOperator(
-        task_id='preprocess_and_train',
-        python_callable=preprocess_and_train,
+    preprocess_task = PythonOperator(
+        task_id='preprocessing',
+        python_callable=transform_data,
         provide_context=True,
         dag=dag,
     )
@@ -80,4 +84,4 @@ with dag:
         dag=dag,
     )
 
-fetch_data_task >> preprocess_and_train_task >> load_to_pg_task
+fetch_data_task >> preprocess_task >> load_to_pg_task
