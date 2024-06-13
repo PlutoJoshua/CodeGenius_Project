@@ -4,10 +4,6 @@
 ```sh
 cd project_env/
 ```
-> migrations 생성
-```sh
-docker compose run web python manage.py makemigrations
-```
 > migrate 진행
 ```sh
 docker compose run web python manage.py migrate
