@@ -61,9 +61,13 @@
 <br/>
 
 ## 📝 사용자 매뉴얼
-<!-- <img width="743" height="548" alt="loading..." src="https://github.com/PlutoJoshua/CodeGenius_Project/Model/assets/main.png">  -->
-<img width="743" height="548" alt="loading..." src="https://github.com/PlutoJoshua/CodeGenius_Project/raw/main/Model/assets/main.png">
-
+<img width="743" height="548" alt="loading..." src="https://github.com/PlutoJoshua/CodeGenius_Project/raw/main/Model/assets/manual1.png">
+<img width="743" height="548" alt="loading..." src="https://github.com/PlutoJoshua/CodeGenius_Project/raw/main/Model/assets/manual2.png">
+<img width="743" height="548" alt="loading..." src="https://github.com/PlutoJoshua/CodeGenius_Project/raw/main/Model/assets/manual3.png">
+<img width="743" height="548" alt="loading..." src="https://github.com/PlutoJoshua/CodeGenius_Project/raw/main/Model/assets/manual4.png">
+<img width="743" height="548" alt="loading..." src="https://github.com/PlutoJoshua/CodeGenius_Project/raw/main/Model/assets/manual5.png">
+<img width="743" height="548" alt="loading..." src="https://github.com/PlutoJoshua/CodeGenius_Project/raw/main/Model/assets/manual6.png">
+<img width="743" height="548" alt="loading..." src="https://github.com/PlutoJoshua/CodeGenius_Project/raw/main/Model/assets/manual7.png">
 
 <br/>
 
