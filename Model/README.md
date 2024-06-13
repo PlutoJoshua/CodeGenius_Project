@@ -2,22 +2,16 @@
 ## 천재교육 빅데이터 7기 CodeGenius 팀
 <img width="743" alt="loading..." src="https://github.com/PlutoJoshua/CodeGenius_Project/raw/main/Model/assets/main1.png">
 <br><br>
-
 ## 🕒 개발 기간
 2024.05.21 - 2024.06.13
 <br><br>
-
 ## 🧑🏻‍💻 팀원 소개 및 R&R
 <img width="743" alt="loading..." src="https://github.com/PlutoJoshua/CodeGenius_Project/raw/main/Model/assets/main2.png">
 <br><br>
-
 ## 🤖 프로젝트 소개
 <br><br>
-
 ## 🛠️ 기능
 <br><br>
-
-
 ## ⚙️ 개발 환경
 ### ✔️ 사용 언어
 <img src="https://img.shields.io/badge/python-3.10.12-E95420?style=for-the-badge&logo=python&logoColor=" style="display:inline;"> <img src="https://img.shields.io/badge/SQL-gray?style=for-the-badge&logo=sql&logoColor=#0078D4" style="display:inline;">
