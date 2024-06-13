@@ -1,6 +1,6 @@
 # CodeGenius
 ## 천재교육 빅데이터 7기 CodeGenius 팀
-<!-- <img width="743" alt="스크린샷 2024-01-31 오후 4 48 29" src="https://github.com/hariqueen/Llama2-python-chat/assets/62236700/2fea35f8-172a-46b4-bfbc-eea20d9ce966"> -->
+<img width="743" alt="loading..." src="https://github.com/PlutoJoshua/CodeGenius_Project/raw/main/Model/assets/main1.png">
 <br><br>
 
 ## 🕒 개발 기간
@@ -8,7 +8,7 @@
 <br><br>
 
 ## 🧑🏻‍💻 팀원 소개 및 R&R
-<!-- <img width="743" alt="스크린샷 2024-01-31 오후 2 17 31" src="https://github.com/hariqueen/Llama2-python-chat/assets/62236700/a41cfec6-6883-495f-b491-1eefcf81fe9d"> -->
+<img width="743" alt="loading..." src="https://github.com/PlutoJoshua/CodeGenius_Project/raw/main/Model/assets/main2.png">
 <br><br>
 
 ## 🤖 프로젝트 소개

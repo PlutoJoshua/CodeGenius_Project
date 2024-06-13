@@ -10,5 +10,6 @@ service_model/
 *.xlsx
 *.env
 !manual*.png
+!main*.png
 !requirements.txt
 !requirements_streamlit.txt
