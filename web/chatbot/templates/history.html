@@ -36,6 +36,7 @@
     <div class="history-header">
         <div>
             <button class="toggle-button" id="toggleButton">▲</button>
+            <script src="{% static 'js/toggle.js' %}"></script>
         </div>
         <div class="history-title">
             {% if user_email %}
@@ -45,134 +46,103 @@
             {% endif %}
         </div>
     </div>
-    
-        <script>
-            document.getElementById('toggleButton').addEventListener('click', function() {
-                var historyBar = document.getElementById('historyBar');
-                var container = document.getElementById('container');
-                var chatContainer = document.getElementById('chatContainer');
-                if (historyBar.style.display === 'none') {
-                    historyBar.style.display = 'block';
-                    container.style.marginLeft = '350px';
-                    container.style.width = 'calc(100% - 350px)';
-                    chatContainer.style.width = 'calc(100% - 350px)'; /* 채팅창 너비 조정 */
-                    chatContainer.style.maxWidth = 'calc(100% - 50px)';
-                    container.style.justifyContent = 'center'; /* 컨테이너 중앙 정렬 */
-                    this.textContent = '▲';
-                } else {
-                    historyBar.style.display = 'none';
-                    container.style.marginLeft = '0';
-                    container.style.width = '100%';
-                    chatContainer.style.width = '100%';
-                    chatContainer.style.maxWidth = 'calc(100% - 50px)';
-                    container.style.justifyContent = 'center'; /* 컨테이너 중앙 정렬 */
-                    this.textContent = '▼';
-                }
-            });
-        </script>
 
-
-        <!-- 버튼 생성 -->
-        <div class="history-bar" id="historyBar">
-            {% for records_group in history_data %}
-            <button class="date-button">{{ records_group.created_at }}</button>
-                {% for i in records_group.records %}
-                <div class="date">
-                    <button class="keyword-button" onclick="showInfo('{{ i.created_at }}')">{{ i.keyword }}</button>
-                </div>
-                {% endfor %}
-            {% endfor %}
+    <div class="history-bar" id="historyBar">
+        {% for records_group in history_data %}
+        <button class="date-button">{{ records_group.created_at }}</button>
+            {% for i in records_group.records %}
+            <div class="date">
+                <button class="keyword-button" onclick="showInfo('{{ i.created_at }}')">{{ i.keyword }}</button>
             </div>
+            {% endfor %}
+        {% endfor %}
         </div>
-<!------------------------------------------------------------------------------>
-
-<!--채팅히스토리창 생성-->
-<div class="container">
-    <div class="chat-container">
-      <div class="chat-area">
-        <h2>Chat</h2>
-        <div class="chat-content" id="chat-area"></div><!-- JS로 채팅 내용을 채움 -->
-      </div>
-      <div class="code-area-container">
-        <div class="code-concept" >
-          <h2>Concept Code</h2>
-          <pre id="code-concept"></pre> <!-- 개념 코드를 출력 -->
-        </div>
-        <div class="code-example" >
-          <h2>Example Code</h2>
-          <pre id="code-example"></pre> <!-- 예시 코드를 출력 -->
-        </div>
-        <div class="code-output" >
-          <h2>Output</h2>
-          <pre id="code-output"></pre> <!-- 출력값을 출력 -->
-        </div>
-        <div class="doc-links" >
-          <h2>Documentation</h2>
-          <pre id="doc-links"></pre> <!-- 문서 링크를 출력 -->
-        </div>
-      </div>
     </div>
 
-<script>
-   // 사용자가 버튼을 클릭했을 때 호출되는 함수
-   function showInfo(search_word) {
-       console.log(search_word)  // 디버깅
+    <!--채팅히스토리창 생성-->
+    <div class="container">
+        <div class="chat-container">
+            <div class="chat-area">
+                <h2>Chat</h2>
+                <div class="chat-content" id="chat-area"></div><!-- JS로 채팅 내용을 채움 -->
+            </div>
+        <div class="code-area-container">
+            <div class="code-concept" >
+                <h2>Concept Code</h2>
+                <pre id="code-concept"></pre> <!-- 개념 코드를 출력 -->
+            </div>
+            <div class="code-example" >
+                <h2>Example Code</h2>
+                <pre id="code-example"></pre> <!-- 예시 코드를 출력 -->
+            </div>
+            <div class="code-output" >
+                <h2>Output</h2>
+                <pre id="code-output"></pre> <!-- 출력값을 출력 -->
+            </div>
+            <div class="doc-links" >
+                <h2>Documentation</h2>
+                <pre id="doc-links"></pre> <!-- 문서 링크를 출력 -->
+            </div>
+        </div>
+    </div>
 
-       var infoDiv = document.getElementById("chat-area");
-       var infoDiv2 = document.getElementById("code-concept");
-       var infoDiv3 = document.getElementById("code-example");
-       var infoDiv4 = document.getElementById("code-output");
-       var infoDiv5 = document.getElementById("doc-links");
+    <!--사용자가 버튼을 클릭했을 때 호출되는 함수-->
+    <script>
+    function showInfo(search_word) {
+        console.log(search_word)  // 디버깅
 
-       infoDiv.innerHTML = ""; // 이전에 표시된 정보 지우기
-       infoDiv2.innerHTML = ""; // 이전에 표시된 정보 지우기
-       infoDiv3.innerHTML = ""; // 이전에 표시된 정보 지우기
-       infoDiv4.innerHTML = ""; // 이전에 표시된 정보 지우기
-       infoDiv5.innerHTML = ""; // 이전에 표시된 정보 지우기
+        var infoDiv = document.getElementById("chat-area");
+        var infoDiv2 = document.getElementById("code-concept");
+        var infoDiv3 = document.getElementById("code-example");
+        var infoDiv4 = document.getElementById("code-output");
+        var infoDiv5 = document.getElementById("doc-links");
 
-       // 서버에서 전달된 history_data를 JSON으로 파싱 (Django 템플릿 변수 사용)
-       var history_data = {{ history_data|safe }};
+        infoDiv.innerHTML = ""; // 이전에 표시된 정보 지우기
+        infoDiv2.innerHTML = ""; // 이전에 표시된 정보 지우기
+        infoDiv3.innerHTML = ""; // 이전에 표시된 정보 지우기
+        infoDiv4.innerHTML = ""; // 이전에 표시된 정보 지우기
+        infoDiv5.innerHTML = ""; // 이전에 표시된 정보 지우기
 
-       // 선택한 keyword에 해당하는 레코드를 저장할 배열
-       var selectedRecords = [];
+        // 서버에서 전달된 history_data를 JSON으로 파싱 (Django 템플릿 변수 사용)
+        var history_data = {{ history_data|safe }};
 
-       // 각 그룹의 records를 검사하여 선택된 keyword에 해당하는 레코드 찾기
-       history_data.forEach(function(group) {
-           group.records.forEach(function(record) {
-               if (record.created_at === search_word) {   // 조건 여러개로
-                   selectedRecords.push(record); // 조건에 맞는 레코드를 배열에 추가
-               }
-           });
-       });
+        // 선택한 keyword에 해당하는 레코드를 저장할 배열
+        var selectedRecords = [];
 
-       // 정보를 div에 추가
-       if (selectedRecords.length > 0) {
-           selectedRecords.forEach(function(record) {
-               // 각 레코드의 정보를 HTML 형식으로 변환하여 infoDiv에 추가
-                var infoHTML = "<p> 질문 : " + record.user_input + "</p>" +"<br>" + "<p> 답변 : " + record.chatting_output + "</p>";
-                var infoHTML2 = "<p>" + record.concept_code + "</p>";
-                var infoHTML3 = "<p>" + record.example_code + "</p>";
-                var infoHTML4 = "<p>" + record.code_output + "</p>";
-                var infoHTML5 = "<p><a href='" + record.doc_url + "'>" + record.doc_url + "</a></p>";
-                              
-                infoDiv.innerHTML += infoHTML;
-                infoDiv2.innerText += record.concept_code;
-                infoDiv3.innerText += record.example_code;
-                infoDiv4.innerText += record.code_output;
-                infoDiv5.innerHTML += "<a href='" + record.doc_url + "'>" + record.doc_url + "</a>";
-           });
-       } else {
-           // 선택한 keyword에 해당하는 레코드가 없을 경우
-           infoDiv.innerHTML = "<p>No records found</p>";
-           infoDiv2.innerText = "No records found";
-           infoDiv3.innerText = "No records found";
-           infoDiv4.innerText = "No records found";
-           infoDiv5.innerHTML = "<p>No records found</p>";
+        // 각 그룹의 records를 검사하여 선택된 keyword에 해당하는 레코드 찾기
+        history_data.forEach(function(group) {
+            group.records.forEach(function(record) {
+                if (record.created_at === search_word) {   // 조건 여러개로
+                    selectedRecords.push(record); // 조건에 맞는 레코드를 배열에 추가
+                }
+            });
+        });
+
+        // 정보를 div에 추가
+        if (selectedRecords.length > 0) {
+            selectedRecords.forEach(function(record) {
+                // 각 레코드의 정보를 HTML 형식으로 변환하여 infoDiv에 추가
+                    var infoHTML = "<p> 질문 : " + record.user_input + "</p>" +"<br>" + "<p> 답변 : " + record.chatting_output + "</p>";
+                    var infoHTML2 = "<p>" + record.concept_code + "</p>";
+                    var infoHTML3 = "<p>" + record.example_code + "</p>";
+                    var infoHTML4 = "<p>" + record.code_output + "</p>";
+                    var infoHTML5 = "<p><a href='" + record.doc_url + "'>" + record.doc_url + "</a></p>";
+                                
+                    infoDiv.innerHTML += infoHTML;
+                    infoDiv2.innerText += record.concept_code;
+                    infoDiv3.innerText += record.example_code;
+                    infoDiv4.innerText += record.code_output;
+                    infoDiv5.innerHTML += "<a href='" + record.doc_url + "'>" + record.doc_url + "</a>";
+            });
+        } else {
+            // 선택한 keyword에 해당하는 레코드가 없을 경우
+            infoDiv.innerHTML = "<p>No records found</p>";
+            infoDiv2.innerText = "No records found";
+            infoDiv3.innerText = "No records found";
+            infoDiv4.innerText = "No records found";
+            infoDiv5.innerHTML = "<p>No records found</p>";
        }
-   }
-</script>
-
-
-
+    }
+    </script>
 </body>
 </html>
