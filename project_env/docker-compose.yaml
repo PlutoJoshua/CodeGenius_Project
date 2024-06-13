@@ -322,6 +322,16 @@ services:
       redis-django-2:
         condition: service_healthy
     restart: always
+  
+  streamlit:
+    build:
+        context: .
+        dockerfile: Dockerfile.streamlit
+    ports:
+        - "8501:8501"
+    depends_on:
+      postgres:
+        condition: service_healthy
 
 volumes:
   postgres-db-volume:

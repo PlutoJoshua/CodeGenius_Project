@@ -8,4 +8,3 @@ konlpy==0.6.0
 torch==2.2.1
 transformers==4.41.1
 huggingface_hub
-streamlit

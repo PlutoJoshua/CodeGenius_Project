@@ -1,0 +1,7 @@
+streamlit
+pandas
+numpy
+matplotlib
+seaborn
+psycopg2-binary==2.9.1
+SQLAlchemy==1.4.52

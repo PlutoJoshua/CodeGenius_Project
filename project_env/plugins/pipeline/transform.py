@@ -23,5 +23,5 @@ class Keyword_transformer:
         for i, comp in enumerate(self.svd.components_):
             terms_comp = zip(self.terms, comp)
             sorted_terms = sorted(terms_comp, key=lambda x: x[1], reverse=True)[:top_n]
-            keyword_dict[f"Component {i}"] = [term[0] for term in sorted_terms]
+            keyword_dict[f"component_{i}"] = [term[0] for term in sorted_terms]
         return keyword_dict

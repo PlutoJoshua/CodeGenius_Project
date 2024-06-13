@@ -23,7 +23,6 @@ dag = DAG(
     'codegenius_access_count',
     default_args=default_args,
     schedule_interval='30 8 * * *',
-    catchup=False,
 )
 
 #####################
