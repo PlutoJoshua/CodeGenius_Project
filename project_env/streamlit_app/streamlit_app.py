@@ -101,7 +101,8 @@ if radio_choice1:
         ax.plot(filtered_df['date'], filtered_df['access_count'], marker='o')
         ax.set_title(f"{radio_choice1} count over time")
         ax.set_xlabel("Date")
-        ax.set_ylabel("Count")
+        ax.set_ylabel("Count")        
+        ax.xaxis.set_major_formatter(plt.DateFormatter('%Y-%m-%d'))
         st.pyplot(fig)
 
 # table2 --------------------------------------------------------------------------------------------- 
