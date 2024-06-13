@@ -7,9 +7,9 @@ data_path='../data/raw_data/rawdata.csv'  # 학습에 사용할 데이터
 output_file = './visualization/fasttext_model_v2_metrics.png'  # metrics 시각화 파일
 epoch=20
 lr=0.5
-wordNgrams=2
-minCount=1
-patience=3
+wordNgrams=2  # 모델이 사용할 단어 n-그램의 최대 길이
+minCount=1  # 단어를 포함시키기 위한 최소 빈도 수
+patience=3  # Early stop을 위한 설정
 
 if __name__ == "__main__":
     # 모델 학습 및 평가 실행
