@@ -24,7 +24,8 @@ default_args = {
 dag = DAG(
     'recommendation_pipeline',
     default_args=default_args,
-    schedule_interval='@daily'
+    schedule_interval='@daily',
+    catchup=False,
 )
 
 def extract_data(**kwargs):

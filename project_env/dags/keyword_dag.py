@@ -21,7 +21,8 @@ default_args = {
 dag = DAG(
     'codegenius_daily_keyword',
     default_args=default_args,
-    schedule_interval='@daily'
+    schedule_interval='@daily',
+    catchup=False,
 )
 
 #####################
