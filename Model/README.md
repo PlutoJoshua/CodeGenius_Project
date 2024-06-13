@@ -58,6 +58,8 @@
 
 <img width="743" height="548" alt="loading..." src="https://github.com/PlutoJoshua/CodeGenius_Project/raw/main/Model/assets/manual7.png">
 
+<img width="743" height="548" alt="loading..." src="https://github.com/PlutoJoshua/CodeGenius_Project/raw/main/Model/assets/manual8.png">
+
 
 <br/>
 
