@@ -63,6 +63,6 @@
 <br/>
 
 ## 🎬 실행 화면 (썸네일 클릭 시 영상 재생)
-[![Video Label](http://img.youtube.com/vi/mKGebMXqngw/0.jpg)](https://www.youtube.com/watch?v=mKGebMXqngw)
+[![Video Label](http://img.youtube.com/vi/mKGebMXqngw/0.jpg)](https://youtu.be/-qK1lGQBR6I?si=wUpm7huP6amODgWb)
 
 <br/>
