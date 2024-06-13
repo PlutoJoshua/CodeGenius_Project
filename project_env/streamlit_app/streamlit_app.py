@@ -65,6 +65,8 @@ st.markdown("""
 # 라디오 버튼 제목
 st.markdown('<h2 class="header">Access Count</h2>', unsafe_allow_html=True)
 
+access_count['date'] = pd.to_datetime(access_count['date'])
+
 # 체크박스와 버튼을 같은 행에 배치
 col1, col2, col3 = st.columns([1, 2, 1])
 
@@ -89,18 +91,18 @@ radio_choice1 = st.radio(
 
 # 라디오 버튼으로 보여줄 시각화 그래프
 if radio_choice1:
-    batch_date = datetime.now().strftime('%Y-%m-%d')
     five_days_ago = (datetime.now() - timedelta(days=4)).strftime('%Y-%m-%d')
-    access_count['date'] = pd.to_datetime(access_count['date'])
-    access_count = access_count[access_count['date'] >= str(five_days_ago)]
+    access_count = access_count[access_count['date'] >= pd.to_datetime(five_days_ago)]
 
     filtered_df = access_count[access_count['html'] == radio_choice1]
-    fig, ax = plt.subplots()
-    ax.plot(filtered_df['date'], filtered_df['access_count'], marker='o')
-    ax.set_title(f"{radio_choice1} count over time")
-    ax.set_xlabel("Date")
-    ax.set_ylabel("Count")
-    st.pyplot(fig)
+
+    if not filtered_df.empty:
+        fig, ax = plt.subplots()
+        ax.plot(filtered_df['date'], filtered_df['access_count'], marker='o')
+        ax.set_title(f"{radio_choice1} count over time")
+        ax.set_xlabel("Date")
+        ax.set_ylabel("Count")
+        st.pyplot(fig)
 
 # table2 --------------------------------------------------------------------------------------------- 
 
