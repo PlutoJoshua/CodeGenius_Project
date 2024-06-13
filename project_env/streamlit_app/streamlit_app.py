@@ -2,6 +2,7 @@ import streamlit as st
 from sqlalchemy import create_engine
 import pandas as pd
 import matplotlib.pyplot as plt
+from matplotlib.dates import DateFormatter
 import seaborn as sns
 import psycopg2
 from datetime import datetime, timedelta
