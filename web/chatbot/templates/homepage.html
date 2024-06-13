@@ -1,95 +1,23 @@
 {% load static %}
 <!doctype html>
 <html>
-
-  <head>
+<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href= "{% static 'css/homepage.css' %}">
-    <link href="https://fonts.googleapis.com/css2?family=Söhne:wght@400;700&display=swap" rel="stylesheet">
+    <!--link href="https://fonts.googleapis.com/css2?family=Söhne:wght@400;700&display=swap" rel="stylesheet"-->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
 
-    <!--전체 css-->
     <style>
-      html {
-        height: 100%;
-        margin: 0;
-      }
-      body {  /*이미지로 대체*/
-          margin: 0;
-          padding: 0;
-          display: flex;
-          flex-direction: column;
-          justify-content: space-between; /* 상단과 하단으로 정렬 */
-          align-items: center;
-          height: 100%;
-          background: url("{% static 'img/back00.png' %}") no-repeat center center fixed;
-          background-size: cover;
-          position: relative;
-          font-family: 'Söhne', sans-serif;  /*전체 글씨체*/
-      }
-
-
-      .main-header {
-        display: grid;
-        place-items: center;
-        margin-top: 100px;
-      }
-      .logo-text {
-          color: white;
-          font-size: 6rem;
-          padding: 0px;
-          font-weight: bold;
+        body {
+            background: url("{% static 'img/back00.png' %}") no-repeat center center fixed;
         }
-      .description {
-          color: white;
-          font-size: 1rem;
-          padding-bottom: 70px;
-          text-align: center; /* 가운데 정렬 */
-      }
-
     </style>
-
-    <style>
-        .email-form {  /* 이메일 입력 폼 스타일 */
-            text-align: center; /* 이메일 입력 폼을 가운데 정렬 */
-            z-index: 1;
-      }
-        .email-input {
-            padding: 10px;
-            font-size: 16px;
-            width: 360px;
-            border: 2px solid rgba(255, 255, 255, 0.5); /* 흰색 반투명 테두리 */
-            opacity: 0.9; /* 반투명하게 설정 */
-            z-index: 2;
-      }
-        .button_container {
-            width: 100%;
-        }
-        .button {
-            padding: 10px;
-            font-size: 16px;
-            cursor: pointer;
-            border-radius:0;
-            border: 3px solid rgba(255, 255, 255, 0.5); /* 흰색 반투명 테두리 */
-            background-color: transparent; /* 투명한 배경 */
-            color: white; /* 흰색 글자 */
-        }
-        .button:hover {
-            background-color: #3ba597;
-          }
-    </style>
-
-
-
-
-
-
 </head>
-<body>
 
-    <!-- 로고와 설명 문구 추가 -->
+<body>
     <div class='main-header'>
+        <!-- 로고와 설명 문구 추가 -->
         <div class="logo-text">CodeGenius</div>
         <div class="description">
             <p>
@@ -100,7 +28,6 @@
     
         <!-- 이메일 입력 폼과 start 버튼 -->
         <form method="post" class="email-form" id="emailForm">
-            <!-- 이메일 입력 필드 -->
             <div class="button_container">
                 {% csrf_token %}
                 <input type="email" name="email" class="email-input" placeholder="Enter your email" required>
@@ -109,181 +36,16 @@
         </form>
     </div>
 
-    <script>
-        document.getElementById('emailForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // 기본 폼 제출을 막음
-            const image = document.querySelector('.rocket img');
-            image.classList.add('move-up');
-            setTimeout(() => {
-                this.submit(); // 폼을 1초 후에 제출
-            }, 1000);
-        });
-    </script>
-    
-
-
-
-
-
-
-
-
-    <!--키워드박스 css-->
-    <style>
-        .keyword-box {
-            width: 96%;
-            height: 20vh;
-            background-color: none;  /*배경 이미지로 대체*/
-            border-radius: 20px;
-            border: 2px solid rgba(255, 255, 255, 0.5); /* 흰색 반투명 테두리 */
-            display: flex;
-            margin-bottom: 10px;
-            justify-content: space-around;
-            align-items: center;
-            color: white;
-        }
-        .weekly-title {  /*키워드박스 제목위치*/
-            font-size: 35px;
-            font-weight: 500;
-            color: white;
-        }
-    </style>
-
-    <style>
-    .keyword-item {
-        text-align: center;
-        animation: moveUpDown 1s infinite alternate;
-    }
-    .keyword-item img {
-        width: 50px;
-        height: 50px;
-    }
-    .keyword-item .rank {
-        font-size: 18px;
-        font-weight: bold;
-    }
-    .keyword-item .keyword {
-        margin-top: 5px;
-        font-size: 14px;
-    }
-    @keyframes moveUp {  /*아이콘 위아래로 움직이기*/
-      0% {
-          transform: translateY(0);
-      }
-      50% {
-        transform: translateY(3px);
-      }
-      100% {
-          transform: translateY(-3px);
-      }
-    }
-    @keyframes moveDown {
-        0% {
-            transform: translateY(0);
-        }
-        50% {
-          transform: translateY(-3px);
-        }
-        100% {
-            transform: translateY(3px);
-        }
-    }
-    .keyword-item:nth-child(odd) {
-        animation: moveUp 3s infinite alternate;
-    }
-    .keyword-item:nth-child(even) {
-        animation: moveDown 3s infinite alternate;
-    }
-</style>
-  
-
-    <style>
-    /*반응형 추가*/
-      @media (min-width: 1200px) {
-          .logo-text {
-              font-size: 5rem;
-          }
-      }
-    </style>
-
-
-    <style>
-        .rocket {  /*로켓이미지 위치*/
-            position: absolute;
-            left: 5%;
-            top: 42%;
-            transform: translateY(20%);
-        }
-        .rocket img {
-            width: 350px;
-            height: 350px;
-            transition: transform 1s ease-in-out;
-        }
-        .rocket img.move-up {
-            transform: rotate(90deg) translate(-50vh, -100vh);  /*로켓 발사*/
-        }
-    </style>
-
-
-        
     <!--키워드박스 생성-->
-        <div class="keyword-box">
-            <p class="weekly-title"> Weekly<br> Keyword</p>
-   
-    <script>
-        const keywords = ["JavaScript", "Python", "HTML", "CSS", "React", "Node.js", "Django"];
-        /*[
-            {% for data in save_datas %}
-                "{{ data.keyword }}"{% if not forloop.last %},{% endif %}
-            {% endfor %}
-        ];*/
-        const keywordBox = document.querySelector('.keyword-box');
-        const iconBasePath = "/static/img/";
-
-        /*const iconFiles = [
-        "icon1.jpg",
-        "icon2.jpg",
-        "icon3.jpg",
-        "icon4.jpg",
-        "icon5.jpg",
-        "icon6.jpg",
-        "icon7.jpg"
-        ]; 아이콘 랜덤하게 불러올 경우 */
-
-        keywords.forEach((keyword, index) => {
-            const keywordItem = document.createElement('div');
-            keywordItem.className = 'keyword-item';
-
-            const rank = document.createElement('div');
-            rank.className = 'rank';
-            rank.innerText = index + 1;
-
-            const icon = document.createElement('img');
-            icon.src = `${iconBasePath}icon${index + 1}.jpg`; // 아이콘 순서대로 불러올 경우
-
-            /* const randomIcon = iconFiles[Math.floor(Math.random() * iconFiles.length)];
-            icon.src = `${iconBasePath}${randomIcon}`;  아이콘 랜덤하게 불러올 경우*/
-
-            const keywordText = document.createElement('div');
-            keywordText.className = 'keyword';
-            keywordText.innerText = keyword;
-
-            keywordItem.appendChild(rank);
-            keywordItem.appendChild(icon);
-            keywordItem.appendChild(keywordText);
-
-            keywordBox.appendChild(keywordItem);
-        });
-    </script>
-
-</div>
-
+    <div class="keyword-box">
+        <p class="weekly-title"> Weekly<br> Keyword</p>
+        <script src="{% static 'js/keyword.js' %}"></script>
+    </div>
 
     <!--로켓이미지 생성-->
     <div class="rocket">
         <img src="{% static 'img/rocket5.png' %}" alt="Image">
+        <script src="{% static 'js/rocket.js' %}"></script>
     </div>
-
-
 </body>
 </html>

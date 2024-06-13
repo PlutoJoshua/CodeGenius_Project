@@ -8,6 +8,5 @@ service_model/
 *.csv
 *.xlsx
 *.env
-backup.tar.gz
 !requirements.txt
 !requirements_streamlit.txt

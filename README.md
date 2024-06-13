@@ -4,10 +4,6 @@
 ```sh
 cd project_env/
 ```
-> migrations 생성
-```sh
-docker compose run web python manage.py makemigrations
-```
 > migrate 진행
 ```sh
 docker compose run web python manage.py migrate
@@ -16,12 +12,6 @@ docker compose run web python manage.py migrate
 ```sh
 docker compose up --build
 ```
----
-<br>
-
-* PORT: 8888 -> airflow
-* PORT: 8000 -> django
-
 ---
 
 ### Postgresql 13 

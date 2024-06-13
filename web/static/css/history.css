@@ -1,0 +1,396 @@
+/* 전체 */
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+body {
+    font-family: 'Söhne', sans-serif;
+    background-size: cover;
+
+}
+
+/* 모든 요소의 기본 스타일 초기화 */
+* {
+margin: 0;
+padding: 0;
+box-sizing: border-box;
+outline: none; /* 포커스된 요소의 외곽선을 제거 */
+}
+
+/* 특정 요소 초기화 */
+button, input, textarea {
+border: none;
+outline: none;
+background: none;
+}
+
+
+/* 메뉴바 */
+
+.navbar {
+    height: 50px; /* 고정 높이 설정 */
+    background-color: #ffffff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-shadow: 0 5px 6px 0px gray; /* 그림자 추가 */
+    position: fixed;
+    width: 100%; 
+    top: 0;
+    border-bottom-right-radius: 13px; /* 오른쪽 아래 모서리 둥글게 */
+    border-bottom-left-radius: 13px; /* 왼쪽 아래 모서리 둥글게 */
+    font-family: 'Söhne', sans-serif; /* 글씨체를 Söhne로 설정 */
+}
+.navbar .logo {
+    font-size: 1.75em;
+    color: #000;
+    margin-left: 30px;  /* 로고 위치 */
+    font-weight: 780;
+}
+.navbar .logo:hover {
+    color: #3ba597;  /* 민트색 텍스트 (호버 시) */
+}
+.navbar .menu-container {
+    display: flex;
+    flex-grow: 1;
+    justify-content: flex-end; /* 메뉴 아이템을 오른쪽으로 정렬 */
+    margin-right: 40px; /* 오른쪽 여백 */
+}
+.navbar .menu-item {
+    height: 50px; /* navbar 높이와 동일하게 설정 */
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-right: 30px;
+    position: relative; /* border-bottom을 위한 상대 위치 */
+}
+.navbar .menu-item:hover {
+    border-bottom: 4px solid #3ba597; /* 민트색 밑줄 */
+}
+.navbar .menu-item a {
+    color: #000;  /* 메뉴글자 색깔 */
+    text-decoration: none;
+    font-size: 1.4em;
+    font-weight: 800;
+    transition: color 0.1s;
+}
+.navbar .menu-item a:hover {
+    color: #3ba597;  /* 민트색 텍스트 (호버 시) */
+    text-decoration: node;
+}
+
+
+/* 히스토리바 */
+
+.history-header {
+    position: fixed;
+    width: 300px;
+    margin-top: 62px;
+    z-index: 1000; /* Ensures the button is always on top */
+    border: 1px solid #ccc;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 5px;
+    box-shadow: 5px 5px 5px -1px gray; /* 그림자 추가 */
+    background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 */
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-sizing: border-box; /* 패딩과 테두리 포함한 크기 계산 */
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top:5px;
+    color: white; /* 글자색 흰색 */
+}
+.toggle-button {
+    width: 60px;
+    height: 30px;
+    border-radius: 13px; /* 모서리 둥글게 */
+    font-size: 20px;
+    background: none; /* 배경 제거 */
+    font-weight: 500; /* 글자 굵게 */
+    margin-bottom: 3px;
+    color: white; /* 글자색 흰색 */
+}
+.toggle-button:hover {
+    background-color: #3ba597;
+}   
+.history-title {
+    text-align: center;
+    font-weight: 700;
+    margin-left: 5px;  /* 버튼과 제목 사이의 간격*/
+    margin-bottom: 10px;
+    flex-grow: 1; /* 남은 공간을 차지하도록 설정 */
+    font-size: 1em;
+    color: white; /* 글자색 흰색 */
+}
+
+.history-bar {
+    position: fixed;
+    top: 0;
+    left: 2px;
+    width: 295px;
+    height: calc(100% - 115px);
+    background-color: rgba(0, 0, 0, 0.7); /* 반투명 배경 */
+    /*background-color: #f0f0f0;*/
+    border: 1px solid #ccc;
+    padding: 5px;
+    box-sizing: border-box;
+    margin-top: 102px;
+    border-radius: 10px;
+    box-shadow: 6px 5px 5px -1px gray; /* 그림자 추가 */
+    z-index: 1; /* Ensure history bar is below the button */
+    overflow-y: auto; /* 스크롤 추가 */
+    color: white; /* 글자색 흰색 */
+}
+.list-box .date {
+    margin-bottom: 10px;
+    border-radius: 13px; /* 모서리 둥글게 */
+    box-shadow: 4px 5px 5px -1px gray; /* 그림자 추가 */
+    background-color: rgba(255, 255, 255, 0.1); /* 반투명 배경 */
+}
+.date-button{
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 5px;
+    text-align: center;
+    background-color: rgba(50, 143, 130, 0.5); /* 반투명 배경 */
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: white; /* 글자색 흰색 */
+}
+.keyword-button {
+    display: block;
+    width: 100%;
+    margin-bottom: 5px;
+    padding: 5px;
+    text-align: center;
+    border-radius: 13px; /* 모서리 둥글게 */
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    background-color: rgba(255, 255, 255, 0.2); /* 반투명 배경 */
+    color: white; /* 글자색 흰색 */
+}
+.keyword-button:hover {
+    background-image: none;
+    background-color: rgba(50, 143, 130, 0.5); /* 반투명 배경 */
+    /*background-color: #e6b5b5;*/
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: calc(100% - 350px); /* 히스토리바를 고려한 너비 설정 */
+    height: 100%;
+    transition: margin-left 0.3s, width 0.3s; /* 애니메이션 추가 */
+    margin-left: 350px; /* 히스토리바를 고려한 시작 위치 */
+    box-sizing: border-box; /* 패딩과 보더를 포함한 박스 모델 */
+    padding-right: 50px; /* 오른쪽 여백 추가 */
+}
+
+.chat-container {
+    display: flex;
+    flex-direction: row;  /* 좌우로 나누기 위해 flex-direction을 row로 설정 */
+    width: 100%;
+    height: 70%;
+    max-width: calc(100% - 50px); /* 최대 너비 설정, 오른쪽 여백 고려 */
+    border: 2px solid #cccccc7a;
+    border-radius: 10px;
+    overflow: hidden;
+    margin-bottom: 10px; /* 입력 영역과의 간격 추가 */
+    transition: width 0.3s; /* 애니메이션 추가 */
+    background-color: rgb(0, 0, 0); 
+    padding: 0; /* 패딩 제거 */
+    box-sizing: border-box; /* 패딩과 보더를 포함한 박스 모델 */
+}
+
+.chat-container h2 {
+    font-size: 1.2rem;
+    margin: 0;
+    padding: 0px 10px;
+    text-align: center;
+    border-bottom: 1px solid #cccccc7a;
+    background-color: rgba(0, 0, 0, 0); /* 반투명 배경 */
+    color: white; /* 글자색 흰색 */
+    width: calc(100% + 20px);
+    line-height: 1.5; /* 높이를 줄여서 더 밀착되게 */
+    box-sizing: border-box; /* 패딩과 보더를 포함한 박스 모델 */
+}
+
+.chat-area, .code-concept, .code-example, .code-output, .doc-links {
+    margin: 0; /* 여백 제거 */
+    padding: 0 10px 10px 10px; /* 패딩 조정 */
+}
+
+.chat-area {
+    width: 50%; /* 좌우 5:5 비율 */
+    padding: 10px;
+    padding-left: 0;
+    overflow-y: auto;  /* 스크롤 가능하도록 설정 */
+    border-right: 1px solid #cccccc7a;
+    background-color: rgb(0, 0, 0); 
+    color: white; /* 글자색 흰색 */
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+}
+
+.chat-content {
+    flex: 1;
+    overflow-y: auto; /* 스크롤 가능하도록 설정 */
+    overflow-x: hidden;
+}
+
+.code-area-container {
+    width: 50%; /* 좌우 5:5 비율 */
+    display: flex;
+    flex-direction: column;
+}
+
+.code-concept {
+    flex: 3;
+    overflow-y: auto;
+    border-bottom: 1px solid #cccccc7a;
+    padding: 10px;
+    padding-left: 0;
+    background-color: black;
+    color: white;
+    overflow-x: hidden;
+    font-size: 1.0em;
+}
+
+.code-example {
+    flex: 3.5;
+    overflow-y: auto;
+    border-bottom: 1px solid #cccccc7a;
+    padding: 10px;
+    padding-left: 0;
+    background-color: black;
+    color: white;
+    overflow-x: hidden;
+    font-size: 1.0em;
+}
+
+.code-output {
+    flex: 2.5;
+    overflow-y: auto;
+    border-bottom: 1px solid #cccccc7a;
+    padding: 10px;
+    padding-left: 0;
+    background-color: black;
+    color: white;
+    overflow-x: hidden;
+    font-size: 1.0em;
+}
+
+.doc-links {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 10px;
+    padding-left: 0;
+    background-color: rgb(0, 0, 0); /* 영역 배경색 검정색으로 설정 */
+    color: white; /* 글씨 색 하얀색으로 설정 */
+    font-size: 1em;
+}
+
+.doc-links a {
+    color: white; /* 하얀색 글씨 */
+    text-decoration: underline; /* 밑줄 유지 */
+}
+
+.doc-links a:hover {
+    color: #3ba597; /* 호버 시 민트색 */
+}
+
+.doc-links a:visited {
+    color: white; /* 방문한 링크도 하얀색 */
+}
+
+.input-area {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 90%; /* 입력 영역이 채팅 영역과 동일한 너비를 가짐 */
+    margin-top: 10px; /* 위쪽 간격 추가 */
+}
+
+.input-area input[type="text"] {
+    width: 80%;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    margin-right: 10px;
+}
+
+.input-area button {
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    background-color: #3ba597;
+    color: white;
+    cursor: pointer;
+}
+
+.input-area button:hover {
+    background-color: #3ba597;
+}
+
+.loader {
+    border: 16px solid #f3f3f3;
+    border-top: 16px solid #3ba597;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    animation: spin 2s linear infinite;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+@keyframes spin {
+    0% { transform: translate(-50%, -50%) rotate(0deg); }
+    100% { transform: translate(-50%, -50%) rotate(360deg); }
+}
+
+.message {
+    display: flex;
+    margin-bottom: 10px;
+    align-items: center;
+}
+
+.user-message {
+    justify-content: flex-end;
+}
+
+.bot-message {
+    justify-content: flex-start;
+}
+
+.message-content {
+    max-width: 60%;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.user-message .message-content {
+    background-color: #3ba597;
+    color: white;
+}
+
+.bot-message .message-content {
+    background-color: #ecf0f1;
+    color: black;
+}
