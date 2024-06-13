@@ -10,3 +10,4 @@ service_model/
 *.xlsx
 *.env
 !requirements.txt
+!requirements_airflow.txt
