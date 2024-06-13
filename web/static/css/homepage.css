@@ -1,0 +1,160 @@
+/* 전체 */
+
+html {
+    height: 100%;
+    margin: 0;
+}
+body {
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between; /* 상단과 하단으로 정렬 */
+    align-items: center;
+    height: 100%;
+    background-size: cover;
+    position: relative;
+    font-family: 'Söhne', sans-serif;  /*전체 글씨체*/
+}
+
+
+/* 제목 */
+
+.main-header {
+display: grid;
+place-items: center;
+margin-top: 100px;
+}
+.logo-text {
+    color: white;
+    font-size: 6rem;
+    padding: 0px;
+    font-weight: bold;
+}
+.description {
+    color: white;
+    font-size: 1rem;
+    padding-bottom: 70px;
+    text-align: center; /* 가운데 정렬 */
+}
+    
+@media (min-width: 1200px) {  /*반응형 추가*/
+    .logo-text {
+        font-size: 5rem;
+    }
+}
+
+
+/* 이메일 */
+
+.email-form {  /* 이메일 입력 폼 스타일 */
+    text-align: center; /* 이메일 입력 폼을 가운데 정렬 */
+    z-index: 1;
+}
+.email-input {
+    padding: 10px;
+    font-size: 16px;
+    width: 360px;
+    border: 2px solid rgba(255, 255, 255, 0.5); /* 흰색 반투명 테두리 */
+    opacity: 0.9; /* 반투명하게 설정 */
+    z-index: 2;
+}
+.button_container {
+    width: 100%;
+}
+.button {
+    padding: 10px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius:0;
+    border: 3px solid rgba(255, 255, 255, 0.5); /* 흰색 반투명 테두리 */
+    background-color: transparent; /* 투명한 배경 */
+    color: white; /* 흰색 글자 */
+}
+.button:hover {
+    background-color: #3ba597;
+}
+
+
+/* 키워드박스 */
+
+.keyword-box {
+    width: 96%;
+    height: 20vh;
+    background-color: none;  /*배경 이미지로 대체*/
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.5); /* 흰색 반투명 테두리 */
+    display: flex;
+    margin-bottom: 10px;
+    justify-content: space-around;
+    align-items: center;
+    color: white;
+}
+.weekly-title {  /*키워드박스 제목위치*/
+    font-size: 35px;
+    font-weight: 500;
+    color: white;
+}
+
+.keyword-item {
+text-align: center;
+animation: moveUpDown 1s infinite alternate;
+}
+.keyword-item img {
+width: 50px;
+height: 50px;
+}
+.keyword-item .rank {
+font-size: 18px;
+font-weight: bold;
+}
+.keyword-item .keyword {
+margin-top: 5px;
+font-size: 14px;
+}
+@keyframes moveUp {  /*아이콘 위아래로 움직이기*/
+0% {
+  transform: translateY(0);
+}
+50% {
+transform: translateY(3px);
+}
+100% {
+  transform: translateY(-3px);
+}
+}
+@keyframes moveDown {
+0% {
+    transform: translateY(0);
+}
+50% {
+  transform: translateY(-3px);
+}
+100% {
+    transform: translateY(3px);
+}
+}
+.keyword-item:nth-child(odd) {
+animation: moveUp 3s infinite alternate;
+}
+.keyword-item:nth-child(even) {
+animation: moveDown 3s infinite alternate;
+}
+
+
+/* 로켓 */
+
+.rocket {  /*로켓이미지 위치*/
+    position: absolute;
+    left: 5%;
+    top: 42%;
+    transform: translateY(20%);
+}
+.rocket img {
+    width: 350px;
+    height: 350px;
+    transition: transform 1s ease-in-out;
+}
+.rocket img.move-up {
+    transform: rotate(90deg) translate(-50vh, -100vh);  /*로켓 발사*/
+}
