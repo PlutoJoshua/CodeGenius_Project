@@ -9,6 +9,6 @@ service_model/
 *.csv
 *.xlsx
 *.env
-!main.png
+!manual*.png
 !requirements.txt
 !requirements_streamlit.txt
