@@ -13,12 +13,6 @@ docker compose run web python manage.py migrate
 docker compose up --build
 ```
 ---
-<br>
-
-* PORT: 8888 -> airflow
-* PORT: 8000 -> django
-
----
 
 ### Postgresql 13 
 
