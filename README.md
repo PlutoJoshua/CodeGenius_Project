@@ -33,6 +33,13 @@ docker exec -it project_env-postgres-1 bash
 psql -U service -d {DB}
 ```
 
+## 🏆Model download link
+모델 다운로드 후 CodeGenius_Project/project_env/codegenius/chatbot/service_model/kogpt2_chatbot_model.pth 경로에 지정
+
+```sh
+https://drive.google.com/drive/folders/1-7KBtHf8ZT6oPVIB0RduHkw2TK1PUxFz?usp=sharing
+```
+
 ---
 
 > DB LIST
