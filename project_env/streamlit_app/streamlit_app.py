@@ -3,7 +3,7 @@ import pandas as pd
 import numpy as np
 from datetime import datetime, timedelta
 import matplotlib.pyplot as plt
-from matplotlib.dates import mdates
+import matplotlib.dates as mdates
 import seaborn as sns
 
 import psycopg2
