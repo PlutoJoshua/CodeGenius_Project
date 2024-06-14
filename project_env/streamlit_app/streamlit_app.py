@@ -91,7 +91,7 @@ if radio_choice1:
     filtered_df = access_count_filtered[access_count_filtered['html'].str.lower() == radio_choice1.lower()]
     if not filtered_df.empty:
         fig, ax = plt.subplots()
-        ax.plot(filtered_df['date'], filtered_df['count'], marker='o')
+        ax.plot(filtered_df['date'], filtered_df['access_count'], marker='o')
         ax.set_title(f"{radio_choice1} count over time")
         ax.set_xlabel("Date")
         ax.set_ylabel("Count")
