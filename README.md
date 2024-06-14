@@ -35,7 +35,7 @@ psql -U service -d {DB}
 
 ---
 
-> DB / TABLE LIST
+> DB LIST
 
 * DB: django_db             
 * DB: django_datamart
