@@ -1,11 +1,13 @@
 import streamlit as st
-from sqlalchemy import create_engine
 import pandas as pd
-import matplotlib.pyplot as plt
-from matplotlib.dates import DateFormatter
-import seaborn as sns
-import psycopg2
+import numpy as np
 from datetime import datetime, timedelta
+import matplotlib.pyplot as plt
+from matplotlib.dates import mdates
+import seaborn as sns
+
+import psycopg2
+from sqlalchemy import create_engine
 
 # PostgreSQL 연결 설정
 conn = psycopg2.connect(
@@ -41,7 +43,6 @@ conn.close()
 
 # 대시보드 제목
 st.markdown('<h1 class="title">CodeGenius BI Dashboard</h1>', unsafe_allow_html=True)
-
 # HTML, CSS 스타일링
 st.markdown("""
             <style>
@@ -51,7 +52,7 @@ st.markdown("""
             }
             .header {
                 text-align: center;
-            }         
+            }
             .stRadio > div {
                 display: flex;
                 flex-direction: row;
@@ -62,48 +63,42 @@ st.markdown("""
             }
             </style>
             """, unsafe_allow_html=True)
-
 # 라디오 버튼 제목
 st.markdown('<h2 class="header">Access Count</h2>', unsafe_allow_html=True)
-
-access_count['date'] = pd.to_datetime(access_count['date'])
-
+access_count['date'] = pd.to_datetime(access_count['date'])  # date열을 datetime으로 변경
 # 체크박스와 버튼을 같은 행에 배치
 col1, col2, col3 = st.columns([1, 2, 1])
-
 # 체크박스
 with col1:
     show_table1 = st.checkbox("Show table", key='show_table1')
 if show_table1:  # 체크박스 선택 시 테이블 표시
     st.dataframe(access_count)
-
 # 버튼
 with col3:
-    if st.button("Download Data", key='my_button', help="현재 폴더에 'access_count.csv'라는 파일명으로 데이터가 저장합니다."):
-        df.to_excel('access_count.csv')
+    if st.button("Download Data", key='my_button', help="현재 폴더에 'access_count.xlsx'라는 파일명으로 데이터가 저장합니다."):
+        access_count.to_excel('access_count.xlsx')
         st.write("데이터가 저장되었습니다.")
-
 # 라디오 버튼
 radio_choice1 = st.radio(
-    "",
-    ('HOMEPAGE', 'HISTORY', 'CHATTING'),
+    "check",
+    ('Homepage', 'History', 'chatting'),
     key='radio_choice1'
-    )
-
+)
 # 라디오 버튼으로 보여줄 시각화 그래프
 if radio_choice1:
-    five_days_ago = (datetime.now() - timedelta(days=4)).strftime('%Y-%m-%d')
-    access_count = access_count[access_count['date'] >= pd.to_datetime(five_days_ago)]
-
-    filtered_df = access_count[access_count['html'] == radio_choice1]
-
+    five_days_ago = pd.to_datetime((datetime.now() - timedelta(days=4)).date())
+    access_count_filtered = access_count[access_count['date'] >= five_days_ago]
+    filtered_df = access_count_filtered[access_count_filtered['html'].str.lower() == radio_choice1.lower()]
     if not filtered_df.empty:
         fig, ax = plt.subplots()
-        ax.plot(filtered_df['date'], filtered_df['access_count'], marker='o')
+        ax.plot(filtered_df['date'], filtered_df['count'], marker='o')
         ax.set_title(f"{radio_choice1} count over time")
         ax.set_xlabel("Date")
-        ax.set_ylabel("Count")        
-        ax.xaxis.set_major_formatter(plt.DateFormatter('%Y-%m-%d'))
+        ax.set_ylabel("Count")
+        # 날짜 포맷 지정 및 간격 조정
+        ax.xaxis.set_major_locator(mdates.DayLocator(interval=1))
+        ax.xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))
+        fig.autofmt_xdate()  # 날짜 라벨 자동 회전
         st.pyplot(fig)
 
 # table2 --------------------------------------------------------------------------------------------- 
