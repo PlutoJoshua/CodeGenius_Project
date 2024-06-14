@@ -3,7 +3,7 @@
 <img width="743" alt="loading..." src="https://github.com/PlutoJoshua/CodeGenius_Project/raw/main/Model/assets/main1.png">
 <br><br>
 
-## How to Run
+## ⏩ How to Run
 ---
 > 프로젝트 디렉토리 이동
 ```sh
@@ -19,7 +19,7 @@ docker compose up --build
 ```
 ---
 
-## Postgresql 13 
+## 📥 Postgresql 13 
 
 ```sh
 cd project_env/
@@ -44,11 +44,11 @@ psql -U service -d {DB}
 2024.05.21 - 2024.06.13
 <br><br>
 
-## 🧑🏻‍💻 팀원 소개 및 R&R
+## 👥 팀원 소개 및 R&R
 <img width="743" alt="loading..." src="https://github.com/PlutoJoshua/CodeGenius_Project/raw/main/Model/assets/main2.png">
 <br><br>
 
-## 🤖 프로젝트 소개
+## ℹ 프로젝트 소개
 국•내외 챗봇에 대한 관심이 증가함에 따라 코딩 챗봇 교육의 필요성이 부각되었다. 이에 유사한 서비스를 제공하는 챗봇을 분석과 SWOT 분석을 통해 사업전략을 수립하고 챗봇을 개발하였다. 챗봇은 LLM과 프롬프트 엔지니어링을 이용해 개발하였으며, 무료 모델을 사용하여 경제적인 부담을 감소시켰다. </br>
 CodeGenius는 실시간 질의 응답이 가능하며, history 창으로 질문한 내용을 저장함과 동시에 행동데이터를 DB에 기록한다. CodeGenius는 기존에 진행하는 교육에 보조 도구로 활용이 가능하며 특히 비전공자에게 적합하다. 대시보드를 활용해 학습자의 행동 데이터를 일마다 관리해 학습 경향 파악이 가능하다. 추후 데이터를 활용한 추가 학습으로 성능을 향상시키고, 더 나아가 유료화를 통해 수익성을 기대할 수 있다. </br>
 <br>
