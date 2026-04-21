@@ -1,5 +1,5 @@
 torch==2.8.0
-transformers==4.53.0
+transformers==5.0.0rc3
 pandas==2.2.2
 numpy==1.26.4
 matplotlib==3.8.4
